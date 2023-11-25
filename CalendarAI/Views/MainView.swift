@@ -40,10 +40,14 @@ enum ApplicationTab: String, CaseIterable, View {
 }
 
 struct MainView: View {
+    @State var selectedTab: ApplicationTab = .assistant
+    
     var body: some View {
-        TabView {
+        TabView(selection: $selectedTab) {
             ForEach(ApplicationTab.allCases, id:\.rawValue) { tab in
-                tab.tabItem {
+                NavigationView {
+                    tab.navigationTitle(tab.label)
+                }.tabItem {
                     Label(tab.label, systemImage: tab.icon)
                 }
             }
