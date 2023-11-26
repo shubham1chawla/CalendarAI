@@ -7,16 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		514BD9ED2B0E017C003F3BFB /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514BD9EC2B0E017C003F3BFB /* MainView.swift */; };
+		514BD9F42B109202003F3BFB /* AssistantView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514BD9F32B109202003F3BFB /* AssistantView.swift */; };
+		514BD9F62B1094EE003F3BFB /* HealthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514BD9F52B1094EE003F3BFB /* HealthView.swift */; };
+		514BD9F82B109515003F3BFB /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514BD9F72B109514003F3BFB /* CalendarView.swift */; };
 		516CC8392B0DFBB000696BF1 /* CalendarAIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516CC8382B0DFBB000696BF1 /* CalendarAIApp.swift */; };
-		516CC83B2B0DFBB000696BF1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516CC83A2B0DFBB000696BF1 /* ContentView.swift */; };
 		516CC83D2B0DFBB200696BF1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 516CC83C2B0DFBB200696BF1 /* Assets.xcassets */; };
 		516CC8402B0DFBB200696BF1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 516CC83F2B0DFBB200696BF1 /* Preview Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		514BD9EC2B0E017C003F3BFB /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		514BD9F32B109202003F3BFB /* AssistantView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistantView.swift; sourceTree = "<group>"; };
+		514BD9F52B1094EE003F3BFB /* HealthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthView.swift; sourceTree = "<group>"; };
+		514BD9F72B109514003F3BFB /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		516CC8352B0DFBB000696BF1 /* CalendarAI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CalendarAI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		516CC8382B0DFBB000696BF1 /* CalendarAIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarAIApp.swift; sourceTree = "<group>"; };
-		516CC83A2B0DFBB000696BF1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		516CC83C2B0DFBB200696BF1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		516CC83F2B0DFBB200696BF1 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -32,6 +38,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		514BD9E92B0E0099003F3BFB /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				514BD9EC2B0E017C003F3BFB /* MainView.swift */,
+				514BD9F72B109514003F3BFB /* CalendarView.swift */,
+				514BD9F52B1094EE003F3BFB /* HealthView.swift */,
+				514BD9F32B109202003F3BFB /* AssistantView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		516CC82C2B0DFBB000696BF1 = {
 			isa = PBXGroup;
 			children = (
@@ -51,8 +68,8 @@
 		516CC8372B0DFBB000696BF1 /* CalendarAI */ = {
 			isa = PBXGroup;
 			children = (
+				514BD9E92B0E0099003F3BFB /* Views */,
 				516CC8382B0DFBB000696BF1 /* CalendarAIApp.swift */,
-				516CC83A2B0DFBB000696BF1 /* ContentView.swift */,
 				516CC83C2B0DFBB200696BF1 /* Assets.xcassets */,
 				516CC83E2B0DFBB200696BF1 /* Preview Content */,
 			);
@@ -137,7 +154,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				516CC83B2B0DFBB000696BF1 /* ContentView.swift in Sources */,
+				514BD9F82B109515003F3BFB /* CalendarView.swift in Sources */,
+				514BD9F62B1094EE003F3BFB /* HealthView.swift in Sources */,
+				514BD9ED2B0E017C003F3BFB /* MainView.swift in Sources */,
+				514BD9F42B109202003F3BFB /* AssistantView.swift in Sources */,
 				516CC8392B0DFBB000696BF1 /* CalendarAIApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
