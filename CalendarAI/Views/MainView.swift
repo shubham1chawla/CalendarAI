@@ -9,17 +9,17 @@ import SwiftUI
 
 enum ApplicationTab: String, CaseIterable, View {
     case assistant
-    case health
     case calendar
+    case health
     
     public var icon: String {
         switch self {
         case .assistant:
             return "wand.and.stars"
-        case .health:
-            return "heart"
         case .calendar:
             return "calendar"
+        case .health:
+            return "heart"
         }
     }
     
@@ -31,19 +31,17 @@ enum ApplicationTab: String, CaseIterable, View {
         switch self {
         case .assistant:
             AssistantView()
-        case .health:
-            HealthView()
         case .calendar:
             CalendarView()
+        case .health:
+            HealthView()
         }
     }
 }
 
 struct MainView: View {
-    @State var selectedTab: ApplicationTab = .assistant
-    
     var body: some View {
-        TabView(selection: $selectedTab) {
+        TabView {
             ForEach(ApplicationTab.allCases, id:\.rawValue) { tab in
                 NavigationView {
                     tab.navigationTitle(tab.label)
