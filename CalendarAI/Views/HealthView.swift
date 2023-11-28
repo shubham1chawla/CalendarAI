@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HealthView: View {
     
-    @State private var symptomIndex: Int = 0
+    @State private var symptomIndex: Int = 1
     @State private var intensity: Int = 1
     
     private var symptoms = [
