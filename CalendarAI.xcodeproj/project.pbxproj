@@ -14,6 +14,8 @@
 		516CC8392B0DFBB000696BF1 /* CalendarAIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516CC8382B0DFBB000696BF1 /* CalendarAIApp.swift */; };
 		516CC83D2B0DFBB200696BF1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 516CC83C2B0DFBB200696BF1 /* Assets.xcassets */; };
 		516CC8402B0DFBB200696BF1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 516CC83F2B0DFBB200696BF1 /* Preview Assets.xcassets */; };
+		A2B7B75A2B15A62800ACFFAB /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B7B7592B15A62800ACFFAB /* Constants.swift */; };
+		A2B7B75D2B15A65800ACFFAB /* MeasurementService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B7B75C2B15A65800ACFFAB /* MeasurementService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +27,8 @@
 		516CC8382B0DFBB000696BF1 /* CalendarAIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarAIApp.swift; sourceTree = "<group>"; };
 		516CC83C2B0DFBB200696BF1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		516CC83F2B0DFBB200696BF1 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		A2B7B7592B15A62800ACFFAB /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		A2B7B75C2B15A65800ACFFAB /* MeasurementService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasurementService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,8 +72,10 @@
 		516CC8372B0DFBB000696BF1 /* CalendarAI */ = {
 			isa = PBXGroup;
 			children = (
+				A2B7B75B2B15A64600ACFFAB /* Services */,
 				514BD9E92B0E0099003F3BFB /* Views */,
 				516CC8382B0DFBB000696BF1 /* CalendarAIApp.swift */,
+				A2B7B7592B15A62800ACFFAB /* Constants.swift */,
 				516CC83C2B0DFBB200696BF1 /* Assets.xcassets */,
 				516CC83E2B0DFBB200696BF1 /* Preview Content */,
 			);
@@ -82,6 +88,14 @@
 				516CC83F2B0DFBB200696BF1 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		A2B7B75B2B15A64600ACFFAB /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				A2B7B75C2B15A65800ACFFAB /* MeasurementService.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -156,9 +170,11 @@
 			files = (
 				514BD9F82B109515003F3BFB /* CalendarView.swift in Sources */,
 				514BD9F62B1094EE003F3BFB /* HealthView.swift in Sources */,
+				A2B7B75D2B15A65800ACFFAB /* MeasurementService.swift in Sources */,
 				514BD9ED2B0E017C003F3BFB /* MainView.swift in Sources */,
 				514BD9F42B109202003F3BFB /* AssistantView.swift in Sources */,
 				516CC8392B0DFBB000696BF1 /* CalendarAIApp.swift in Sources */,
+				A2B7B75A2B15A62800ACFFAB /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
