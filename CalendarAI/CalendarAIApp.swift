@@ -9,9 +9,15 @@ import SwiftUI
 
 @main
 struct CalendarAIApp: App {
+    private let locationService = LocationService()
+    
     var body: some Scene {
         WindowGroup {
             MainView()
+                .environmentObject(self.locationService)
+                .onAppear {
+                    self.locationService.requestLocationAccess()
+                }
         }
     }
 }
