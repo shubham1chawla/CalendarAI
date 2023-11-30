@@ -7,6 +7,7 @@
 
 import CoreData
 import Foundation
+import EventKit
 
 class DataService: ObservableObject {
     
@@ -145,7 +146,7 @@ class DataService: ObservableObject {
         try? moc.save()
     }
     
-    func saveSensorRecord(heartRate : Double, respRate: Double) -> Void {
+    func saveSensorRecord(heartRate: Double, respRate: Double) -> Void {
         let moc = container.viewContext
         
         // Fetching user session record
@@ -158,6 +159,26 @@ class DataService: ObservableObject {
         sensorRecord.userSession = userSession
         
         // Saving the record
+        try? moc.save()
+    }
+    
+    func saveClassification(event: EKEvent, result: String) -> Void {
+        let moc = container.viewContext
+        
+        let classfication = AIClassification(context: moc)
+        classfication.title = event.title
+        classfication.result = result
+        
+        try? moc.save()
+    }
+    
+    func saveNotification(content: String) -> Void {
+        let moc = container.viewContext
+        
+        let notification = AINotification(context: moc)
+        notification.timestamp = Date()
+        notification.content = content
+        
         try? moc.save()
     }
     

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 
 public struct MeasurementConstants {
@@ -35,3 +36,10 @@ public struct Keys {
     static let IS_DEVELOPER_MODE_ENABLED = "isDeveloperModeEnabled"
 }
 
+public struct UIConstants {
+    static let CORNER_RADIUS: CGFloat = 20
+    static let STROKE_LINE_WIDTH: CGFloat = 1
+    static let STROKE_COLOR = Color.secondary
+    static let BACKGROUND_COLOR = Color(UIColor.secondarySystemBackground)
+    static let FOREGROUND_COLOR = Color(UIColor.label)
+}
