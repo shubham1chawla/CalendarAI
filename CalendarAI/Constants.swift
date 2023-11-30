@@ -23,3 +23,10 @@ public struct MeasurementConstants {
     static let ACCELEROMETER_DIFFERENCE_THRESHOLD = 0.15
     
 }
+
+public struct LocationConstants {
+    static let RADIUS = 1500
+    static let API_KEY_IDENTIFIER = "googleAPIKey"
+}
+
+
