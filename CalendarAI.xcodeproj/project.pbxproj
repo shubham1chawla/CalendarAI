@@ -33,6 +33,7 @@
 		6F5D6DA32B17032300B721FC /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		A2B7B7592B15A62800ACFFAB /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		A2B7B75C2B15A65800ACFFAB /* MeasurementService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasurementService.swift; sourceTree = "<group>"; };
+		D0A3E5C62B1874200061EF0F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +77,7 @@
 		516CC8372B0DFBB000696BF1 /* CalendarAI */ = {
 			isa = PBXGroup;
 			children = (
+				D0A3E5C62B1874200061EF0F /* Info.plist */,
 				A2B7B75B2B15A64600ACFFAB /* Services */,
 				514BD9E92B0E0099003F3BFB /* Views */,
 				516CC8382B0DFBB000696BF1 /* CalendarAIApp.swift */,
@@ -318,6 +320,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"CalendarAI/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CalendarAI/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Please allow location services";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -348,6 +351,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"CalendarAI/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CalendarAI/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Please allow location services";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
