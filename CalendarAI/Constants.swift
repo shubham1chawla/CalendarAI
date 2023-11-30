@@ -29,4 +29,9 @@ public struct LocationConstants {
     static let API_KEY_IDENTIFIER = "googleAPIKey"
 }
 
+public struct Keys {
+    static let APPLICATION_NAME = "CalendarAI"
+    static let LAST_USER_SESSION = "lastUserSession"
+    static let IS_DEVELOPER_MODE_ENABLED = "isDeveloperModeEnabled"
+}
 
