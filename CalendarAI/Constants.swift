@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 
 public struct MeasurementConstants {
@@ -29,4 +30,16 @@ public struct LocationConstants {
     static let API_KEY_IDENTIFIER = "googleAPIKey"
 }
 
+public struct Keys {
+    static let APPLICATION_NAME = "CalendarAI"
+    static let LAST_USER_SESSION = "lastUserSession"
+    static let IS_DEVELOPER_MODE_ENABLED = "isDeveloperModeEnabled"
+}
 
+public struct UIConstants {
+    static let CORNER_RADIUS: CGFloat = 20
+    static let STROKE_LINE_WIDTH: CGFloat = 1
+    static let STROKE_COLOR = Color.secondary
+    static let BACKGROUND_COLOR = Color(UIColor.secondarySystemBackground)
+    static let FOREGROUND_COLOR = Color(UIColor.label)
+}
