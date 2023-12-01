@@ -26,6 +26,7 @@
 		91A612622B1815E300F7F149 /* CalendarAI.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 91A612602B1815E300F7F149 /* CalendarAI.xcdatamodeld */; };
 		A2B7B75A2B15A62800ACFFAB /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B7B7592B15A62800ACFFAB /* Constants.swift */; };
 		A2B7B75D2B15A65800ACFFAB /* MeasurementService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B7B75C2B15A65800ACFFAB /* MeasurementService.swift */; };
+		D0F6BF4D2B196BD600F06249 /* CalendarService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F6BF4C2B196BD600F06249 /* CalendarService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +50,8 @@
 		91A612612B1815E300F7F149 /* CalendarAI.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CalendarAI.xcdatamodel; sourceTree = "<group>"; };
 		A2B7B7592B15A62800ACFFAB /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		A2B7B75C2B15A65800ACFFAB /* MeasurementService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasurementService.swift; sourceTree = "<group>"; };
+		D0A3E5C62B1874200061EF0F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		D0F6BF4C2B196BD600F06249 /* CalendarService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +97,7 @@
 		516CC8372B0DFBB000696BF1 /* CalendarAI */ = {
 			isa = PBXGroup;
 			children = (
+				D0A3E5C62B1874200061EF0F /* Info.plist */,
 				A2B7B75B2B15A64600ACFFAB /* Services */,
 				514BD9E92B0E0099003F3BFB /* Views */,
 				516CC8382B0DFBB000696BF1 /* CalendarAIApp.swift */,
@@ -124,6 +128,7 @@
 				A2B7B75C2B15A65800ACFFAB /* MeasurementService.swift */,
 				6F5D6D9D2B1660BF00B721FC /* LocationService.swift */,
 				91A612582B18145300F7F149 /* DataService.swift */,
+				D0F6BF4C2B196BD600F06249 /* CalendarService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -214,6 +219,7 @@
 				516CC8392B0DFBB000696BF1 /* CalendarAIApp.swift in Sources */,
 				A2B7B75A2B15A62800ACFFAB /* Constants.swift in Sources */,
 				6F5D6D9E2B1660BF00B721FC /* LocationService.swift in Sources */,
+				D0F6BF4D2B196BD600F06249 /* CalendarService.swift in Sources */,
 				91740DBE2B182C210077C54B /* Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -350,6 +356,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"CalendarAI/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CalendarAI/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Please allow location services";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -380,6 +387,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"CalendarAI/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CalendarAI/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Please allow location services";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
