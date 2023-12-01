@@ -23,6 +23,7 @@ struct CalendarAIApp: App {
                 .environmentObject(self.calendarService)
                 .environmentObject(self.generativeAIService)
                 .onAppear {
+                    self.calendarService.requestCalendarReadAccess()
                     self.locationService.requestLocationAccess()
                 }
         }

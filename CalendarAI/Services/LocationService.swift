@@ -28,6 +28,7 @@ enum NetworkError: Error {
 class LocationService: NSObject, ObservableObject, CLLocationManagerDelegate {
     
     private let locationManager = CLLocationManager()
+    @Published var coordinate: CLLocationCoordinate2D?
     
     func requestLocationAccess() -> Void {
         locationManager.requestWhenInUseAuthorization()
@@ -42,15 +43,7 @@ class LocationService: NSObject, ObservableObject, CLLocationManagerDelegate {
     }
         
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        let coordinate: CLLocationCoordinate2D = manager.location!.coordinate
-        fetchNearbyPlaces(coordinate: coordinate) { results in
-            switch (results) {
-            case .success(let places):
-                print(places)
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
+        self.coordinate = manager.location!.coordinate
     }
     
     private func getAPIKey() -> String {
@@ -61,8 +54,7 @@ class LocationService: NSObject, ObservableObject, CLLocationManagerDelegate {
         return key!
     }
     
-    func fetchNearbyPlaces(coordinate: CLLocationCoordinate2D, completion: @escaping (Result<GoogleNearbyPlacesResponse, Error>)->
-                           Void){
+    func getNearbyPlaces(coordinate: CLLocationCoordinate2D, completion: @escaping (Result<GoogleNearbyPlacesResponse, Error>) -> Void){
         let location = "\(coordinate.latitude),\(coordinate.longitude)"
         let baseUrl = "https://maps.googleapis.com/maps/api/place/nearbysearch/json"
         let parameters = [

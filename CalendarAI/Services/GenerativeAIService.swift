@@ -91,8 +91,8 @@ class GenerativeAIService: ObservableObject{
                 let result = response.choices.first?.message.content
                 completion(result)
             } catch {
-        print("Decoding error: \(error)")
-        completion("Decoding error: \(error.localizedDescription)")
+                print("Decoding error: \(error)")
+                completion("Decoding error: \(error.localizedDescription)")
             }
         }
         task.resume()

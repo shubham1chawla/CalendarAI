@@ -9,7 +9,10 @@ import SwiftUI
 
 struct AssistantView: View {
     var body: some View {
-        Text("Assistant View")
+        NavigationView {
+            Text("Assistant View")
+                .navigationTitle("Assistant")
+        }
     }
 }
 

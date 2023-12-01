@@ -62,13 +62,14 @@ struct HealthView: View {
                     Text("Save")
                 }
             }
-        }
-        .toolbar {
-            HStack {
-                NavigationLink {
-                    HistoryView()
-                } label: {
-                    Image(systemName: "clock.arrow.circlepath")
+            .navigationTitle("Health")
+            .toolbar {
+                HStack {
+                    NavigationLink {
+                        HistoryView()
+                    } label: {
+                        Image(systemName: "clock.arrow.circlepath")
+                    }
                 }
             }
         }
