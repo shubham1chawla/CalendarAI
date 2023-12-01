@@ -267,12 +267,6 @@ struct WeatherDetailView: View {
     }
 }
 
-struct WeatherView_Previews: PreviewProvider {
-    static var previews: some View {
-        WeatherDetailView(weather: previewWeather)
-    }
-}
-
 extension Double {
     func roundDouble() -> String {
         return String(format: "%.0f", self)
