@@ -54,13 +54,14 @@ class LocationService: NSObject, ObservableObject, CLLocationManagerDelegate {
         return key!
     }
     
-    func getNearbyPlaces(coordinate: CLLocationCoordinate2D, completion: @escaping (Result<GoogleNearbyPlacesResponse, Error>) -> Void){
-        let location = "\(coordinate.latitude),\(coordinate.longitude)"
+    func getNearbyPlaces(placeType: String, completion: @escaping (Result<GoogleNearbyPlacesResponse, Error>) -> Void){
+        let location = "\(coordinate!.latitude),\(coordinate!.longitude)"
         let baseUrl = "https://maps.googleapis.com/maps/api/place/nearbysearch/json"
         let parameters = [
             "location" : location,
             "radius" : String(LocationConstants.RADIUS),
             "key" : getAPIKey(),
+            "type": placeType
         ] as [String : Any]
         var components = URLComponents(string: baseUrl)!
         components.queryItems = parameters.map { URLQueryItem(name: $0, value: $1 as? String) }
