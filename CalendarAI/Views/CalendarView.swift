@@ -9,10 +9,14 @@ import SwiftUI
 import EventKit
 
 struct CalendarView: View {
+    
     @EnvironmentObject var calendarService: CalendarService
+    @State private var events: [EKEvent] = []
+    
     var body: some View {
+        NavigationView {
             List {
-                ForEach(calendarService.events, id: \.self) { event in
+                ForEach(events, id: \.self) { event in
                     VStack(alignment: .leading) {
                         Text(event.title)
                             .font(.headline)
@@ -34,10 +38,13 @@ struct CalendarView: View {
                 }
             }
             .listStyle(.plain)
+            .navigationTitle("Calendar")
             .onAppear {
-                calendarService.fetchEvents()
+                self.events = calendarService.getCalendarEvents()
             }
         }
+    }
+    
     func formatEventDate(event: EKEvent) -> String {
         if event.isAllDay {
             return event.startDate.formatted(date: .numeric, time: .omitted)

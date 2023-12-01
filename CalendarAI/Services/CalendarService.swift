@@ -9,14 +9,10 @@ import Foundation
 import EventKit
 
 class CalendarService: ObservableObject {
+    
     private var store = EKEventStore()
-    @Published var events: [EKEvent] = []
 
-    init() {
-        checkPermissions()
-    }
-
-    func checkPermissions() {
+    func requestCalendarReadAccess() {
            let status = EKEventStore.authorizationStatus(for: .event)
            switch (status) {
            case .notDetermined:
@@ -30,11 +26,12 @@ class CalendarService: ObservableObject {
            }
        }
     
-    func fetchEvents() {
+    func getCalendarEvents() -> [EKEvent] {
         let startDate = Date()
         let endDate = Date(timeIntervalSinceNow: 30 * 24 * 3600)
         let calendars = store.calendars(for: .event)
         let predicate = store.predicateForEvents(withStart: startDate, end: endDate, calendars: calendars)
-        self.events = store.events(matching: predicate)
+        return store.events(matching: predicate)
     }
+
 }

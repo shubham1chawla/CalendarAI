@@ -51,6 +51,17 @@ class GenerativeAIService: ObservableObject{
         self.promptGPT4(prompt: prompt, completion: completion)
     }
     
+    func generateNotificationContent(event: EKEvent, place: GoogleNearbyPlace?, completition: @escaping (String?) -> Void) -> Void {
+        var prompt = "Event title is \(event.title!)."
+        if let place = place {
+            prompt.append(" The user is currently near \(place.name).")
+        }
+        prompt.append(" Give a one liner mobile notification for the user based on the event on their calendar.")
+        
+        print(prompt)
+        self.promptGPT4(prompt: prompt, completion: completition)
+    }
+    
     private func getAPIKey() -> String {
         let key = UserDefaults.standard.string(forKey: Keys.OPENAI_API_KEY_IDENTIFIER)
         if (key == nil || key!.isEmpty) {
@@ -91,8 +102,8 @@ class GenerativeAIService: ObservableObject{
                 let result = response.choices.first?.message.content
                 completion(result)
             } catch {
-        print("Decoding error: \(error)")
-        completion("Decoding error: \(error.localizedDescription)")
+                print("Decoding error: \(error)")
+                completion("Decoding error: \(error.localizedDescription)")
             }
         }
         task.resume()

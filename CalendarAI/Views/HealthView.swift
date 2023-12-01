@@ -14,17 +14,19 @@ struct HealthView: View {
     
     @State private var symptomIndex: Int = 1
     @State private var intensity: Int = 1
+    @State private var heartRate: Double = 0
+    @State private var respRate: Double = 0
     
     var body: some View {
         NavigationView {
             Form {
                 Section("Measurements") {
                     NavigationLink {
-                        
+                        CameraView(heartRate: $heartRate)
                     } label: {
                         HStack {
                             Image(systemName: "heart")
-                            Text("Heart Rate")
+                            Text("Heart Rate: \(heartRate, specifier: "%.2f") bpm")
                         }
                     }
                     NavigationLink {
@@ -32,7 +34,7 @@ struct HealthView: View {
                     } label: {
                         HStack {
                             Image(systemName: "lungs")
-                            Text("Respiratory Rate")
+                            Text("Respiratory Rate: \(heartRate, specifier: "%.2f") bpm")
                         }
                     }
                 }
@@ -59,16 +61,18 @@ struct HealthView: View {
                 Button {
                     dataService.saveUserSymptom(symptom: symptoms[symptomIndex], intensity: intensity)
                 } label: {
+                    Image(systemName: "save")
                     Text("Save")
                 }
             }
-        }
-        .toolbar {
-            HStack {
-                NavigationLink {
-                    HistoryView()
-                } label: {
-                    Image(systemName: "clock.arrow.circlepath")
+            .navigationTitle("Health")
+            .toolbar {
+                HStack {
+                    NavigationLink {
+                        HistoryView()
+                    } label: {
+                        Image(systemName: "clock.arrow.circlepath")
+                    }
                 }
             }
         }

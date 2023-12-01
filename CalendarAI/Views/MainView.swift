@@ -37,15 +37,14 @@ enum ApplicationTab: String, CaseIterable, View {
             HealthView()
         }
     }
+
 }
 
 struct MainView: View {
     var body: some View {
         TabView {
             ForEach(ApplicationTab.allCases, id:\.rawValue) { tab in
-                NavigationView {
-                    tab.navigationTitle(tab.label)
-                }.tabItem {
+                tab.tabItem {
                     Label(tab.label, systemImage: tab.icon)
                 }
             }
