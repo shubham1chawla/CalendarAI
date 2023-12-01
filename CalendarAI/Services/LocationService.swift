@@ -54,7 +54,7 @@ class LocationService: NSObject, ObservableObject, CLLocationManagerDelegate {
     }
     
     private func getAPIKey() -> String {
-        let key = UserDefaults.standard.string(forKey: LocationConstants.API_KEY_IDENTIFIER)
+        let key = UserDefaults.standard.string(forKey: Keys.GOOGLE_API_KEY_IDENTIFIER)
         if (key == nil || key!.isEmpty) {
             fatalError("Please provide a valid Google API key in Settings!")
         }

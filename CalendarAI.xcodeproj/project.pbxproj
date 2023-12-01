@@ -24,6 +24,7 @@
 		91A6125D2B18152E00F7F149 /* intensities.json in Resources */ = {isa = PBXBuildFile; fileRef = 91A6125C2B18152E00F7F149 /* intensities.json */; };
 		91A6125F2B18155600F7F149 /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A6125E2B18155600F7F149 /* Types.swift */; };
 		91A612622B1815E300F7F149 /* CalendarAI.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 91A612602B1815E300F7F149 /* CalendarAI.xcdatamodeld */; };
+		A2547ED62B195C9C009CC37A /* GenerativeAIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2547ED52B195C9C009CC37A /* GenerativeAIService.swift */; };
 		A2B7B75A2B15A62800ACFFAB /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B7B7592B15A62800ACFFAB /* Constants.swift */; };
 		A2B7B75D2B15A65800ACFFAB /* MeasurementService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B7B75C2B15A65800ACFFAB /* MeasurementService.swift */; };
 		D0F6BF4D2B196BD600F06249 /* CalendarService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F6BF4C2B196BD600F06249 /* CalendarService.swift */; };
@@ -48,6 +49,7 @@
 		91A6125C2B18152E00F7F149 /* intensities.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = intensities.json; sourceTree = "<group>"; };
 		91A6125E2B18155600F7F149 /* Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
 		91A612612B1815E300F7F149 /* CalendarAI.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CalendarAI.xcdatamodel; sourceTree = "<group>"; };
+		A2547ED52B195C9C009CC37A /* GenerativeAIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerativeAIService.swift; sourceTree = "<group>"; };
 		A2B7B7592B15A62800ACFFAB /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		A2B7B75C2B15A65800ACFFAB /* MeasurementService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasurementService.swift; sourceTree = "<group>"; };
 		D0A3E5C62B1874200061EF0F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -129,6 +131,7 @@
 				6F5D6D9D2B1660BF00B721FC /* LocationService.swift */,
 				91A612582B18145300F7F149 /* DataService.swift */,
 				D0F6BF4C2B196BD600F06249 /* CalendarService.swift */,
+				A2547ED52B195C9C009CC37A /* GenerativeAIService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -208,6 +211,7 @@
 			files = (
 				91A612592B18145300F7F149 /* DataService.swift in Sources */,
 				514BD9F82B109515003F3BFB /* CalendarView.swift in Sources */,
+				A2547ED62B195C9C009CC37A /* GenerativeAIService.swift in Sources */,
 				514BD9F62B1094EE003F3BFB /* HealthView.swift in Sources */,
 				91A612622B1815E300F7F149 /* CalendarAI.xcdatamodeld in Sources */,
 				91740DBC2B182B670077C54B /* HistoryView.swift in Sources */,
