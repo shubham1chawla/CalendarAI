@@ -14,7 +14,6 @@ class CalendarService: ObservableObject {
 
     init() {
         checkPermissions()
-        fetchEvents()
     }
 
     func checkPermissions() {
@@ -37,12 +36,5 @@ class CalendarService: ObservableObject {
         let calendars = store.calendars(for: .event)
         let predicate = store.predicateForEvents(withStart: startDate, end: endDate, calendars: calendars)
         self.events = store.events(matching: predicate)
-    }
-    
-    func formatEventDate(event: EKEvent) -> String {
-        if event.isAllDay {
-            return event.startDate.formatted(date: .numeric, time: .omitted)
-        }
-        return "\(event.startDate.formatted()) - \(event.endDate.formatted())"
     }
 }

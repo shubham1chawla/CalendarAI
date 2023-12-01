@@ -9,11 +9,8 @@ import SwiftUI
 import EventKit
 
 struct CalendarView: View {
-    
-    private var store = EKEventStore()
+    @EnvironmentObject var calendarService: CalendarService
     @State var events: [EKEvent] = []
-    @ObservedObject var calendarService = CalendarService()
-    
     var body: some View {
             List {
                 ForEach(calendarService.events, id: \.self) { event in
@@ -24,7 +21,7 @@ struct CalendarView: View {
                             Image(systemName: "circle.fill")
                                 .foregroundColor(Color(cgColor: event.calendar.cgColor))
                                 .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: -5))
-                            Text(calendarService.formatEventDate(event: event))
+                            Text(formatEventDate(event: event))
                         }
                         .font(.caption)
                     }
@@ -42,6 +39,12 @@ struct CalendarView: View {
                 calendarService.fetchEvents()
             }
         }
+    func formatEventDate(event: EKEvent) -> String {
+        if event.isAllDay {
+            return event.startDate.formatted(date: .numeric, time: .omitted)
+        }
+        return "\(event.startDate.formatted()) - \(event.endDate.formatted())"
+    }
 }
 
 
