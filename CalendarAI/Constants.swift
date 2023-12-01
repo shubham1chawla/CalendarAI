@@ -27,13 +27,14 @@ public struct MeasurementConstants {
 
 public struct LocationConstants {
     static let RADIUS = 1500
-    static let API_KEY_IDENTIFIER = "googleAPIKey"
 }
 
 public struct Keys {
     static let APPLICATION_NAME = "CalendarAI"
     static let LAST_USER_SESSION = "lastUserSession"
     static let IS_DEVELOPER_MODE_ENABLED = "isDeveloperModeEnabled"
+    static let GOOGLE_API_KEY_IDENTIFIER = "googleAPIKey"
+    static let OPENAI_API_KEY_IDENTIFIER = "openAIKey"
 }
 
 public struct UIConstants {
