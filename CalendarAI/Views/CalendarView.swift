@@ -10,7 +10,6 @@ import EventKit
 
 struct CalendarView: View {
     @EnvironmentObject var calendarService: CalendarService
-    @State var events: [EKEvent] = []
     var body: some View {
             List {
                 ForEach(calendarService.events, id: \.self) { event in
