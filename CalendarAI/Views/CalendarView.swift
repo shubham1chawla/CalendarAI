@@ -16,7 +16,7 @@ struct CalendarView: View {
     
     var body: some View {
             List {
-                ForEach(events, id: \.self) { event in
+                ForEach(calendarService.events, id: \.self) { event in
                     VStack(alignment: .leading) {
                         Text(event.title)
                             .font(.headline)
@@ -39,15 +39,7 @@ struct CalendarView: View {
             }
             .listStyle(.plain)
             .onAppear {
-                let startDate = Date()
-                let endDate = Date(timeIntervalSinceNow: 30 * 24 * 3600)
-                let calendars = store.calendars(for: .event)
-                let predicate = store.predicateForEvents(withStart: startDate, end: endDate, calendars: calendars)
-                var events: [EKEvent] = []
-                for event in store.events(matching: predicate) {
-                    events.append(event)
-                }
-                self.events = events;
+                calendarService.fetchEvents()
             }
         }
 }

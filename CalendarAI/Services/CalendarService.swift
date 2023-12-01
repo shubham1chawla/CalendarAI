@@ -14,6 +14,7 @@ class CalendarService: ObservableObject {
 
     init() {
         checkPermissions()
+        fetchEvents()
     }
 
     func checkPermissions() {
@@ -21,7 +22,7 @@ class CalendarService: ObservableObject {
            switch (status) {
            case .notDetermined:
                store.requestFullAccessToEvents { granted, error in
-                   
+
                }
            case .fullAccess:
                break
@@ -29,7 +30,15 @@ class CalendarService: ObservableObject {
                print("No access! Status: \(status)")
            }
        }
-
+    
+    func fetchEvents() {
+        let startDate = Date()
+        let endDate = Date(timeIntervalSinceNow: 30 * 24 * 3600)
+        let calendars = store.calendars(for: .event)
+        let predicate = store.predicateForEvents(withStart: startDate, end: endDate, calendars: calendars)
+        self.events = store.events(matching: predicate)
+    }
+    
     func formatEventDate(event: EKEvent) -> String {
         if event.isAllDay {
             return event.startDate.formatted(date: .numeric, time: .omitted)
