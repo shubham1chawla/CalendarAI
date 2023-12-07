@@ -16,6 +16,7 @@ struct GoogleNearbyPlacesResponse: Decodable {
 struct GoogleNearbyPlace: Decodable {
     var name: String
     var rating: Double?
+    var user_ratings_total: Int?
     var types: [String]
 }
 
@@ -28,22 +29,28 @@ enum NetworkError: Error {
 class LocationService: NSObject, ObservableObject, CLLocationManagerDelegate {
     
     private let locationManager = CLLocationManager()
+    private var didUpdateLocationsListeners: [() -> Void] = []
     @Published var coordinate: CLLocationCoordinate2D?
     
     func requestLocationAccess() -> Void {
         locationManager.requestWhenInUseAuthorization()
         DispatchQueue.global(qos: .background).async {
             if CLLocationManager.locationServicesEnabled() {
-                DispatchQueue.main.async {
-                    self.locationManager.delegate = self
-                    self.locationManager.startUpdatingLocation()
-                }
+                self.locationManager.delegate = self
+                self.locationManager.startUpdatingLocation()
             }
         }
     }
-        
+    
+    func registerListener(_ listener: @escaping () -> Void) -> Void {
+        didUpdateLocationsListeners.append(listener)
+    }
+    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        self.coordinate = manager.location!.coordinate
+        coordinate = manager.location?.coordinate
+        for listener in didUpdateLocationsListeners {
+            listener()
+        }
     }
     
     private func getAPIKey() -> String {
@@ -54,8 +61,12 @@ class LocationService: NSObject, ObservableObject, CLLocationManagerDelegate {
         return key!
     }
     
-    func getNearbyPlaces(placeType: String, completion: @escaping (Result<GoogleNearbyPlacesResponse, Error>) -> Void){
-        let location = "\(coordinate!.latitude),\(coordinate!.longitude)"
+    func getNearbyPlaces(placeType: String, completion: @escaping (Result<GoogleNearbyPlacesResponse, Error>) -> Void) {
+        getNearbyPlaces(coordinate: coordinate!, placeType: placeType, completion: completion)
+    }
+    
+    func getNearbyPlaces(coordinate: CLLocationCoordinate2D, placeType: String, completion: @escaping (Result<GoogleNearbyPlacesResponse, Error>) -> Void) {
+        let location = "\(coordinate.latitude),\(coordinate.longitude)"
         let baseUrl = "https://maps.googleapis.com/maps/api/place/nearbysearch/json"
         let parameters = [
             "location" : location,
