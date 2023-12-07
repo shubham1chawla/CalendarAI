@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22225" systemVersion="23B81" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22222" systemVersion="23B92" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
     <entity name="AIClassification" representedClassName=".AIClassification" syncable="YES" codeGenerationType="class">
+        <attribute name="eventIdentifier" attributeType="String"/>
         <attribute name="result" optional="YES" attributeType="String"/>
-        <attribute name="title" attributeType="String"/>
     </entity>
     <entity name="AINotification" representedClassName=".AINotification" syncable="YES" codeGenerationType="class">
         <attribute name="content" attributeType="String"/>

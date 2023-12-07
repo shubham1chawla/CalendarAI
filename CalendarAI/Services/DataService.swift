@@ -162,14 +162,35 @@ class DataService: ObservableObject {
         try? moc.save()
     }
     
-    func saveClassification(event: EKEvent, result: String) -> Void {
+    func saveClassification(event: EKEvent, result: String) -> AIClassification {
         let moc = container.viewContext
         
-        let classfication = AIClassification(context: moc)
-        classfication.title = event.title
-        classfication.result = result
+        let optional = getClassification(for: event)
+        if let classification = optional {
+            classification.result = result
+            try? moc.save()
+            return classification
+        } else {
+            let classification = AIClassification(context: moc)
+            classification.eventIdentifier = event.eventIdentifier
+            classification.result = result
+            try? moc.save()
+            return classification
+        }
+    }
+    
+    func getClassification(for event: EKEvent) -> AIClassification? {
+        let moc = container.viewContext
         
-        try? moc.save()
+        // Creating fetch request
+        let request = AIClassification.fetchRequest()
+        request.predicate = NSPredicate(format: "eventIdentifier = %@", event.eventIdentifier)
+        
+        let classifications = try! moc.fetch(request)
+        if classifications.isEmpty {
+            return nil
+        }
+        return classifications.first
     }
     
     func saveNotification(content: String) -> Void {
