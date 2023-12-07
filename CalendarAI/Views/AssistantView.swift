@@ -54,14 +54,14 @@ struct AssistantView: View {
                 .listStyle(.plain)
                 .navigationTitle("Assistant")
                 .toolbar {
-                                   HStack {
-                                       NavigationLink {
-                                           WeatherBaseView()
-                                       } label: {
-                                           Image(systemName: "cloud.sun.fill")
-                                       }
-                                   }
-                               }
+                    HStack {
+                        NavigationLink {
+                            WeatherBaseView()
+                        } label: {
+                            Image(systemName: "cloud.sun.fill")
+                        }
+                    }
+                }
             }
         }
     }
