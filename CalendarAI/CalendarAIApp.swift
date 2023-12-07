@@ -12,6 +12,8 @@ struct CalendarAIApp: App {
     private let locationService = LocationService()
     private let dataService = DataService()
     private let calendarService = CalendarService()
+    private let generativeAIService = GenerativeAIService()
+    private let cameraService = CameraService()
     
     var body: some Scene {
         WindowGroup {
@@ -20,7 +22,10 @@ struct CalendarAIApp: App {
                 .environmentObject(self.locationService)
                 .environmentObject(self.dataService)
                 .environmentObject(self.calendarService)
+                .environmentObject(self.generativeAIService)
+                .environmentObject(self.cameraService)
                 .onAppear {
+                    self.calendarService.requestCalendarReadAccess()
                     self.locationService.requestLocationAccess()
                 }
         }
