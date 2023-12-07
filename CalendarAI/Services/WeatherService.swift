@@ -8,11 +8,33 @@
 import Foundation
 import CoreLocation
 
-let API_KEY = "ADD-YOUR-API-KEY-HERE"
-
-class WeatherService {
+class WeatherService: ObservableObject {
+    
+    private func getAPIKey() -> String {
+        let key = UserDefaults.standard.string(forKey: Keys.OPEN_WEATHER_API_KEY_IDENTIFIER)
+        if (key == nil || key!.isEmpty) {
+            fatalError("Please provide a valid Open Weather API key in Settings!")
+        }
+        return key!
+    }
+    
     func getCurrentWeather(latitude: CLLocationDegrees, longitude: CLLocationDegrees) async throws -> ResponseBody {
-        guard let url = URL(string: "https://api.openweathermap.org/data/2.5/weather?lat=\(latitude)&lon=\(longitude)&appid=\(API_KEY)&units=metric") else { fatalError("Missing URL") }
+        let latitude = "\(latitude)"
+        let longitude = "\(longitude)"
+        let baseUrl = "https://api.openweathermap.org/data/2.5/weather"
+        let parameters = [
+            "lat": latitude,
+            "lon": longitude,
+            "appid": getAPIKey(),
+            "units": "metric"
+        ] as [String: Any]
+
+        var components = URLComponents(string: baseUrl)!
+
+        components.queryItems = parameters.map { URLQueryItem(name: $0, value: $1 as? String) }
+
+        guard let url = components.url else { fatalError("Invalid URL components") }
+        print(url)
 
         let urlRequest = URLRequest(url: url)
 

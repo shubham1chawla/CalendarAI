@@ -12,12 +12,10 @@
 		514BD9F62B1094EE003F3BFB /* HealthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514BD9F52B1094EE003F3BFB /* HealthView.swift */; };
 		514BD9F82B109515003F3BFB /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514BD9F72B109514003F3BFB /* CalendarView.swift */; };
 		514BDA002B198D15003F3BFB /* WeatherDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514BD9FD2B198D15003F3BFB /* WeatherDetailView.swift */; };
-		514BDA012B198D15003F3BFB /* WeatherWelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514BD9FE2B198D15003F3BFB /* WeatherWelcomeView.swift */; };
 		514BDA022B198D15003F3BFB /* WeatherBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514BD9FF2B198D15003F3BFB /* WeatherBaseView.swift */; };
 		514BDA042B198D36003F3BFB /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514BDA032B198D36003F3BFB /* CameraView.swift */; };
 		514BDA082B198D7C003F3BFB /* CameraService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514BDA052B198D7C003F3BFB /* CameraService.swift */; };
 		514BDA092B198D7C003F3BFB /* WeatherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514BDA062B198D7C003F3BFB /* WeatherService.swift */; };
-		514BDA0A2B198D7C003F3BFB /* WeatherLocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514BDA072B198D7C003F3BFB /* WeatherLocationService.swift */; };
 		514BDA0C2B198E84003F3BFB /* CameraPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514BDA0B2B198E84003F3BFB /* CameraPreviewView.swift */; };
 		514BDA0E2B1996E0003F3BFB /* PhotoLibraryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514BDA0D2B1996E0003F3BFB /* PhotoLibraryService.swift */; };
 		516CC8392B0DFBB000696BF1 /* CalendarAIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516CC8382B0DFBB000696BF1 /* CalendarAIApp.swift */; };
@@ -45,12 +43,10 @@
 		514BD9F52B1094EE003F3BFB /* HealthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthView.swift; sourceTree = "<group>"; };
 		514BD9F72B109514003F3BFB /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		514BD9FD2B198D15003F3BFB /* WeatherDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherDetailView.swift; sourceTree = "<group>"; };
-		514BD9FE2B198D15003F3BFB /* WeatherWelcomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherWelcomeView.swift; sourceTree = "<group>"; };
 		514BD9FF2B198D15003F3BFB /* WeatherBaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherBaseView.swift; sourceTree = "<group>"; };
 		514BDA032B198D36003F3BFB /* CameraView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		514BDA052B198D7C003F3BFB /* CameraService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraService.swift; sourceTree = "<group>"; };
 		514BDA062B198D7C003F3BFB /* WeatherService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherService.swift; sourceTree = "<group>"; };
-		514BDA072B198D7C003F3BFB /* WeatherLocationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherLocationService.swift; sourceTree = "<group>"; };
 		514BDA0B2B198E84003F3BFB /* CameraPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPreviewView.swift; sourceTree = "<group>"; };
 		514BDA0D2B1996E0003F3BFB /* PhotoLibraryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoLibraryService.swift; sourceTree = "<group>"; };
 		516CC8352B0DFBB000696BF1 /* CalendarAI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CalendarAI.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -97,7 +93,6 @@
 				91740DBB2B182B670077C54B /* HistoryView.swift */,
 				514BD9FF2B198D15003F3BFB /* WeatherBaseView.swift */,
 				514BD9FD2B198D15003F3BFB /* WeatherDetailView.swift */,
-				514BD9FE2B198D15003F3BFB /* WeatherWelcomeView.swift */,
 				514BDA0B2B198E84003F3BFB /* CameraPreviewView.swift */,
 			);
 			path = Views;
@@ -156,7 +151,6 @@
 				D0F6BF4C2B196BD600F06249 /* CalendarService.swift */,
 				A2547ED52B195C9C009CC37A /* GenerativeAIService.swift */,
 				514BDA052B198D7C003F3BFB /* CameraService.swift */,
-				514BDA072B198D7C003F3BFB /* WeatherLocationService.swift */,
 				514BDA062B198D7C003F3BFB /* WeatherService.swift */,
 				514BDA0D2B1996E0003F3BFB /* PhotoLibraryService.swift */,
 			);
@@ -253,11 +247,9 @@
 				514BDA022B198D15003F3BFB /* WeatherBaseView.swift in Sources */,
 				514BD9F42B109202003F3BFB /* AssistantView.swift in Sources */,
 				516CC8392B0DFBB000696BF1 /* CalendarAIApp.swift in Sources */,
-				514BDA0A2B198D7C003F3BFB /* WeatherLocationService.swift in Sources */,
 				A2B7B75A2B15A62800ACFFAB /* Constants.swift in Sources */,
 				6F5D6D9E2B1660BF00B721FC /* LocationService.swift in Sources */,
 				D0F6BF4D2B196BD600F06249 /* CalendarService.swift in Sources */,
-				514BDA012B198D15003F3BFB /* WeatherWelcomeView.swift in Sources */,
 				91740DBE2B182C210077C54B /* Extensions.swift in Sources */,
 				514BDA082B198D7C003F3BFB /* CameraService.swift in Sources */,
 				514BDA0E2B1996E0003F3BFB /* PhotoLibraryService.swift in Sources */,

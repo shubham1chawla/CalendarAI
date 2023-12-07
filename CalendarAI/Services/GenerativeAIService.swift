@@ -43,21 +43,24 @@ class GenerativeAIService: ObservableObject{
         for event in EventCategory.allCases {
             events.append("\(event.rawValue)")
         }
+        
         let joinedString = events.joined(separator: ", ")
         prompt.append(joinedString)
         prompt.append(". Give only the category name.")
         
-        print(prompt)
         self.promptGPT4(prompt: prompt, completion: completion)
     }
     
-    func generateNotificationContent(event: EKEvent, place: GoogleNearbyPlace?, completition: @escaping (String?) -> Void) -> Void {
+    func generateNotificationContent(event: EKEvent, classification: AIClassification, place: GoogleNearbyPlace?, completition: @escaping (String?) -> Void) -> Void {
         var prompt = "Event title is \(event.title!)."
         if let place = place {
-            prompt.append(" The user is currently near \(place.name).")
+            if classification.result == "celebration" {
+                prompt.append(" Suggest user to shop at \(place.name), which is near them based on their device's location.")
+            } else {
+                prompt.append(" The user is currently near \(place.name).")
+            }
         }
         prompt.append(" Give a one liner mobile notification for the user based on the event on their calendar.")
-        
         print(prompt)
         self.promptGPT4(prompt: prompt, completion: completition)
     }
@@ -82,10 +85,6 @@ class GenerativeAIService: ObservableObject{
         request.httpBody = requestData
         
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            if let httpResponse = response as? HTTPURLResponse {
-                print("HTTP Status Code: \(httpResponse.statusCode)")
-            }
-
             if let error = error {
                 print("Error: \(error.localizedDescription)")
                 completion("Error: \(error.localizedDescription)")
