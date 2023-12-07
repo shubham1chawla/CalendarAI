@@ -9,46 +9,37 @@ import SwiftUI
 import CoreLocation
 
 struct WeatherBaseView: View {
-    @EnvironmentObject var locationService: LocationService
-    @State private var isLoadingNotifications = true
-
-    struct WeatherLoadingView2: View {
-        var body: some View {
-            ProgressView()
-                .progressViewStyle(CircularProgressViewStyle(tint: .white))
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-        }
-    }
     
-    var weatherService = WeatherService()
+    @EnvironmentObject var locationService: LocationService
+    @EnvironmentObject var weatherService: WeatherService
+    
+    @State private var isLoadingNotifications = true
     @State var weather: ResponseBody?
     
     var body: some View {
         VStack {
-            if let coordinate = locationService.coordinate {
-                if let weather = weather {
-                    WeatherDetailView(weather: weather)
-                                } else {
-                                    Text("Fetching weather data...")
-                                }
+            if let weather = weather {
+                WeatherDetailView(weather: weather)
             } else {
-                Text("Fetching location...")
+                VStack {
+                    ProgressView()
+                    Text("Fetching weather data...")
+                }
             }
         }
         .onAppear {
             fetchWeather()
         }
     }
+    
     func fetchWeather() {
         guard let coordinate = locationService.coordinate else {
             print("No coordinates available.")
             return
         }
-
         Task {
             do {
                 weather = try await weatherService.getCurrentWeather(latitude: coordinate.latitude, longitude: coordinate.longitude)
-                print("Weather data fetched successfully: \(weather)")
             } catch {
                 print("Error fetching weather: \(error)")
             }
