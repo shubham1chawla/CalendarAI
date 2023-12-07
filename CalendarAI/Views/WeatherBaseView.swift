@@ -9,6 +9,9 @@ import SwiftUI
 import CoreLocation
 
 struct WeatherBaseView: View {
+    @EnvironmentObject var locationService: LocationService
+    @State private var isLoadingNotifications = true
+
     struct WeatherLoadingView2: View {
         var body: some View {
             ProgressView()
@@ -16,40 +19,40 @@ struct WeatherBaseView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
     }
-
-    @StateObject var locationManager = WeatherLocationService()
     
-    var weatherManager = WeatherService()
+    var weatherService = WeatherService()
     @State var weather: ResponseBody?
     
     var body: some View {
         VStack {
-            
-            if let location = locationManager.location {
+            if let coordinate = locationService.coordinate {
                 if let weather = weather {
                     WeatherDetailView(weather: weather)
-                } else {
-                    WeatherLoadingView2()
-                        .task {
-                            do {
-                                weather = try await weatherManager.getCurrentWeather(latitude: location.latitude, longitude: location.longitude)
-                            } catch {
-                                print("Error:\(error)")
-                            }
-                            
-                        }
-                }
+                                } else {
+                                    Text("Fetching weather data...")
+                                }
             } else {
-                if locationManager.isLoading {
-                    WeatherLoadingView2()
-                } else {
-                    WeatherWelcomeView()
-                        .environmentObject(locationManager)
-                }
+                Text("Fetching location...")
             }
-           
         }
-        .background(Color(red: 0.0, green: 0.2, blue: 0.6))
+        .onAppear {
+            fetchWeather()
+        }
+    }
+    func fetchWeather() {
+        guard let coordinate = locationService.coordinate else {
+            print("No coordinates available.")
+            return
+        }
+
+        Task {
+            do {
+                weather = try await weatherService.getCurrentWeather(latitude: coordinate.latitude, longitude: coordinate.longitude)
+                print("Weather data fetched successfully: \(weather)")
+            } catch {
+                print("Error fetching weather: \(error)")
+            }
+        }
     }
 }
 

@@ -35,6 +35,7 @@ public struct Keys {
     static let IS_DEVELOPER_MODE_ENABLED = "isDeveloperModeEnabled"
     static let GOOGLE_API_KEY_IDENTIFIER = "googleAPIKey"
     static let OPENAI_API_KEY_IDENTIFIER = "openAIKey"
+    static let OPEN_WEATHER_API_KEY_IDENTIFIER = "openweatherKey"
 }
 
 public struct UIConstants {

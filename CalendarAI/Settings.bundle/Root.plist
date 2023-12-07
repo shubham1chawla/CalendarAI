@@ -10,6 +10,14 @@
 			<key>Type</key>
 			<string>PSTextFieldSpecifier</string>
 			<key>Title</key>
+			<string>Open Weather Key</string>
+			<key>Key</key>
+			<string>openweatherKey</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
 			<string>OpenAI key</string>
 			<key>Key</key>
 			<string>openAIKey</string>

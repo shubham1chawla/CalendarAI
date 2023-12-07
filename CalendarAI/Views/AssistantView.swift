@@ -14,6 +14,7 @@ struct AssistantView: View {
     @EnvironmentObject var generativeAIService: GenerativeAIService
     @EnvironmentObject var dataService: DataService
     @EnvironmentObject var locationService: LocationService
+    @EnvironmentObject var weatherService: WeatherService
     
     @State private var prompts: [String] = []
     @State private var isLoadingNotifications = true
@@ -52,6 +53,15 @@ struct AssistantView: View {
                 }
                 .listStyle(.plain)
                 .navigationTitle("Assistant")
+                .toolbar {
+                                   HStack {
+                                       NavigationLink {
+                                           WeatherBaseView()
+                                       } label: {
+                                           Image(systemName: "cloud.sun.fill")
+                                       }
+                                   }
+                               }
             }
         }
     }
