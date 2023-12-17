@@ -10,9 +10,11 @@ import SwiftUI
 struct AppView: View {
     var body: some View {
         NavigationView {
-            VStack(alignment: .leading) {
-                AINotificationsView()
-                Spacer()
+            ScrollView(.vertical) {
+                VStack(alignment: .leading) {
+                    AINotificationsView()
+                    HealthCardsView()
+                }
             }
             .padding()
             .navigationTitle("CalendarAI")
