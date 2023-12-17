@@ -11,14 +11,10 @@ struct AINotificationsView: View {
     var body: some View {
         HStack {
             Image(systemName: "wand.and.stars")
-                .font(.title2)
-            VStack(alignment: .leading) {
-                Text("AI Notifications")
-                Text("Swipe up to dismiss notifications")
-            }
-            .font(.caption)
+            Text("AI Notifications")
         }
-        ScrollView(.horizontal) {
+        .font(.subheadline)
+        ScrollView(.horizontal, showsIndicators: false) {
             HStack {
                 ForEach(0..<3) { _ in
                     AINotificationView()
