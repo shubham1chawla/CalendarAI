@@ -19,7 +19,7 @@ struct HealthCardsView: View {
                 .frame(width: 300)
             VStack {
                 NavigationLink {
-                    Text("Add Health")
+                    HealthFormView()
                 } label: {
                     Image(systemName: "plus.circle")
                 }
