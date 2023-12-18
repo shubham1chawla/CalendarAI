@@ -21,6 +21,7 @@
 		51D7E8152B2F6AF200E52818 /* intensities.json in Resources */ = {isa = PBXBuildFile; fileRef = 51D7E8142B2F6AF200E52818 /* intensities.json */; };
 		51D7E8182B2F6B7600E52818 /* CalendarAI.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 51D7E8162B2F6B7600E52818 /* CalendarAI.xcdatamodeld */; };
 		51D7E81A2B2F6BE100E52818 /* HealthModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D7E8192B2F6BE100E52818 /* HealthModels.swift */; };
+		51D7E81C2B30BABA00E52818 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D7E81B2B30BABA00E52818 /* Constants.swift */; };
 		6F5D6DA42B17032400B721FC /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6F5D6DA32B17032300B721FC /* Settings.bundle */; };
 /* End PBXBuildFile section */
 
@@ -40,6 +41,7 @@
 		51D7E8142B2F6AF200E52818 /* intensities.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = intensities.json; sourceTree = "<group>"; };
 		51D7E8172B2F6B7600E52818 /* CalendarAI.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CalendarAI.xcdatamodel; sourceTree = "<group>"; };
 		51D7E8192B2F6BE100E52818 /* HealthModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthModels.swift; sourceTree = "<group>"; };
+		51D7E81B2B30BABA00E52818 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		6F5D6DA32B17032300B721FC /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		D0A3E5C62B1874200061EF0F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -81,6 +83,7 @@
 				51D7E80D2B2F235B00E52818 /* Models */,
 				51D7E8112B2F6A9400E52818 /* Data */,
 				516CC8382B0DFBB000696BF1 /* CalendarAIApp.swift */,
+				51D7E81B2B30BABA00E52818 /* Constants.swift */,
 				51D7E8162B2F6B7600E52818 /* CalendarAI.xcdatamodeld */,
 				516CC83C2B0DFBB200696BF1 /* Assets.xcassets */,
 				516CC83E2B0DFBB200696BF1 /* Preview Content */,
@@ -208,6 +211,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				51D7E8002B2E027200E52818 /* AINotificationsView.swift in Sources */,
+				51D7E81C2B30BABA00E52818 /* Constants.swift in Sources */,
 				51D7E8022B2E089D00E52818 /* AINotificationView.swift in Sources */,
 				51D7E80C2B2F217500E52818 /* HealthFormViewModel.swift in Sources */,
 				51D7E7FE2B2DFDB100E52818 /* AppView.swift in Sources */,
