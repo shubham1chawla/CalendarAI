@@ -8,11 +8,12 @@
 import SwiftUI
 
 struct HealthFormView: View {
+    
+    @Environment(\.managedObjectContext) var moc
     @StateObject private var viewModel = ViewModel()
     
     var body: some View {
         Form {
-            
             Section("Measurements") {
                 NavigationLink {
                     Text("123")
@@ -21,7 +22,6 @@ struct HealthFormView: View {
                         Image(systemName: "heart")
                         Text("Heart Rate: \(viewModel.heartRate, specifier: "%.2f") bpm")
                     }
-                    .foregroundColor(.accentColor)
                 }
                 Button {
                     viewModel.showRespRateTip.toggle()
@@ -37,21 +37,21 @@ struct HealthFormView: View {
                         }
                     }
                 }
+                .buttonStyle(.plain)
                 .disabled(viewModel.isMeasuringRespRate)
                 .alert("Respiratory Rate Measurement Instructions", isPresented: $viewModel.showRespRateTip) {
                     Button("Cancel", role: .cancel) { }
                     Button("Start Measuring", role: .none) {
-                        viewModel.handleRespRateMeasurement()
+                        
                     }
                 } message: {
                     Text("Please lay down facing up. Place the device flat between your chest and stomach. Press the \"Start Measuring\" button and continue to take deep breaths.")
                 }
             }
-            
             Section("Symptoms") {
                 Picker(selection: $viewModel.selectedSymptomIndex) {
                     ForEach(Array(viewModel.symptoms.enumerated()), id:\.offset) { index, symptom in
-                        Text(symptom.name).tag(index)
+                        Text(symptom.name!).tag(index)
                     }
                 } label: {
                     Image(systemName: "staroflife")
@@ -60,7 +60,7 @@ struct HealthFormView: View {
                 .pickerStyle(.navigationLink)
                 Picker(selection: $viewModel.selectedIntensityValue) {
                     ForEach(Array(viewModel.intensities.keys).sorted(), id:\.self) { key in
-                        Text("\(key) - \(viewModel.intensities[key]!)").tag(key)
+                        Text("\(viewModel.intensities[key]!) (\(key))").tag(key)
                     }
                 } label: {
                     Image(systemName: "exclamationmark.circle")
@@ -68,7 +68,7 @@ struct HealthFormView: View {
                 }
                 .pickerStyle(.navigationLink)
                 Button {
-                    viewModel.addStaggedSymptom()
+                    viewModel.addUserSymptom()
                 } label: {
                     HStack {
                         Image(systemName: "plus")
@@ -76,20 +76,19 @@ struct HealthFormView: View {
                     }
                 }
             }
-            
-            if !viewModel.selectedSymptoms.isEmpty {
+            if !viewModel.userSymptoms.isEmpty {
                 Section("Recorded Symptoms") {
                     List {
-                        ForEach(viewModel.selectedSymptoms, id:\.index) { selected in
+                        ForEach(viewModel.userSymptoms, id:\.self) { userSymptom in
                             HStack {
                                 Image(systemName: "staroflife")
-                                Text(viewModel.symptoms[selected.index].name)
+                                Text(userSymptom.symptom?.name ?? "Unknown")
                                 Spacer()
-                                Text("\(viewModel.intensities[selected.intensity]!) (\(selected.intensity))")
+                                Text("\(viewModel.intensities[Int(userSymptom.intensity)]!) (\(userSymptom.intensity))")
                             }
                         }
                         .onDelete { indexes in
-                            viewModel.removeSelectedSymptoms(indexes)
+                            viewModel.removeUserSymptoms(atOffsets: indexes)
                         }
                     }
                 }
@@ -100,11 +99,14 @@ struct HealthFormView: View {
         .toolbar {
             HStack {
                 Button {
-                    viewModel.persistHealthInformation()
+                    
                 } label: {
                     Image(systemName: "square.and.arrow.down")
                 }
             }
+        }
+        .onAppear {
+            viewModel.setNSManagedObjectContext(moc)
         }
     }
 }

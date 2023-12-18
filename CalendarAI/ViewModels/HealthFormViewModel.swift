@@ -6,12 +6,16 @@
 //
 
 import Foundation
+import CoreData
 
 extension HealthFormView {
     @MainActor class ViewModel: ObservableObject {
         
-        @Published var symptoms: [Symptom] = []
-        @Published var intensities: [Int:String] = [:]
+        private var context: NSManagedObjectContext?
+        
+        @Published private(set) var symptoms: [Symptom] = []
+        @Published private(set) var intensities: [Int:String] = [:]
+        @Published private(set) var userSymptoms: [UserSymptom] = []
         
         @Published var heartRate: Double = 0
         @Published var respRate: Double = 0
@@ -21,53 +25,76 @@ extension HealthFormView {
         
         @Published var selectedSymptomIndex: Int = 0
         @Published var selectedIntensityValue: Int = 1
-        @Published var selectedSymptoms: [SelectedSymptom] = []
         
-        init() {
-            self.symptoms = decodeJson(getSymptomsJsonPath())
-            let intensities: [Intensity] = decodeJson(getIntensitiesJsonPath())
-            for intensity in intensities {
-                self.intensities[intensity.value] = intensity.label
-            }
-        }
-        
-        func handleRespRateMeasurement() -> Void {
+        func setNSManagedObjectContext(_ context: NSManagedObjectContext? = nil) {
+            self.context = context
             
-        }
-        
-        func addStaggedSymptom() -> Void {
-            selectedSymptoms.removeAll { selected in
-                return selected.index == selectedSymptomIndex
-            }
-            selectedSymptoms.append(SelectedSymptom(index: selectedSymptomIndex, intensity: selectedIntensityValue))
-        }
-        
-        func removeSelectedSymptoms(_ indexes: IndexSet) -> Void {
-            selectedSymptoms.remove(atOffsets: indexes)
-        }
-        
-        func persistHealthInformation() -> Void {
+            // Setting up symptoms & intensities from JSON file
+            loadDefaultSymptoms()
+            loadDefaultIntensities()
             
+            // Loading symptoms from database
+            setSymptoms()
         }
         
-        private func getSymptomsJsonPath() -> URL {
-            return getJsonPath("symptoms")
-        }
-        
-        private func getIntensitiesJsonPath() -> URL {
-            return getJsonPath("intensities")
-        }
-        
-        private func getJsonPath(_ resource: String) -> URL {
-            guard let path = Bundle.main.path(forResource: resource, ofType: "json") else {
-                fatalError("Couldn't load \(resource).json")
+        func addUserSymptom() -> Void {
+            guard let context = context else { return }
+            userSymptoms.removeAll { userSymptom in
+                return userSymptom.symptom == symptoms[selectedSymptomIndex]
             }
-            return URL(filePath: path)
+            let userSymptom = UserSymptom(context: context)
+            userSymptom.symptom = symptoms[selectedSymptomIndex]
+            userSymptom.intensity = Int16(selectedIntensityValue)
+            userSymptoms.append(userSymptom)
         }
         
-        private func decodeJson<T: Decodable>(_ url: URL) -> [T] {
+        func removeUserSymptoms(atOffsets: IndexSet) -> Void {
+            userSymptoms.remove(atOffsets: atOffsets)
+        }
+        
+        private func setSymptoms() -> Void {
+            guard let context = context else { return }
+            let request = Symptom.fetchRequest()
+            request.sortDescriptors = [NSSortDescriptor(key: "id", ascending: true)]
+            var symptoms: [Symptom] = []
+            for symptom in try! context.fetch(request) {
+                symptoms.append(symptom)
+            }
+            self.symptoms = symptoms
+        }
+        
+        private func loadDefaultSymptoms() -> Void {
+            guard let context = context else { return }
+            let decodableSymptoms: [DecodableSymptom] = decodeJson(forResource: "symptoms")
+            decodableSymptoms.forEach { decodableSymptom in
+                
+                // Checking if the symptom exists in database
+                let request = Symptom.fetchRequest()
+                request.predicate = NSPredicate(format: "id == %i", decodableSymptom.id)
+                let symptoms = try? context.fetch(request)
+        
+                if (symptoms ?? []).isEmpty {
+                    let symptom = Symptom(context: context)
+                    symptom.id = decodableSymptom.id
+                    symptom.name = decodableSymptom.name
+                    try? context.save()
+                }
+            }
+        }
+        
+        private func loadDefaultIntensities() -> Void {
+            let decodableIntensities: [DecodableIntensity] = decodeJson(forResource: "intensities")
+            decodableIntensities.forEach { decodableIntensity in
+                intensities[decodableIntensity.value] = decodableIntensity.label
+            }
+        }
+        
+        private func decodeJson<T: Decodable>(forResource: String) -> [T] {
+            guard let path = Bundle.main.path(forResource: forResource, ofType: "json") else {
+                fatalError("Unable to load default symptoms!")
+            }
             do {
-                let data = try Data(contentsOf: url)
+                let data = try Data(contentsOf: URL(filePath: path))
                 return try JSONDecoder().decode([T].self, from: data)
             } catch {
                 fatalError(error.localizedDescription)

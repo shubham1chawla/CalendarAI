@@ -7,12 +7,12 @@
 
 import Foundation
 
-struct Symptom: Decodable, Identifiable {
-    let id: Int
+struct DecodableSymptom: Decodable, Identifiable {
+    let id: Int16
     let name: String
 }
 
-struct Intensity: Decodable {
+struct DecodableIntensity: Decodable {
     let label: String
     let value: Int
 }
