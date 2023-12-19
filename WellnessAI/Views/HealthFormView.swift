@@ -15,14 +15,19 @@ struct HealthFormView: View {
     var body: some View {
         Form {
             Section("Measurements") {
-                NavigationLink {
-                    Text("123")
-                } label: {
-                    HStack {
-                        Image(systemName: "heart")
-                        Text("Heart Rate: \(viewModel.heartRate, specifier: "%.2f") bpm")
+                HStack {
+                    Image(systemName: "heart")
+                    Text("Heart Rate")
+                    Spacer()
+                    if viewModel.heartRate != nil {
+                        Text("\(viewModel.heartRate!, specifier: "%.2f") bpm")
+                    } else {
+                        Text("-- bpm")
                     }
                 }
+                .background(
+                    NavigationLink("", destination: Text("123")).opacity(0)
+                )
                 Button {
                     viewModel.showRespRateTip.toggle()
                 } label: {
@@ -33,7 +38,13 @@ struct HealthFormView: View {
                         }
                         else {
                             Image(systemName: "lungs")
-                            Text("Respiratory Rate: \(viewModel.respRate, specifier: "%.2f") bpm")
+                            Text("Respiratory Rate")
+                            Spacer()
+                            if viewModel.respRate != nil {
+                                Text("\(viewModel.respRate!, specifier: "%.2f") bpm")
+                            } else {
+                                Text("-- bpm")
+                            }
                         }
                     }
                 }
@@ -99,7 +110,7 @@ struct HealthFormView: View {
         .toolbar {
             HStack {
                 Button {
-                    
+                    viewModel.saveHealthInformation()
                 } label: {
                     Image(systemName: "square.and.arrow.down")
                 }

@@ -12,7 +12,7 @@
     </entity>
     <entity name="UserSession" representedClassName=".UserSession" syncable="YES" codeGenerationType="class">
         <attribute name="timestamp" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="uuid" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="uuid" attributeType="String"/>
         <relationship name="userMeasurement" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="UserMeasurement" inverseName="userSession" inverseEntity="UserMeasurement"/>
         <relationship name="userSymptoms" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="UserSymptom" inverseName="userSession" inverseEntity="UserSymptom"/>
     </entity>

@@ -12,13 +12,14 @@ extension HealthFormView {
     @MainActor class ViewModel: ObservableObject {
         
         private var context: NSManagedObjectContext?
+        private let defaults = UserDefaults.standard
         
         @Published private(set) var symptoms: [Symptom] = []
         @Published private(set) var intensities: [Int:String] = [:]
         @Published private(set) var userSymptoms: [UserSymptom] = []
         
-        @Published var heartRate: Double = 0
-        @Published var respRate: Double = 0
+        @Published var heartRate: Double?
+        @Published var respRate: Double?
         
         @Published var showRespRateTip: Bool = false
         @Published var isMeasuringRespRate: Bool = false
@@ -50,6 +51,42 @@ extension HealthFormView {
         
         func removeUserSymptoms(atOffsets: IndexSet) -> Void {
             userSymptoms.remove(atOffsets: atOffsets)
+        }
+        
+        func saveHealthInformation() -> Void {
+            guard let context = context else { return }
+            
+            // Extracting user session id from defaults
+            let uuid = defaults.string(forKey: Keys.LAST_USER_SESSSION)
+            if (uuid ?? "").isEmpty {
+                fatalError("No user session was set!")
+            }
+            
+            // Getting current user session
+            let request = UserSession.fetchRequest()
+            request.predicate = NSPredicate(format: "uuid CONTAINS %@", uuid!)
+            let userSessions = try! context.fetch(request)
+            let userSession = userSessions.first ?? UserSession(context: context)
+            userSession.uuid = userSession.uuid ?? uuid!
+            userSession.timestamp = userSession.timestamp ?? Date()
+            
+            // Adding user measurements if exists
+            let userMeasurement = userSession.userMeasurement ?? UserMeasurement(context: context)
+            userMeasurement.heartRate = heartRate ?? 0
+            userMeasurement.respRate = respRate ?? 0
+            userMeasurement.userSession = userSession
+            
+            // Deleting old user symptoms and overwriting user symptoms
+            userSession.userSymptoms?.forEach{ object in
+                let userSymptom = object as! UserSymptom
+                context.delete(userSymptom)
+            }
+            for userSymptom in userSymptoms {
+                userSymptom.userSession = userSession
+            }
+            
+            // Persisting changes to the database
+            try? context.save()
         }
         
         private func setSymptoms() -> Void {
