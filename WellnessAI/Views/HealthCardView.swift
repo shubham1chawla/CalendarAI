@@ -8,11 +8,14 @@
 import SwiftUI
 
 struct HealthCardView: View {
+    
+    @ObservedObject var viewModel: HealthCardsView.ViewModel
+    
     var body: some View {
         VStack {
             HStack {
                 Image(systemName: "clock")
-                Text(Date().formatted())
+                Text(viewModel.userSessions.first!.timestamp!.formatted())
                 Spacer()
             }
             .font(.caption)
@@ -21,28 +24,34 @@ struct HealthCardView: View {
             ))
             HStack {
                 Spacer()
-                HStack {
-                    Image(systemName: "heart")
-                    Text("72.22")
+                VStack {
+                    HStack {
+                        Image(systemName: "heart")
+                        Text("\(viewModel.userSessions.first!.userMeasurement?.heartRate ?? 0, specifier: "%.2f")")
+                    }
+                        .font(.title2)
                 }
                 Spacer()
-                HStack {
-                    Image(systemName: "lungs")
-                    Text("14.42")
+                VStack {
+                    HStack {
+                        Image(systemName: "lungs")
+                        Text("\(viewModel.userSessions.first!.userMeasurement?.respRate ?? 0, specifier: "%.2f")")
+                    }
+                        .font(.title2)
                 }
                 Spacer()
             }
-            .font(.headline)
             .padding(EdgeInsets(
                 top: 8, leading: 16, bottom: 8, trailing: 16
             ))
             VStack(alignment: .leading) {
-                ForEach(1..<4) { num in
+                let userSymptoms = viewModel.userSessions.first!.userSymptoms?.allObjects as! [UserSymptom]
+                ForEach(userSymptoms) { userSymptom in
                     HStack {
                         Image(systemName: "staroflife")
-                        Text("Symptom \(num)")
+                        Text(userSymptom.symptom!.name!)
                         Spacer()
-                        Text("Medium (3)")
+                        Text("\(viewModel.intensities[Int(userSymptom.intensity)]!) (\(userSymptom.intensity))")
                     }
                     .font(.subheadline)
                 }
@@ -54,8 +63,4 @@ struct HealthCardView: View {
         .background(.ultraThinMaterial)
         .clipShape(RoundedRectangle(cornerRadius: 4))
     }
-}
-
-#Preview {
-    HealthCardView()
 }
