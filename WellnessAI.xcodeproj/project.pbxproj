@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5145F5BA2B31F94D003DE488 /* HealthCardsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5145F5B92B31F94D003DE488 /* HealthCardsViewModel.swift */; };
+		5145F5BE2B32161B003DE488 /* JsonUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5145F5BD2B32161B003DE488 /* JsonUtils.swift */; };
 		516CC8392B0DFBB000696BF1 /* WellnessAIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516CC8382B0DFBB000696BF1 /* WellnessAIApp.swift */; };
 		516CC83D2B0DFBB200696BF1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 516CC83C2B0DFBB200696BF1 /* Assets.xcassets */; };
 		516CC8402B0DFBB200696BF1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 516CC83F2B0DFBB200696BF1 /* Preview Assets.xcassets */; };
@@ -20,13 +22,14 @@
 		51D7E8132B2F6AD400E52818 /* symptoms.json in Resources */ = {isa = PBXBuildFile; fileRef = 51D7E8122B2F6AD400E52818 /* symptoms.json */; };
 		51D7E8152B2F6AF200E52818 /* intensities.json in Resources */ = {isa = PBXBuildFile; fileRef = 51D7E8142B2F6AF200E52818 /* intensities.json */; };
 		51D7E8182B2F6B7600E52818 /* WellnessAI.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 51D7E8162B2F6B7600E52818 /* WellnessAI.xcdatamodeld */; };
-		51D7E81A2B2F6BE100E52818 /* HealthModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D7E8192B2F6BE100E52818 /* HealthModels.swift */; };
 		51D7E81C2B30BABA00E52818 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D7E81B2B30BABA00E52818 /* Constants.swift */; };
 		51D7E81E2B30D75900E52818 /* AddHealthCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D7E81D2B30D75900E52818 /* AddHealthCardView.swift */; };
 		6F5D6DA42B17032400B721FC /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6F5D6DA32B17032300B721FC /* Settings.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5145F5B92B31F94D003DE488 /* HealthCardsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCardsViewModel.swift; sourceTree = "<group>"; };
+		5145F5BD2B32161B003DE488 /* JsonUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonUtils.swift; sourceTree = "<group>"; };
 		516CC8352B0DFBB000696BF1 /* WellnessAI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WellnessAI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		516CC8382B0DFBB000696BF1 /* WellnessAIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WellnessAIApp.swift; sourceTree = "<group>"; };
 		516CC83C2B0DFBB200696BF1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -41,7 +44,6 @@
 		51D7E8122B2F6AD400E52818 /* symptoms.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = symptoms.json; sourceTree = "<group>"; };
 		51D7E8142B2F6AF200E52818 /* intensities.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = intensities.json; sourceTree = "<group>"; };
 		51D7E8172B2F6B7600E52818 /* WellnessAI.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = WellnessAI.xcdatamodel; sourceTree = "<group>"; };
-		51D7E8192B2F6BE100E52818 /* HealthModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthModels.swift; sourceTree = "<group>"; };
 		51D7E81B2B30BABA00E52818 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		51D7E81D2B30D75900E52818 /* AddHealthCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddHealthCardView.swift; sourceTree = "<group>"; };
 		6F5D6DA32B17032300B721FC /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
@@ -59,6 +61,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5145F5BC2B3215D7003DE488 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				5145F5BD2B32161B003DE488 /* JsonUtils.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
 		516CC82C2B0DFBB000696BF1 = {
 			isa = PBXGroup;
 			children = (
@@ -82,8 +92,8 @@
 				6F5D6DA32B17032300B721FC /* Settings.bundle */,
 				51D7E7FC2B2DFD9800E52818 /* Views */,
 				51D7E80A2B2F214500E52818 /* ViewModels */,
-				51D7E80D2B2F235B00E52818 /* Models */,
 				51D7E8112B2F6A9400E52818 /* Data */,
+				5145F5BC2B3215D7003DE488 /* Utilities */,
 				516CC8382B0DFBB000696BF1 /* WellnessAIApp.swift */,
 				51D7E81B2B30BABA00E52818 /* Constants.swift */,
 				51D7E8162B2F6B7600E52818 /* WellnessAI.xcdatamodeld */,
@@ -119,16 +129,9 @@
 			isa = PBXGroup;
 			children = (
 				51D7E80B2B2F217500E52818 /* HealthFormViewModel.swift */,
+				5145F5B92B31F94D003DE488 /* HealthCardsViewModel.swift */,
 			);
 			path = ViewModels;
-			sourceTree = "<group>";
-		};
-		51D7E80D2B2F235B00E52818 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				51D7E8192B2F6BE100E52818 /* HealthModels.swift */,
-			);
-			path = Models;
 			sourceTree = "<group>";
 		};
 		51D7E8112B2F6A9400E52818 /* Data */ = {
@@ -214,14 +217,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				51D7E8002B2E027200E52818 /* AINotificationsView.swift in Sources */,
+				5145F5BE2B32161B003DE488 /* JsonUtils.swift in Sources */,
 				51D7E81C2B30BABA00E52818 /* Constants.swift in Sources */,
 				51D7E8022B2E089D00E52818 /* AINotificationView.swift in Sources */,
 				51D7E80C2B2F217500E52818 /* HealthFormViewModel.swift in Sources */,
 				51D7E7FE2B2DFDB100E52818 /* AppView.swift in Sources */,
 				51D7E8042B2EE80B00E52818 /* HealthCardView.swift in Sources */,
 				51D7E8182B2F6B7600E52818 /* WellnessAI.xcdatamodeld in Sources */,
-				51D7E81A2B2F6BE100E52818 /* HealthModels.swift in Sources */,
 				516CC8392B0DFBB000696BF1 /* WellnessAIApp.swift in Sources */,
+				5145F5BA2B31F94D003DE488 /* HealthCardsViewModel.swift in Sources */,
 				51D7E81E2B30D75900E52818 /* AddHealthCardView.swift in Sources */,
 				51D7E8062B2EEF6200E52818 /* HealthCardsView.swift in Sources */,
 				51D7E8082B2F205100E52818 /* HealthFormView.swift in Sources */,

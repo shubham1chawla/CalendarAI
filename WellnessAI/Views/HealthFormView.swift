@@ -9,6 +9,7 @@ import SwiftUI
 
 struct HealthFormView: View {
     
+    @Environment(\.dismiss) var dismiss
     @Environment(\.managedObjectContext) var moc
     @StateObject private var viewModel = ViewModel()
     
@@ -110,9 +111,15 @@ struct HealthFormView: View {
         .toolbar {
             HStack {
                 Button {
+                    viewModel.showSaveAlert.toggle()
                     viewModel.saveHealthInformation()
                 } label: {
                     Image(systemName: "square.and.arrow.down")
+                }
+                .alert("Successfully saved your health information.", isPresented: $viewModel.showSaveAlert) {
+                    Button("Dismiss", role: .cancel) {
+                        dismiss()
+                    }
                 }
             }
         }

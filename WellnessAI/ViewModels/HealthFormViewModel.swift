@@ -23,6 +23,7 @@ extension HealthFormView {
         
         @Published var showRespRateTip: Bool = false
         @Published var isMeasuringRespRate: Bool = false
+        @Published var showSaveAlert: Bool = false
         
         @Published var selectedSymptomIndex: Int = 0
         @Published var selectedIntensityValue: Int = 1
@@ -68,7 +69,7 @@ extension HealthFormView {
             let userSessions = try! context.fetch(request)
             let userSession = userSessions.first ?? UserSession(context: context)
             userSession.uuid = userSession.uuid ?? uuid!
-            userSession.timestamp = userSession.timestamp ?? Date()
+            userSession.timestamp = Date()
             
             // Adding user measurements if exists
             let userMeasurement = userSession.userMeasurement ?? UserMeasurement(context: context)
@@ -123,18 +124,6 @@ extension HealthFormView {
             let decodableIntensities: [DecodableIntensity] = decodeJson(forResource: "intensities")
             decodableIntensities.forEach { decodableIntensity in
                 intensities[decodableIntensity.value] = decodableIntensity.label
-            }
-        }
-        
-        private func decodeJson<T: Decodable>(forResource: String) -> [T] {
-            guard let path = Bundle.main.path(forResource: forResource, ofType: "json") else {
-                fatalError("Unable to load default symptoms!")
-            }
-            do {
-                let data = try Data(contentsOf: URL(filePath: path))
-                return try JSONDecoder().decode([T].self, from: data)
-            } catch {
-                fatalError(error.localizedDescription)
             }
         }
         

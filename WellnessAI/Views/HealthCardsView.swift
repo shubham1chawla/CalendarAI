@@ -8,13 +8,20 @@
 import SwiftUI
 
 struct HealthCardsView: View {
+    
+    @Environment(\.managedObjectContext) var moc
+    @StateObject private var viewModel = ViewModel()
+    
     var body: some View {
         HStack {
             Image(systemName: "heart.text.square")
             Text("Health Cards")
         }
         .font(.subheadline)
-        if true {
+        .onAppear {
+            viewModel.setNSManagedObjectContext(moc)
+        }
+        if viewModel.userSessions.isEmpty {
             NavigationLink {
                 HealthFormView()
             } label: {
@@ -22,7 +29,7 @@ struct HealthCardsView: View {
             }
         } else {
             HStack {
-                HealthCardView()
+                HealthCardView(viewModel: viewModel)
                     .frame(width: 300)
                 VStack {
                     NavigationLink {
