@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		516CC8392B0DFBB000696BF1 /* CalendarAIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516CC8382B0DFBB000696BF1 /* CalendarAIApp.swift */; };
+		516CC8392B0DFBB000696BF1 /* WellnessAIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516CC8382B0DFBB000696BF1 /* WellnessAIApp.swift */; };
 		516CC83D2B0DFBB200696BF1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 516CC83C2B0DFBB200696BF1 /* Assets.xcassets */; };
 		516CC8402B0DFBB200696BF1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 516CC83F2B0DFBB200696BF1 /* Preview Assets.xcassets */; };
 		51D7E7FE2B2DFDB100E52818 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D7E7FD2B2DFDB100E52818 /* AppView.swift */; };
@@ -19,15 +19,16 @@
 		51D7E80C2B2F217500E52818 /* HealthFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D7E80B2B2F217500E52818 /* HealthFormViewModel.swift */; };
 		51D7E8132B2F6AD400E52818 /* symptoms.json in Resources */ = {isa = PBXBuildFile; fileRef = 51D7E8122B2F6AD400E52818 /* symptoms.json */; };
 		51D7E8152B2F6AF200E52818 /* intensities.json in Resources */ = {isa = PBXBuildFile; fileRef = 51D7E8142B2F6AF200E52818 /* intensities.json */; };
-		51D7E8182B2F6B7600E52818 /* CalendarAI.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 51D7E8162B2F6B7600E52818 /* CalendarAI.xcdatamodeld */; };
+		51D7E8182B2F6B7600E52818 /* WellnessAI.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 51D7E8162B2F6B7600E52818 /* WellnessAI.xcdatamodeld */; };
 		51D7E81A2B2F6BE100E52818 /* HealthModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D7E8192B2F6BE100E52818 /* HealthModels.swift */; };
 		51D7E81C2B30BABA00E52818 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D7E81B2B30BABA00E52818 /* Constants.swift */; };
+		51D7E81E2B30D75900E52818 /* AddHealthCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D7E81D2B30D75900E52818 /* AddHealthCardView.swift */; };
 		6F5D6DA42B17032400B721FC /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6F5D6DA32B17032300B721FC /* Settings.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		516CC8352B0DFBB000696BF1 /* CalendarAI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CalendarAI.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		516CC8382B0DFBB000696BF1 /* CalendarAIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarAIApp.swift; sourceTree = "<group>"; };
+		516CC8352B0DFBB000696BF1 /* WellnessAI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WellnessAI.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		516CC8382B0DFBB000696BF1 /* WellnessAIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WellnessAIApp.swift; sourceTree = "<group>"; };
 		516CC83C2B0DFBB200696BF1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		516CC83F2B0DFBB200696BF1 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		51D7E7FD2B2DFDB100E52818 /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
@@ -39,9 +40,10 @@
 		51D7E80B2B2F217500E52818 /* HealthFormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthFormViewModel.swift; sourceTree = "<group>"; };
 		51D7E8122B2F6AD400E52818 /* symptoms.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = symptoms.json; sourceTree = "<group>"; };
 		51D7E8142B2F6AF200E52818 /* intensities.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = intensities.json; sourceTree = "<group>"; };
-		51D7E8172B2F6B7600E52818 /* CalendarAI.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CalendarAI.xcdatamodel; sourceTree = "<group>"; };
+		51D7E8172B2F6B7600E52818 /* WellnessAI.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = WellnessAI.xcdatamodel; sourceTree = "<group>"; };
 		51D7E8192B2F6BE100E52818 /* HealthModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthModels.swift; sourceTree = "<group>"; };
 		51D7E81B2B30BABA00E52818 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		51D7E81D2B30D75900E52818 /* AddHealthCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddHealthCardView.swift; sourceTree = "<group>"; };
 		6F5D6DA32B17032300B721FC /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		D0A3E5C62B1874200061EF0F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -60,7 +62,7 @@
 		516CC82C2B0DFBB000696BF1 = {
 			isa = PBXGroup;
 			children = (
-				516CC8372B0DFBB000696BF1 /* CalendarAI */,
+				516CC8372B0DFBB000696BF1 /* WellnessAI */,
 				516CC8362B0DFBB000696BF1 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -68,12 +70,12 @@
 		516CC8362B0DFBB000696BF1 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				516CC8352B0DFBB000696BF1 /* CalendarAI.app */,
+				516CC8352B0DFBB000696BF1 /* WellnessAI.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		516CC8372B0DFBB000696BF1 /* CalendarAI */ = {
+		516CC8372B0DFBB000696BF1 /* WellnessAI */ = {
 			isa = PBXGroup;
 			children = (
 				D0A3E5C62B1874200061EF0F /* Info.plist */,
@@ -82,13 +84,13 @@
 				51D7E80A2B2F214500E52818 /* ViewModels */,
 				51D7E80D2B2F235B00E52818 /* Models */,
 				51D7E8112B2F6A9400E52818 /* Data */,
-				516CC8382B0DFBB000696BF1 /* CalendarAIApp.swift */,
+				516CC8382B0DFBB000696BF1 /* WellnessAIApp.swift */,
 				51D7E81B2B30BABA00E52818 /* Constants.swift */,
-				51D7E8162B2F6B7600E52818 /* CalendarAI.xcdatamodeld */,
+				51D7E8162B2F6B7600E52818 /* WellnessAI.xcdatamodeld */,
 				516CC83C2B0DFBB200696BF1 /* Assets.xcassets */,
 				516CC83E2B0DFBB200696BF1 /* Preview Content */,
 			);
-			path = CalendarAI;
+			path = WellnessAI;
 			sourceTree = "<group>";
 		};
 		516CC83E2B0DFBB200696BF1 /* Preview Content */ = {
@@ -106,6 +108,7 @@
 				51D7E7FF2B2E027200E52818 /* AINotificationsView.swift */,
 				51D7E8012B2E089D00E52818 /* AINotificationView.swift */,
 				51D7E8032B2EE80B00E52818 /* HealthCardView.swift */,
+				51D7E81D2B30D75900E52818 /* AddHealthCardView.swift */,
 				51D7E8052B2EEF6200E52818 /* HealthCardsView.swift */,
 				51D7E8072B2F205100E52818 /* HealthFormView.swift */,
 			);
@@ -140,9 +143,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		516CC8342B0DFBB000696BF1 /* CalendarAI */ = {
+		516CC8342B0DFBB000696BF1 /* WellnessAI */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 516CC8432B0DFBB200696BF1 /* Build configuration list for PBXNativeTarget "CalendarAI" */;
+			buildConfigurationList = 516CC8432B0DFBB200696BF1 /* Build configuration list for PBXNativeTarget "WellnessAI" */;
 			buildPhases = (
 				516CC8312B0DFBB000696BF1 /* Sources */,
 				516CC8322B0DFBB000696BF1 /* Frameworks */,
@@ -152,9 +155,9 @@
 			);
 			dependencies = (
 			);
-			name = CalendarAI;
-			productName = CalendarAI;
-			productReference = 516CC8352B0DFBB000696BF1 /* CalendarAI.app */;
+			name = WellnessAI;
+			productName = WellnessAI;
+			productReference = 516CC8352B0DFBB000696BF1 /* WellnessAI.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -172,7 +175,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 516CC8302B0DFBB000696BF1 /* Build configuration list for PBXProject "CalendarAI" */;
+			buildConfigurationList = 516CC8302B0DFBB000696BF1 /* Build configuration list for PBXProject "WellnessAI" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -185,7 +188,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				516CC8342B0DFBB000696BF1 /* CalendarAI */,
+				516CC8342B0DFBB000696BF1 /* WellnessAI */,
 			);
 		};
 /* End PBXProject section */
@@ -216,9 +219,10 @@
 				51D7E80C2B2F217500E52818 /* HealthFormViewModel.swift in Sources */,
 				51D7E7FE2B2DFDB100E52818 /* AppView.swift in Sources */,
 				51D7E8042B2EE80B00E52818 /* HealthCardView.swift in Sources */,
-				51D7E8182B2F6B7600E52818 /* CalendarAI.xcdatamodeld in Sources */,
+				51D7E8182B2F6B7600E52818 /* WellnessAI.xcdatamodeld in Sources */,
 				51D7E81A2B2F6BE100E52818 /* HealthModels.swift in Sources */,
-				516CC8392B0DFBB000696BF1 /* CalendarAIApp.swift in Sources */,
+				516CC8392B0DFBB000696BF1 /* WellnessAIApp.swift in Sources */,
+				51D7E81E2B30D75900E52818 /* AddHealthCardView.swift in Sources */,
 				51D7E8062B2EEF6200E52818 /* HealthCardsView.swift in Sources */,
 				51D7E8082B2F205100E52818 /* HealthFormView.swift in Sources */,
 			);
@@ -353,11 +357,11 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"CalendarAI/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"WellnessAI/Preview Content\"";
 				DEVELOPMENT_TEAM = 4Z6YAT98PW;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = CalendarAI/Info.plist;
+				INFOPLIST_FILE = WellnessAI/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Please provide camera access";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Please allow location services";
@@ -371,7 +375,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = edu.asu.projects.CalendarAI;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.asu.projects.WellnessAI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -386,11 +390,11 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"CalendarAI/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"WellnessAI/Preview Content\"";
 				DEVELOPMENT_TEAM = 4Z6YAT98PW;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = CalendarAI/Info.plist;
+				INFOPLIST_FILE = WellnessAI/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Please provide camera access";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Please allow location services";
@@ -404,7 +408,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = edu.asu.projects.CalendarAI;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.asu.projects.WellnessAI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -415,7 +419,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		516CC8302B0DFBB000696BF1 /* Build configuration list for PBXProject "CalendarAI" */ = {
+		516CC8302B0DFBB000696BF1 /* Build configuration list for PBXProject "WellnessAI" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				516CC8412B0DFBB200696BF1 /* Debug */,
@@ -424,7 +428,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		516CC8432B0DFBB200696BF1 /* Build configuration list for PBXNativeTarget "CalendarAI" */ = {
+		516CC8432B0DFBB200696BF1 /* Build configuration list for PBXNativeTarget "WellnessAI" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				516CC8442B0DFBB200696BF1 /* Debug */,
@@ -436,13 +440,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		51D7E8162B2F6B7600E52818 /* CalendarAI.xcdatamodeld */ = {
+		51D7E8162B2F6B7600E52818 /* WellnessAI.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				51D7E8172B2F6B7600E52818 /* CalendarAI.xcdatamodel */,
+				51D7E8172B2F6B7600E52818 /* WellnessAI.xcdatamodel */,
 			);
-			currentVersion = 51D7E8172B2F6B7600E52818 /* CalendarAI.xcdatamodel */;
-			path = CalendarAI.xcdatamodeld;
+			currentVersion = 51D7E8172B2F6B7600E52818 /* WellnessAI.xcdatamodel */;
+			path = WellnessAI.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

@@ -1,6 +1,6 @@
 //
-//  CalendarAIApp.swift
-//  CalendarAI
+//  WellnessAIApp.swift
+//  WellnessAI
 //
 //  Created by Shubham Chawla on 11/22/23.
 //
@@ -9,7 +9,7 @@ import SwiftUI
 import CoreData
 
 @main
-struct CalendarAIApp: App {
+struct WellnessAIApp: App {
     
     let container = NSPersistentContainer(name: Keys.APPLICATION_NAME)
     
