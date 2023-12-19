@@ -29,7 +29,7 @@ struct HealthCardsView: View {
             }
         } else {
             HStack {
-                HealthCardView(viewModel: viewModel)
+                HealthCardView(userSession: viewModel.userSessions.first!, intensities: viewModel.intensities)
                     .frame(width: 300)
                 VStack {
                     NavigationLink {
@@ -39,7 +39,7 @@ struct HealthCardsView: View {
                     }
                     .padding()
                     NavigationLink {
-                        Text("History")
+                        HistoricalHealthCardsView(viewModel: viewModel)
                     } label: {
                         Image(systemName: "clock.arrow.circlepath")
                     }

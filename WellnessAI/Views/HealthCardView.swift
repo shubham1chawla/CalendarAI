@@ -9,49 +9,44 @@ import SwiftUI
 
 struct HealthCardView: View {
     
-    @ObservedObject var viewModel: HealthCardsView.ViewModel
+    let userSession: UserSession
+    let intensities: [Int:String]
     
     var body: some View {
-        VStack {
+        VStack(alignment: .leading) {
             HStack {
                 Image(systemName: "clock")
-                Text(viewModel.userSessions.first!.timestamp!.formatted())
-                Spacer()
+                Text(userSession.timestamp!.asTimeAgoFormatted())
             }
             .font(.caption)
             .padding(EdgeInsets(
                 top: 24, leading: 16, bottom: 8, trailing: 16
             ))
-            HStack {
+            HStack(alignment: .center) {
                 Spacer()
-                VStack {
-                    HStack {
-                        Image(systemName: "heart")
-                        Text("\(viewModel.userSessions.first!.userMeasurement?.heartRate ?? 0, specifier: "%.2f")")
-                    }
-                        .font(.title2)
+                HStack {
+                    Image(systemName: "heart")
+                    Text("\(userSession.userMeasurement?.heartRate ?? 0, specifier: "%.2f")")
                 }
                 Spacer()
-                VStack {
-                    HStack {
-                        Image(systemName: "lungs")
-                        Text("\(viewModel.userSessions.first!.userMeasurement?.respRate ?? 0, specifier: "%.2f")")
-                    }
-                        .font(.title2)
+                HStack {
+                    Image(systemName: "lungs")
+                    Text("\(userSession.userMeasurement?.respRate ?? 0, specifier: "%.2f")")
                 }
                 Spacer()
             }
+            .font(.title2)
             .padding(EdgeInsets(
                 top: 8, leading: 16, bottom: 8, trailing: 16
             ))
-            VStack(alignment: .leading) {
-                let userSymptoms = viewModel.userSessions.first!.userSymptoms?.allObjects as! [UserSymptom]
+            VStack(alignment: .leading, spacing: 4) {
+                let userSymptoms = userSession.userSymptoms?.allObjects as! [UserSymptom]
                 ForEach(userSymptoms) { userSymptom in
                     HStack {
                         Image(systemName: "staroflife")
                         Text(userSymptom.symptom!.name!)
                         Spacer()
-                        Text("\(viewModel.intensities[Int(userSymptom.intensity)]!) (\(userSymptom.intensity))")
+                        Text("\(intensities[Int(userSymptom.intensity)]!) (\(userSymptom.intensity))")
                     }
                     .font(.subheadline)
                 }
