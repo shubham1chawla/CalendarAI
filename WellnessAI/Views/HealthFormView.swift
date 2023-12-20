@@ -27,7 +27,8 @@ struct HealthFormView: View {
                     }
                 }
                 .background(
-                    NavigationLink("", destination: Text("123")).opacity(0)
+                    NavigationLink("", destination: HeartRateMeasurementView(heartRate: $viewModel.heartRate))
+                        .opacity(0)
                 )
                 Button {
                     viewModel.showRespRateTip.toggle()
@@ -54,7 +55,7 @@ struct HealthFormView: View {
                 .alert("Respiratory Rate Measurement Instructions", isPresented: $viewModel.showRespRateTip) {
                     Button("Cancel", role: .cancel) { }
                     Button("Start Measuring", role: .none) {
-                        
+                        viewModel.measureRespiratoryRate()
                     }
                 } message: {
                     Text("Please lay down facing up. Place the device flat between your chest and stomach. Press the \"Start Measuring\" button and continue to take deep breaths.")

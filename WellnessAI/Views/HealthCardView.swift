@@ -11,35 +11,45 @@ struct HealthCardView: View {
     
     let userSession: UserSession
     let intensities: [Int:String]
+    let dateFormatter: (Date?) -> String
     
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
                 Image(systemName: "clock")
-                Text(userSession.timestamp!.asTimeAgoFormatted())
+                Text(dateFormatter(userSession.timestamp))
             }
             .font(.caption)
             .padding(EdgeInsets(
                 top: 24, leading: 16, bottom: 8, trailing: 16
             ))
-            HStack(alignment: .center) {
-                Spacer()
-                HStack {
-                    Image(systemName: "heart")
-                    Text("\(userSession.userMeasurement?.heartRate ?? 0, specifier: "%.2f")")
+            VStack(alignment: .center) {
+                HStack(spacing: 36) {
+                    VStack {
+                        HStack {
+                            Image(systemName: "heart")
+                            Text("\(userSession.userMeasurement?.heartRate ?? 0, specifier: "%.2f")")
+                        }
+                        .font(.headline)
+                        Text("Heart Rate")
+                            .font(.caption)
+                    }
+                    VStack {
+                        HStack {
+                            Image(systemName: "lungs")
+                            Text("\(userSession.userMeasurement?.respRate ?? 0, specifier: "%.2f")")
+                        }
+                        .font(.headline)
+                        Text("Respiratory Rate")
+                            .font(.caption)
+                    }
                 }
-                Spacer()
-                HStack {
-                    Image(systemName: "lungs")
-                    Text("\(userSession.userMeasurement?.respRate ?? 0, specifier: "%.2f")")
-                }
-                Spacer()
             }
-            .font(.title2)
+            .frame(maxWidth: .infinity)
             .padding(EdgeInsets(
                 top: 8, leading: 16, bottom: 8, trailing: 16
             ))
-            VStack(alignment: .leading, spacing: 4) {
+            VStack(spacing: 8) {
                 let userSymptoms = userSession.userSymptoms?.allObjects as! [UserSymptom]
                 ForEach(userSymptoms) { userSymptom in
                     HStack {

@@ -13,6 +13,9 @@
 		5145F5C22B322E7A003DE488 /* HistoricalHealthCardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5145F5C12B322E7A003DE488 /* HistoricalHealthCardsView.swift */; };
 		5145F5C42B323405003DE488 /* ViewUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5145F5C32B323405003DE488 /* ViewUtils.swift */; };
 		5145F5C62B3236F2003DE488 /* ShareableHealthCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5145F5C52B3236F2003DE488 /* ShareableHealthCardView.swift */; };
+		5145F5C82B32E947003DE488 /* HeartRateMeasurementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5145F5C72B32E947003DE488 /* HeartRateMeasurementView.swift */; };
+		5145F5CA2B32FC28003DE488 /* CameraPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5145F5C92B32FC28003DE488 /* CameraPreviewView.swift */; };
+		5145F5CE2B332D60003DE488 /* HeartRateMeasurementViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5145F5CD2B332D60003DE488 /* HeartRateMeasurementViewModel.swift */; };
 		516CC8392B0DFBB000696BF1 /* WellnessAIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516CC8382B0DFBB000696BF1 /* WellnessAIApp.swift */; };
 		516CC83D2B0DFBB200696BF1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 516CC83C2B0DFBB200696BF1 /* Assets.xcassets */; };
 		516CC8402B0DFBB200696BF1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 516CC83F2B0DFBB200696BF1 /* Preview Assets.xcassets */; };
@@ -38,6 +41,9 @@
 		5145F5C12B322E7A003DE488 /* HistoricalHealthCardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoricalHealthCardsView.swift; sourceTree = "<group>"; };
 		5145F5C32B323405003DE488 /* ViewUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewUtils.swift; sourceTree = "<group>"; };
 		5145F5C52B3236F2003DE488 /* ShareableHealthCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareableHealthCardView.swift; sourceTree = "<group>"; };
+		5145F5C72B32E947003DE488 /* HeartRateMeasurementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateMeasurementView.swift; sourceTree = "<group>"; };
+		5145F5C92B32FC28003DE488 /* CameraPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPreviewView.swift; sourceTree = "<group>"; };
+		5145F5CD2B332D60003DE488 /* HeartRateMeasurementViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateMeasurementViewModel.swift; sourceTree = "<group>"; };
 		516CC8352B0DFBB000696BF1 /* WellnessAI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WellnessAI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		516CC8382B0DFBB000696BF1 /* WellnessAIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WellnessAIApp.swift; sourceTree = "<group>"; };
 		516CC83C2B0DFBB200696BF1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -133,6 +139,8 @@
 				51D7E8072B2F205100E52818 /* HealthFormView.swift */,
 				5145F5C12B322E7A003DE488 /* HistoricalHealthCardsView.swift */,
 				5145F5C52B3236F2003DE488 /* ShareableHealthCardView.swift */,
+				5145F5C72B32E947003DE488 /* HeartRateMeasurementView.swift */,
+				5145F5C92B32FC28003DE488 /* CameraPreviewView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -142,6 +150,7 @@
 			children = (
 				51D7E80B2B2F217500E52818 /* HealthFormViewModel.swift */,
 				5145F5B92B31F94D003DE488 /* HealthCardsViewModel.swift */,
+				5145F5CD2B332D60003DE488 /* HeartRateMeasurementViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -234,6 +243,7 @@
 				51D7E81C2B30BABA00E52818 /* Constants.swift in Sources */,
 				51D7E8022B2E089D00E52818 /* AINotificationView.swift in Sources */,
 				51D7E80C2B2F217500E52818 /* HealthFormViewModel.swift in Sources */,
+				5145F5CE2B332D60003DE488 /* HeartRateMeasurementViewModel.swift in Sources */,
 				5145F5C22B322E7A003DE488 /* HistoricalHealthCardsView.swift in Sources */,
 				5145F5C42B323405003DE488 /* ViewUtils.swift in Sources */,
 				51D7E7FE2B2DFDB100E52818 /* AppView.swift in Sources */,
@@ -241,7 +251,9 @@
 				51D7E8182B2F6B7600E52818 /* WellnessAI.xcdatamodeld in Sources */,
 				516CC8392B0DFBB000696BF1 /* WellnessAIApp.swift in Sources */,
 				5145F5BA2B31F94D003DE488 /* HealthCardsViewModel.swift in Sources */,
+				5145F5CA2B32FC28003DE488 /* CameraPreviewView.swift in Sources */,
 				51D7E81E2B30D75900E52818 /* AddHealthCardView.swift in Sources */,
+				5145F5C82B32E947003DE488 /* HeartRateMeasurementView.swift in Sources */,
 				5145F5C02B322CC5003DE488 /* DateUtils.swift in Sources */,
 				51D7E8062B2EEF6200E52818 /* HealthCardsView.swift in Sources */,
 				51D7E8082B2F205100E52818 /* HealthFormView.swift in Sources */,
@@ -382,9 +394,11 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WellnessAI/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "";
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Please provide camera access";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Please allow location services";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Please provide photo library access";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -415,9 +429,11 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WellnessAI/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "";
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Please provide camera access";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Please allow location services";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Please provide photo library access";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

@@ -15,7 +15,7 @@ struct ShareableHealthCardView: View {
     @State private var image: Image?
     
     var card: some View {
-        HealthCardView(userSession: userSession, intensities: intensities)
+        HealthCardView(userSession: userSession, intensities: intensities, dateFormatter: standardFormat)
             .padding()
     }
     

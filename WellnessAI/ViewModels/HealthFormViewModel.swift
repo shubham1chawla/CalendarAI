@@ -7,12 +7,15 @@
 
 import Foundation
 import CoreData
+import CoreMotion
 
 extension HealthFormView {
     @MainActor class ViewModel: ObservableObject {
         
         private var context: NSManagedObjectContext?
+        private var timer: Timer?
         private let defaults = UserDefaults.standard
+        private let motionManager = CMMotionManager()
         
         @Published private(set) var symptoms: [Symptom] = []
         @Published private(set) var intensities: [Int:String] = [:]
@@ -37,6 +40,43 @@ extension HealthFormView {
             
             // Loading symptoms from database
             setSymptoms()
+        }
+        
+        func measureRespiratoryRate() -> Void {
+            isMeasuringRespRate.toggle()
+            
+            // Setting up accelerometer for capturing motion
+            motionManager.startAccelerometerUpdates()
+            motionManager.accelerometerUpdateInterval = MeasurementConstants.ACCELEROMETER_INTERVAL
+            
+            // Setting up variable to measure respiratory rate
+            var previousValue: Double = 0
+            var intervalCount: Int = 0
+            var rawRespCount: Int = 0
+            
+            // Setting up timer to measure respiratory rate
+            timer = Timer.scheduledTimer(withTimeInterval: MeasurementConstants.ACCELEROMETER_INTERVAL, repeats: true) { _ in
+                Task { @MainActor in
+                    // Checking if duration is within the acceptable time interval
+                    let duration = MeasurementConstants.ACCELEROMETER_INTERVAL * Double(intervalCount)
+                    guard duration < Double(MeasurementConstants.MAX_TIME_DURATION) else {
+                        self.respRate = (Double(rawRespCount) / duration) * 30
+                        self.timer?.invalidate()
+                        self.isMeasuringRespRate.toggle()
+                        return
+                    }
+                    
+                    // Fetching accelerometer data
+                    if let data = self.motionManager.accelerometerData {
+                        let value = sqrt(pow(data.acceleration.x, 2) + pow(data.acceleration.y, 2) + pow(data.acceleration.z, 2))
+                        if abs(value - previousValue) > MeasurementConstants.ACCELEROMETER_DIFFERENCE_THRESHOLD {
+                            rawRespCount += 1
+                        }
+                        previousValue = value
+                    }
+                    intervalCount += 1
+                }
+            }
         }
         
         func addUserSymptom() -> Void {

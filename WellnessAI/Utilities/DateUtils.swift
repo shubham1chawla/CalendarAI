@@ -7,13 +7,13 @@
 
 import Foundation
 
-extension Date {
-    
-    // Formats time nicely for the UI
-    func asTimeAgoFormatted() -> String {
-        let formatter = RelativeDateTimeFormatter()
-        formatter.unitsStyle = .full
-        return formatter.localizedString(for: self, relativeTo: Date())
-    }
-    
+func standardFormat(date: Date?) -> String {
+    return date?.formatted() ?? ""
+}
+
+func timeAgoFormat(date: Date?) -> String {
+    guard let date = date else { return "" }
+    let formatter = RelativeDateTimeFormatter()
+    formatter.unitsStyle = .full
+    return formatter.localizedString(for: date, relativeTo: Date())
 }
