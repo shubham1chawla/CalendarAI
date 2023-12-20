@@ -18,7 +18,7 @@ struct HistoricalHealthCardsView: View {
                     ShareableHealthCardView(userSession: userSession, intensities: viewModel.intensities)
                 } label: {
                     Image(systemName: "heart.text.square")
-                    Text("Health Card from \(userSession.timestamp!.asTimeAgoFormatted())")
+                    Text("Health Card from \(timeAgoFormat(date: userSession.timestamp))")
                 }
             }
         }

@@ -29,7 +29,7 @@ struct HealthCardsView: View {
             }
         } else {
             HStack {
-                HealthCardView(userSession: viewModel.userSessions.first!, intensities: viewModel.intensities)
+                HealthCardView(userSession: viewModel.userSessions.first!, intensities: viewModel.intensities, dateFormatter: timeAgoFormat)
                     .frame(width: 300)
                 VStack {
                     NavigationLink {

@@ -18,15 +18,6 @@ struct AppView: View {
             }
             .padding()
             .navigationTitle("WellnessAI")
-            .toolbar {
-                HStack {
-                    NavigationLink {
-                        Text("Settings")
-                    } label: {
-                        Image(systemName: "gear")
-                    }
-                }
-            }
         }
     }
 }
