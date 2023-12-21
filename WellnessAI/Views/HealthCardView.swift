@@ -20,9 +20,7 @@ struct HealthCardView: View {
                 Text(dateFormatter(userSession.timestamp))
             }
             .font(.caption)
-            .padding(EdgeInsets(
-                top: 24, leading: 16, bottom: 8, trailing: 16
-            ))
+            .padding()
             VStack(alignment: .center) {
                 HStack(spacing: 36) {
                     VStack {
@@ -46,9 +44,7 @@ struct HealthCardView: View {
                 }
             }
             .frame(maxWidth: .infinity)
-            .padding(EdgeInsets(
-                top: 8, leading: 16, bottom: 8, trailing: 16
-            ))
+            .padding()
             VStack(spacing: 8) {
                 let userSymptoms = userSession.userSymptoms?.allObjects as! [UserSymptom]
                 ForEach(userSymptoms) { userSymptom in
@@ -61,9 +57,7 @@ struct HealthCardView: View {
                     .font(.subheadline)
                 }
             }
-            .padding(EdgeInsets(
-                top: 8, leading: 16, bottom: 24, trailing: 16
-            ))
+            .padding()
         }
         .background(.ultraThinMaterial)
         .clipShape(RoundedRectangle(cornerRadius: 4))
