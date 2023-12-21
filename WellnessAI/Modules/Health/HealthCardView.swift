@@ -10,7 +10,6 @@ import SwiftUI
 struct HealthCardView: View {
     
     let userSession: UserSession
-    let intensities: [Int:String]
     let dateFormatter: (Date?) -> String
     
     var body: some View {
@@ -52,7 +51,7 @@ struct HealthCardView: View {
                         Image(systemName: "staroflife")
                         Text(userSymptom.symptom!.name!)
                         Spacer()
-                        Text("\(intensities[Int(userSymptom.intensity)]!) (\(userSymptom.intensity))")
+                        Text("\(userSymptom.intensityLabel!) (\(Int(userSymptom.intensityValue)))")
                     }
                     .font(.subheadline)
                 }

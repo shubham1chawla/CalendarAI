@@ -11,8 +11,8 @@ import CoreData
 @main
 struct WellnessAIApp: App {
     
-    let container = NSPersistentContainer(name: Keys.APPLICATION_NAME)
-    let defaults = UserDefaults.standard
+    private let container = NSPersistentContainer(name: Keys.APPLICATION_NAME)
+    private let defaults = UserDefaults.standard
     
     init() {
         // Loading persistent stores
@@ -28,7 +28,7 @@ struct WellnessAIApp: App {
     
     var body: some Scene {
         WindowGroup {
-            AppView()
+            HomeView()
                 .environment(\.managedObjectContext, container.viewContext)
         }
     }

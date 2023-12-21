@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AVFoundation
 
 struct HeartRateMeasurementView: View {
     
@@ -62,4 +63,28 @@ struct HeartRateMeasurementView: View {
             viewModel.stopCaptureSession()
         }
     }
+    
+    private struct CameraPreviewView: UIViewControllerRepresentable {
+        typealias UIViewControllerType = UIViewController
+        
+        let previewLayer: AVCaptureVideoPreviewLayer
+        
+        func makeUIViewController(context: Context) -> UIViewController {
+            let viewController = UIViewController()
+            viewController.view.backgroundColor = .black
+            viewController.view.layer.addSublayer(previewLayer)
+            previewLayer.frame = viewController.view.bounds
+            return viewController
+        }
+        
+        func updateUIViewController(_ uiViewController: UIViewController, context: Context) {
+
+        }
+        
+        static func dismantleUIViewController(_ uiViewController: UIViewController, coordinator: ()) {
+            
+        }
+        
+    }
+    
 }

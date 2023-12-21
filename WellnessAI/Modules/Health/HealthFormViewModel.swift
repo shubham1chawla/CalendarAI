@@ -13,6 +13,7 @@ extension HealthFormView {
     @MainActor class ViewModel: ObservableObject {
         
         private var context: NSManagedObjectContext?
+        private var decodableViewModel: DecodableViewModel?
         private var timer: Timer?
         private let defaults = UserDefaults.standard
         private let motionManager = CMMotionManager()
@@ -31,8 +32,9 @@ extension HealthFormView {
         @Published var selectedSymptomIndex: Int = 0
         @Published var selectedIntensityValue: Int = 1
         
-        func setNSManagedObjectContext(_ context: NSManagedObjectContext? = nil) {
+        func setup(context: NSManagedObjectContext, decodableViewModel: DecodableViewModel) {
             self.context = context
+            self.decodableViewModel = decodableViewModel
             
             // Setting up symptoms & intensities from JSON file
             loadDefaultSymptoms()
@@ -86,7 +88,8 @@ extension HealthFormView {
             }
             let userSymptom = UserSymptom(context: context)
             userSymptom.symptom = symptoms[selectedSymptomIndex]
-            userSymptom.intensity = Int16(selectedIntensityValue)
+            userSymptom.intensityValue = Int16(selectedIntensityValue)
+            userSymptom.intensityLabel = intensities[selectedIntensityValue]
             userSymptoms.append(userSymptom)
         }
         
@@ -143,8 +146,7 @@ extension HealthFormView {
         
         private func loadDefaultSymptoms() -> Void {
             guard let context = context else { return }
-            let decodableSymptoms: [DecodableSymptom] = decodeJson(forResource: "symptoms")
-            decodableSymptoms.forEach { decodableSymptom in
+            decodableViewModel?.decodableSymptoms.forEach { decodableSymptom in
                 
                 // Checking if the symptom exists in database
                 let request = Symptom.fetchRequest()
@@ -161,8 +163,7 @@ extension HealthFormView {
         }
         
         private func loadDefaultIntensities() -> Void {
-            let decodableIntensities: [DecodableIntensity] = decodeJson(forResource: "intensities")
-            decodableIntensities.forEach { decodableIntensity in
+            decodableViewModel?.decodableIntensities.forEach { decodableIntensity in
                 intensities[decodableIntensity.value] = decodableIntensity.label
             }
         }

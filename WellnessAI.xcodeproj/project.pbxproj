@@ -8,21 +8,19 @@
 
 /* Begin PBXBuildFile section */
 		5145F5BA2B31F94D003DE488 /* HealthCardsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5145F5B92B31F94D003DE488 /* HealthCardsViewModel.swift */; };
-		5145F5BE2B32161B003DE488 /* JsonUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5145F5BD2B32161B003DE488 /* JsonUtils.swift */; };
-		5145F5C02B322CC5003DE488 /* DateUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5145F5BF2B322CC5003DE488 /* DateUtils.swift */; };
 		5145F5C22B322E7A003DE488 /* HistoricalHealthCardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5145F5C12B322E7A003DE488 /* HistoricalHealthCardsView.swift */; };
-		5145F5C42B323405003DE488 /* ViewUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5145F5C32B323405003DE488 /* ViewUtils.swift */; };
 		5145F5C62B3236F2003DE488 /* ShareableHealthCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5145F5C52B3236F2003DE488 /* ShareableHealthCardView.swift */; };
 		5145F5C82B32E947003DE488 /* HeartRateMeasurementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5145F5C72B32E947003DE488 /* HeartRateMeasurementView.swift */; };
-		5145F5CA2B32FC28003DE488 /* CameraPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5145F5C92B32FC28003DE488 /* CameraPreviewView.swift */; };
 		5145F5CE2B332D60003DE488 /* HeartRateMeasurementViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5145F5CD2B332D60003DE488 /* HeartRateMeasurementViewModel.swift */; };
 		5145F5D22B3384ED003DE488 /* WeatherCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5145F5D12B3384ED003DE488 /* WeatherCardView.swift */; };
 		5145F5D42B34219A003DE488 /* WeatherCardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5145F5D32B34219A003DE488 /* WeatherCardsView.swift */; };
 		5145F5D62B3429AC003DE488 /* WeatherCardsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5145F5D52B3429AC003DE488 /* WeatherCardsViewModel.swift */; };
+		5145F5DE2B34B8FC003DE488 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5145F5DD2B34B8FC003DE488 /* Extensions.swift */; };
+		5145F5E02B34C16B003DE488 /* DecodableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5145F5DF2B34C16B003DE488 /* DecodableViewModel.swift */; };
 		516CC8392B0DFBB000696BF1 /* WellnessAIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516CC8382B0DFBB000696BF1 /* WellnessAIApp.swift */; };
 		516CC83D2B0DFBB200696BF1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 516CC83C2B0DFBB200696BF1 /* Assets.xcassets */; };
 		516CC8402B0DFBB200696BF1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 516CC83F2B0DFBB200696BF1 /* Preview Assets.xcassets */; };
-		51D7E7FE2B2DFDB100E52818 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D7E7FD2B2DFDB100E52818 /* AppView.swift */; };
+		51D7E7FE2B2DFDB100E52818 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D7E7FD2B2DFDB100E52818 /* HomeView.swift */; };
 		51D7E8002B2E027200E52818 /* AINotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D7E7FF2B2E027200E52818 /* AINotificationsView.swift */; };
 		51D7E8022B2E089D00E52818 /* AINotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D7E8012B2E089D00E52818 /* AINotificationView.swift */; };
 		51D7E8042B2EE80B00E52818 /* HealthCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D7E8032B2EE80B00E52818 /* HealthCardView.swift */; };
@@ -39,22 +37,20 @@
 
 /* Begin PBXFileReference section */
 		5145F5B92B31F94D003DE488 /* HealthCardsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCardsViewModel.swift; sourceTree = "<group>"; };
-		5145F5BD2B32161B003DE488 /* JsonUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonUtils.swift; sourceTree = "<group>"; };
-		5145F5BF2B322CC5003DE488 /* DateUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateUtils.swift; sourceTree = "<group>"; };
 		5145F5C12B322E7A003DE488 /* HistoricalHealthCardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoricalHealthCardsView.swift; sourceTree = "<group>"; };
-		5145F5C32B323405003DE488 /* ViewUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewUtils.swift; sourceTree = "<group>"; };
 		5145F5C52B3236F2003DE488 /* ShareableHealthCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareableHealthCardView.swift; sourceTree = "<group>"; };
 		5145F5C72B32E947003DE488 /* HeartRateMeasurementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateMeasurementView.swift; sourceTree = "<group>"; };
-		5145F5C92B32FC28003DE488 /* CameraPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPreviewView.swift; sourceTree = "<group>"; };
 		5145F5CD2B332D60003DE488 /* HeartRateMeasurementViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateMeasurementViewModel.swift; sourceTree = "<group>"; };
 		5145F5D12B3384ED003DE488 /* WeatherCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherCardView.swift; sourceTree = "<group>"; };
 		5145F5D32B34219A003DE488 /* WeatherCardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherCardsView.swift; sourceTree = "<group>"; };
 		5145F5D52B3429AC003DE488 /* WeatherCardsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherCardsViewModel.swift; sourceTree = "<group>"; };
+		5145F5DD2B34B8FC003DE488 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		5145F5DF2B34C16B003DE488 /* DecodableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecodableViewModel.swift; sourceTree = "<group>"; };
 		516CC8352B0DFBB000696BF1 /* WellnessAI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WellnessAI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		516CC8382B0DFBB000696BF1 /* WellnessAIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WellnessAIApp.swift; sourceTree = "<group>"; };
 		516CC83C2B0DFBB200696BF1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		516CC83F2B0DFBB200696BF1 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		51D7E7FD2B2DFDB100E52818 /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
+		51D7E7FD2B2DFDB100E52818 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		51D7E7FF2B2E027200E52818 /* AINotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AINotificationsView.swift; sourceTree = "<group>"; };
 		51D7E8012B2E089D00E52818 /* AINotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AINotificationView.swift; sourceTree = "<group>"; };
 		51D7E8032B2EE80B00E52818 /* HealthCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCardView.swift; sourceTree = "<group>"; };
@@ -81,14 +77,51 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		5145F5BC2B3215D7003DE488 /* Utilities */ = {
+		5145F5D92B34A28F003DE488 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				5145F5BD2B32161B003DE488 /* JsonUtils.swift */,
-				5145F5BF2B322CC5003DE488 /* DateUtils.swift */,
-				5145F5C32B323405003DE488 /* ViewUtils.swift */,
+				5145F5DC2B34A2C3003DE488 /* Notification */,
+				5145F5DB2B34A2B6003DE488 /* Weather */,
+				5145F5DA2B34A2AE003DE488 /* Health */,
 			);
-			path = Utilities;
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		5145F5DA2B34A2AE003DE488 /* Health */ = {
+			isa = PBXGroup;
+			children = (
+				51D7E80B2B2F217500E52818 /* HealthFormViewModel.swift */,
+				5145F5B92B31F94D003DE488 /* HealthCardsViewModel.swift */,
+				5145F5CD2B332D60003DE488 /* HeartRateMeasurementViewModel.swift */,
+				51D7E8032B2EE80B00E52818 /* HealthCardView.swift */,
+				51D7E81D2B30D75900E52818 /* AddHealthCardView.swift */,
+				51D7E8052B2EEF6200E52818 /* HealthCardsView.swift */,
+				51D7E8072B2F205100E52818 /* HealthFormView.swift */,
+				5145F5C12B322E7A003DE488 /* HistoricalHealthCardsView.swift */,
+				5145F5C52B3236F2003DE488 /* ShareableHealthCardView.swift */,
+				5145F5C72B32E947003DE488 /* HeartRateMeasurementView.swift */,
+				5145F5DF2B34C16B003DE488 /* DecodableViewModel.swift */,
+			);
+			path = Health;
+			sourceTree = "<group>";
+		};
+		5145F5DB2B34A2B6003DE488 /* Weather */ = {
+			isa = PBXGroup;
+			children = (
+				5145F5D12B3384ED003DE488 /* WeatherCardView.swift */,
+				5145F5D32B34219A003DE488 /* WeatherCardsView.swift */,
+				5145F5D52B3429AC003DE488 /* WeatherCardsViewModel.swift */,
+			);
+			path = Weather;
+			sourceTree = "<group>";
+		};
+		5145F5DC2B34A2C3003DE488 /* Notification */ = {
+			isa = PBXGroup;
+			children = (
+				51D7E7FF2B2E027200E52818 /* AINotificationsView.swift */,
+				51D7E8012B2E089D00E52818 /* AINotificationView.swift */,
+			);
+			path = Notification;
 			sourceTree = "<group>";
 		};
 		516CC82C2B0DFBB000696BF1 = {
@@ -112,12 +145,13 @@
 			children = (
 				D0A3E5C62B1874200061EF0F /* Info.plist */,
 				6F5D6DA32B17032300B721FC /* Settings.bundle */,
-				51D7E7FC2B2DFD9800E52818 /* Views */,
-				51D7E80A2B2F214500E52818 /* ViewModels */,
-				51D7E8112B2F6A9400E52818 /* Data */,
-				5145F5BC2B3215D7003DE488 /* Utilities */,
+				5145F5D92B34A28F003DE488 /* Modules */,
 				516CC8382B0DFBB000696BF1 /* WellnessAIApp.swift */,
+				51D7E7FD2B2DFDB100E52818 /* HomeView.swift */,
 				51D7E81B2B30BABA00E52818 /* Constants.swift */,
+				5145F5DD2B34B8FC003DE488 /* Extensions.swift */,
+				51D7E8122B2F6AD400E52818 /* symptoms.json */,
+				51D7E8142B2F6AF200E52818 /* intensities.json */,
 				51D7E8162B2F6B7600E52818 /* WellnessAI.xcdatamodeld */,
 				516CC83C2B0DFBB200696BF1 /* Assets.xcassets */,
 				516CC83E2B0DFBB200696BF1 /* Preview Content */,
@@ -131,46 +165,6 @@
 				516CC83F2B0DFBB200696BF1 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
-			sourceTree = "<group>";
-		};
-		51D7E7FC2B2DFD9800E52818 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				51D7E7FD2B2DFDB100E52818 /* AppView.swift */,
-				51D7E7FF2B2E027200E52818 /* AINotificationsView.swift */,
-				51D7E8012B2E089D00E52818 /* AINotificationView.swift */,
-				51D7E8032B2EE80B00E52818 /* HealthCardView.swift */,
-				51D7E81D2B30D75900E52818 /* AddHealthCardView.swift */,
-				51D7E8052B2EEF6200E52818 /* HealthCardsView.swift */,
-				51D7E8072B2F205100E52818 /* HealthFormView.swift */,
-				5145F5C12B322E7A003DE488 /* HistoricalHealthCardsView.swift */,
-				5145F5C52B3236F2003DE488 /* ShareableHealthCardView.swift */,
-				5145F5C72B32E947003DE488 /* HeartRateMeasurementView.swift */,
-				5145F5C92B32FC28003DE488 /* CameraPreviewView.swift */,
-				5145F5D12B3384ED003DE488 /* WeatherCardView.swift */,
-				5145F5D32B34219A003DE488 /* WeatherCardsView.swift */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		51D7E80A2B2F214500E52818 /* ViewModels */ = {
-			isa = PBXGroup;
-			children = (
-				51D7E80B2B2F217500E52818 /* HealthFormViewModel.swift */,
-				5145F5B92B31F94D003DE488 /* HealthCardsViewModel.swift */,
-				5145F5CD2B332D60003DE488 /* HeartRateMeasurementViewModel.swift */,
-				5145F5D52B3429AC003DE488 /* WeatherCardsViewModel.swift */,
-			);
-			path = ViewModels;
-			sourceTree = "<group>";
-		};
-		51D7E8112B2F6A9400E52818 /* Data */ = {
-			isa = PBXGroup;
-			children = (
-				51D7E8122B2F6AD400E52818 /* symptoms.json */,
-				51D7E8142B2F6AF200E52818 /* intensities.json */,
-			);
-			path = Data;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -246,27 +240,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5145F5DE2B34B8FC003DE488 /* Extensions.swift in Sources */,
 				51D7E8002B2E027200E52818 /* AINotificationsView.swift in Sources */,
 				5145F5D62B3429AC003DE488 /* WeatherCardsViewModel.swift in Sources */,
-				5145F5BE2B32161B003DE488 /* JsonUtils.swift in Sources */,
 				5145F5C62B3236F2003DE488 /* ShareableHealthCardView.swift in Sources */,
 				51D7E81C2B30BABA00E52818 /* Constants.swift in Sources */,
 				51D7E8022B2E089D00E52818 /* AINotificationView.swift in Sources */,
 				51D7E80C2B2F217500E52818 /* HealthFormViewModel.swift in Sources */,
 				5145F5CE2B332D60003DE488 /* HeartRateMeasurementViewModel.swift in Sources */,
 				5145F5C22B322E7A003DE488 /* HistoricalHealthCardsView.swift in Sources */,
-				5145F5C42B323405003DE488 /* ViewUtils.swift in Sources */,
-				51D7E7FE2B2DFDB100E52818 /* AppView.swift in Sources */,
+				51D7E7FE2B2DFDB100E52818 /* HomeView.swift in Sources */,
 				5145F5D22B3384ED003DE488 /* WeatherCardView.swift in Sources */,
 				51D7E8042B2EE80B00E52818 /* HealthCardView.swift in Sources */,
 				51D7E8182B2F6B7600E52818 /* WellnessAI.xcdatamodeld in Sources */,
 				516CC8392B0DFBB000696BF1 /* WellnessAIApp.swift in Sources */,
+				5145F5E02B34C16B003DE488 /* DecodableViewModel.swift in Sources */,
 				5145F5BA2B31F94D003DE488 /* HealthCardsViewModel.swift in Sources */,
-				5145F5CA2B32FC28003DE488 /* CameraPreviewView.swift in Sources */,
 				51D7E81E2B30D75900E52818 /* AddHealthCardView.swift in Sources */,
 				5145F5D42B34219A003DE488 /* WeatherCardsView.swift in Sources */,
 				5145F5C82B32E947003DE488 /* HeartRateMeasurementView.swift in Sources */,
-				5145F5C02B322CC5003DE488 /* DateUtils.swift in Sources */,
 				51D7E8062B2EEF6200E52818 /* HealthCardsView.swift in Sources */,
 				51D7E8082B2F205100E52818 /* HealthFormView.swift in Sources */,
 			);

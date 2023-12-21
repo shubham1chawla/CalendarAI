@@ -60,7 +60,7 @@ struct WeatherCardView: View {
             .padding()
             HStack {
                 Image(systemName: "clock")
-                Text("Updated on \(timeAgoFormat(date: Date()))")
+                Text("Updated 2 hours ago")
             }
             .font(.caption)
             .padding()

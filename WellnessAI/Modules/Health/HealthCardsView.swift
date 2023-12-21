@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HealthCardsView: View {
     
-    @Environment(\.managedObjectContext) var moc
+    @Environment(\.managedObjectContext) var context
     @StateObject private var viewModel = ViewModel()
     
     var body: some View {
@@ -19,7 +19,7 @@ struct HealthCardsView: View {
         }
         .font(.subheadline)
         .onAppear {
-            viewModel.setNSManagedObjectContext(moc)
+            viewModel.setup(context: context)
         }
         if viewModel.userSessions.isEmpty {
             NavigationLink {
@@ -29,7 +29,9 @@ struct HealthCardsView: View {
             }
         } else {
             HStack {
-                HealthCardView(userSession: viewModel.userSessions.first!, intensities: viewModel.intensities, dateFormatter: timeAgoFormat)
+                HealthCardView(userSession: viewModel.userSessions.first!, dateFormatter: { date in
+                    return date?.formatted(relativeTo: Date()) ?? ""
+                })
                     .frame(width: 300)
                 VStack {
                     NavigationLink {

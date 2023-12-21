@@ -15,10 +15,10 @@ struct HistoricalHealthCardsView: View {
         List {
             ForEach(viewModel.userSessions) { userSession in
                 NavigationLink {
-                    ShareableHealthCardView(userSession: userSession, intensities: viewModel.intensities)
+                    ShareableHealthCardView(userSession: userSession)
                 } label: {
                     Image(systemName: "heart.text.square")
-                    Text("Health Card from \(timeAgoFormat(date: userSession.timestamp))")
+                    Text("Health Card from \(userSession.timestamp!.formatted(relativeTo: Date()))")
                 }
             }
         }

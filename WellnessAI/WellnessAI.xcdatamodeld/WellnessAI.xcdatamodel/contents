@@ -17,7 +17,8 @@
         <relationship name="userSymptoms" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="UserSymptom" inverseName="userSession" inverseEntity="UserSymptom"/>
     </entity>
     <entity name="UserSymptom" representedClassName=".UserSymptom" syncable="YES" codeGenerationType="class">
-        <attribute name="intensity" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="intensityLabel" attributeType="String"/>
+        <attribute name="intensityValue" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="symptom" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Symptom" inverseName="userSymptoms" inverseEntity="Symptom"/>
         <relationship name="userSession" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="UserSession" inverseName="userSymptoms" inverseEntity="UserSession"/>
     </entity>
