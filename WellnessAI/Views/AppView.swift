@@ -10,14 +10,14 @@ import SwiftUI
 struct AppView: View {
     var body: some View {
         NavigationView {
-            ScrollView(.vertical) {
+            ScrollView(.vertical, showsIndicators: false) {
                 VStack(alignment: .leading) {
-                    AINotificationsView()
-                    HealthCardsView()
+                    AINotificationsView().padding(.horizontal)
+                    HealthCardsView().padding(.horizontal)
+                    WeatherCardsView().padding(.horizontal)
                 }
             }
-            .padding()
-            .navigationTitle("WellnessAI")
+            .navigationTitle("Wellness.ai")
         }
     }
 }

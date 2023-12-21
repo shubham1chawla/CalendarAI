@@ -11,12 +11,12 @@ struct AddHealthCardView: View {
     var body: some View {
         VStack {
             Image(systemName: "plus.circle")
-                .font(.largeTitle)
+                .font(.title)
                 .padding(EdgeInsets(
                     top: 24, leading: 16, bottom: 4, trailing: 16
                 ))
             Text("Add Health Information")
-                .font(.subheadline)
+                .font(.headline)
                 .padding(EdgeInsets(
                     top: 4, leading: 16, bottom: 24, trailing: 16
                 ))
