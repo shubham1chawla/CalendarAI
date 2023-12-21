@@ -10,13 +10,13 @@ import SwiftUI
 struct ShareableHealthCardView: View {
     
     let userSession: UserSession
-    let intensities: [Int:String]
-    
     @State private var image: Image?
     
     var card: some View {
-        HealthCardView(userSession: userSession, intensities: intensities, dateFormatter: standardFormat)
-            .padding()
+        HealthCardView(userSession: userSession, dateFormatter: { date in
+            return date?.formatted() ?? ""
+        })
+        .padding()
     }
     
     var body: some View {
@@ -30,7 +30,7 @@ struct ShareableHealthCardView: View {
         .navigationTitle("Health Card")
         .toolbar {
             if image != nil {
-                ShareLink(item: image!, preview: SharePreview("Health Card", image: image!)) {
+                ShareLink(item: image!, preview: SharePreview(userSession.uuid!, image: image!)) {
                     Label("", systemImage: "square.and.arrow.up")
                 }
             }

@@ -1,8 +1,8 @@
 //
-//  ViewUtils.swift
+//  Extensions.swift
 //  WellnessAI
 //
-//  Created by Shubham Chawla on 12/20/23.
+//  Created by Shubham Chawla on 12/21/23.
 //
 
 import Foundation
@@ -10,7 +10,6 @@ import SwiftUI
 
 extension View {
     
-    // Takes a screenshot of any view
     func snapshot() -> UIImage {
         let controller = UIHostingController(rootView: self)
         let view = controller.view
@@ -31,6 +30,16 @@ extension View {
         return renderer.image { rendererContext in
             view?.layer.render(in: rendererContext.cgContext)
         }
+    }
+    
+}
+
+extension Date {
+    
+    func formatted(relativeTo: Date) -> String {
+        let formatter = RelativeDateTimeFormatter()
+        formatter.unitsStyle = .full
+        return formatter.localizedString(for: self, relativeTo: relativeTo)
     }
     
 }

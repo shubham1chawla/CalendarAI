@@ -10,8 +10,9 @@ import SwiftUI
 struct HealthFormView: View {
     
     @Environment(\.dismiss) var dismiss
-    @Environment(\.managedObjectContext) var moc
+    @Environment(\.managedObjectContext) var context
     @StateObject private var viewModel = ViewModel()
+    @StateObject private var decodableViewModel = DecodableViewModel()
     
     var body: some View {
         Form {
@@ -97,7 +98,7 @@ struct HealthFormView: View {
                                 Image(systemName: "staroflife")
                                 Text(userSymptom.symptom?.name ?? "Unknown")
                                 Spacer()
-                                Text("\(viewModel.intensities[Int(userSymptom.intensity)]!) (\(userSymptom.intensity))")
+                                Text("\(userSymptom.intensityLabel!) (\(Int(userSymptom.intensityValue)))")
                             }
                         }
                         .onDelete { indexes in
@@ -125,11 +126,7 @@ struct HealthFormView: View {
             }
         }
         .onAppear {
-            viewModel.setNSManagedObjectContext(moc)
+            viewModel.setup(context: context, decodableViewModel: decodableViewModel)
         }
     }
-}
-
-#Preview {
-    HealthFormView()
 }

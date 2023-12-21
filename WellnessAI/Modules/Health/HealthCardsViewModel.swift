@@ -15,19 +15,12 @@ extension HealthCardsView {
         private let defaults = UserDefaults.standard
         
         @Published private(set) var userSessions: [UserSession] = []
-        @Published private(set) var intensities: [Int:String] = [:]
         
-        func setNSManagedObjectContext(_ context: NSManagedObjectContext? = nil) {
+        func setup(context: NSManagedObjectContext) {
             self.context = context
             
             // Loading user sessions from database
             loadUserSessions()
-            
-            // Preparing intensity map
-            let decodableIntensities: [DecodableIntensity] = decodeJson(forResource: "intensities")
-            for decodableIntensity in decodableIntensities {
-                intensities[decodableIntensity.value] = decodableIntensity.label
-            }
         }
         
         private func loadUserSessions() -> Void {
