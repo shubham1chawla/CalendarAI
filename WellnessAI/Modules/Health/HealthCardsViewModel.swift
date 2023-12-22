@@ -27,6 +27,7 @@ extension HealthCardsView {
             guard let context = context else { return }
             
             let request = UserSession.fetchRequest()
+            request.predicate = NSPredicate(format: "userMeasurement != nil || userSymptoms.@count > 0")
             request.sortDescriptors = [NSSortDescriptor(key: "timestamp", ascending: false)]
             
             var userSessions: [UserSession] = []

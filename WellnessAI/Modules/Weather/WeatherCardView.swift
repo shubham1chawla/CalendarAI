@@ -7,60 +7,79 @@
 
 import SwiftUI
 
-struct Field {
-    let icon: String
-    let name: String
-    let value: String
-}
-
 struct WeatherCardView: View {
     
-    private var fields = [
-        Field(icon: "thermometer.low", name: "Minimum Temperature", value: "14° C"),
-        Field(icon: "thermometer.high", name: "Maximum Temperature", value: "20° C"),
-        Field(icon: "wind", name: "Wind Speed", value: "2 m/s"),
-        Field(icon: "humidity", name: "Humidity", value: "62 %"),
-        Field(icon: "eye", name: "Visibility", value: "10 km"),
-        Field(icon: "barometer", name: "Pressure", value: "10 khPa"),
-        Field(icon: "cloud.rain", name: "Rain", value: "0 mm"),
-        Field(icon: "cloud.snow", name: "Snow", value: "0 mm"),
-    ]
+    let userSession: UserSession
     
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
                 Image(systemName: "location")
-                Text("Bhiwadi")
+                Text(userSession.weather?.locationName ?? "Unknown")
             }
             .font(.caption)
             .padding()
             HStack(alignment: .bottom, spacing: 8) {
-                Image(systemName: "cloud.fill")
+                VStack(alignment: .trailing) {
+                    Text(userSession.weather?.weatherMain ?? "Unknown")
+                        .font(.headline)
+                    Text((userSession.weather?.weatherDescription ?? "Unknown").capitalized)
+                        .font(.caption)
+                }
+                Image(systemName: userSession.weather?.iconSystemName ?? "questionmark")
                     .font(.largeTitle)
                 VStack(alignment: .leading) {
-                    Text("16° C")
+                    Text("\(userSession.weather?.currentTemp ?? 0, specifier: "%.2f")° C")
                         .font(.headline)
-                    Text("Feels like 15° C")
+                    Text("Feels like \(userSession.weather?.feelsLikeTemp ?? 0, specifier: "%.2f")° C")
                         .font(.caption)
                 }
             }
             .frame(maxWidth: .infinity)
             .padding()
             VStack(spacing: 8) {
-                ForEach(fields, id:\.name) { field in
-                    HStack {
-                        Image(systemName: field.icon)
-                        Text(field.name)
-                        Spacer()
-                        Text(field.value)
-                    }
-                    .font(.subheadline)
+                HStack {
+                    Image(systemName: "thermometer.low")
+                    Text("Minimum Temperature")
+                    Spacer()
+                    Text("\(userSession.weather?.minTemp ?? 0, specifier: "%.2f")° C")
+                }
+                HStack {
+                    Image(systemName: "thermometer.high")
+                    Text("Maximum Temperature")
+                    Spacer()
+                    Text("\(userSession.weather?.maxTemp ?? 0, specifier: "%.2f")° C")
+                }
+                HStack {
+                    Image(systemName: "barometer")
+                    Text("Pressure")
+                    Spacer()
+                    Text("\(userSession.weather?.pressure ?? 0, specifier: "%.2f") hPa")
+                }
+                HStack {
+                    Image(systemName: "humidity")
+                    Text("Humidity")
+                    Spacer()
+                    Text("\(userSession.weather?.humidity ?? 0, specifier: "%.2f") %")
+                }
+                HStack {
+                    Image(systemName: "eye")
+                    Text("Visibility")
+                    Spacer()
+                    Text("\(userSession.weather?.visibility ?? 0, specifier: "%.2f") m")
+                }
+                HStack {
+                    Image(systemName: "wind")
+                    Text("Wind Speed")
+                    Spacer()
+                    Text("\(userSession.weather?.windSpeed ?? 0, specifier: "%.2f") m/s")
                 }
             }
             .padding()
+            .font(.subheadline)
             HStack {
                 Image(systemName: "clock")
-                Text("Updated 2 hours ago")
+                Text(userSession.timestamp!.formatted(relativeTo: Date()))
             }
             .font(.caption)
             .padding()
@@ -70,6 +89,3 @@ struct WeatherCardView: View {
     }
 }
 
-#Preview {
-    WeatherCardView()
-}

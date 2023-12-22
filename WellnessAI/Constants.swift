@@ -11,6 +11,7 @@ struct Keys {
     static let APPLICATION_NAME = "WellnessAI"
     static let LAST_USER_SESSSION = "lastUserSession"
     static let IS_DEVELOPER_MODE_ENABLED = "isDeveloperModeEnabled"
+    static let OPEN_WEATHER_API_KEY_IDENTIFIER = "openWeatherKey"
 }
 
 struct MeasurementConstants {

@@ -15,11 +15,30 @@
         <attribute name="uuid" attributeType="String"/>
         <relationship name="userMeasurement" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="UserMeasurement" inverseName="userSession" inverseEntity="UserMeasurement"/>
         <relationship name="userSymptoms" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="UserSymptom" inverseName="userSession" inverseEntity="UserSymptom"/>
+        <relationship name="weather" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Weather" inverseName="userSession" inverseEntity="Weather"/>
     </entity>
     <entity name="UserSymptom" representedClassName=".UserSymptom" syncable="YES" codeGenerationType="class">
         <attribute name="intensityLabel" attributeType="String"/>
         <attribute name="intensityValue" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="symptom" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Symptom" inverseName="userSymptoms" inverseEntity="Symptom"/>
         <relationship name="userSession" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="UserSession" inverseName="userSymptoms" inverseEntity="UserSession"/>
+    </entity>
+    <entity name="Weather" representedClassName=".Weather" syncable="YES" codeGenerationType="class">
+        <attribute name="currentTemp" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="feelsLikeTemp" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="humidity" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="iconSystemName" optional="YES" attributeType="String"/>
+        <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="locationName" optional="YES" attributeType="String"/>
+        <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="maxTemp" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="minTemp" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="pressure" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="units" optional="YES" attributeType="String"/>
+        <attribute name="visibility" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="weatherDescription" optional="YES" attributeType="String"/>
+        <attribute name="weatherMain" optional="YES" attributeType="String"/>
+        <attribute name="windSpeed" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <relationship name="userSession" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="UserSession" inverseName="weather" inverseEntity="UserSession"/>
     </entity>
 </model>
