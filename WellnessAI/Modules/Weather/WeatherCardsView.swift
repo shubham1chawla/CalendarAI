@@ -9,6 +9,7 @@ import SwiftUI
 
 struct WeatherCardsView: View {
     
+    @Environment(\.managedObjectContext) var context
     @StateObject private var viewModel = ViewModel()
     
     var body: some View {
@@ -17,25 +18,32 @@ struct WeatherCardsView: View {
             Text("Weather Cards")
         }
         .font(.subheadline)
-        HStack {
-            WeatherCardView()
-                .frame(width: 300)
-            VStack {
-                Button {
-                    
-                } label: {
-                    Image(systemName: "arrow.clockwise")
-                }
-                .padding()
-            }
-            .font(.title)
+        .onAppear {
+            viewModel.refreshWeatherInformation(context: context)
         }
-        .padding(EdgeInsets(
-            top: 8, leading: 0, bottom: 8, trailing: 0
-        ))
+        if viewModel.isError {
+            ErrorWeatherCardView(errorMessage: viewModel.errorMessage)
+        }
+        else if viewModel.userSessions.isEmpty {
+            LoadingWeatherCardView()
+        }
+        else {
+            HStack {
+                WeatherCardView(userSession: viewModel.userSessions.first!)
+                    .frame(width: 300)
+                VStack {
+                    Button {
+                        viewModel.refreshWeatherInformation(context: context)
+                    } label: {
+                        Image(systemName: "arrow.clockwise")
+                    }
+                    .padding()
+                }
+                .font(.title)
+            }
+            .padding(EdgeInsets(
+                top: 8, leading: 0, bottom: 8, trailing: 0
+            ))
+        }
     }
-}
-
-#Preview {
-    WeatherCardsView()
 }

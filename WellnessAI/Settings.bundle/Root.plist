@@ -8,11 +8,21 @@
 	<array>
 		<dict>
 			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Developer Mode</string>
+			<key>Key</key>
+			<string>isDeveloperModeEnabled</string>
+			<key>DefaultValue</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>Type</key>
 			<string>PSTextFieldSpecifier</string>
 			<key>Title</key>
 			<string>Open Weather Key</string>
 			<key>Key</key>
-			<string>openweatherKey</string>
+			<string>openWeatherKey</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -21,16 +31,6 @@
 			<string>OpenAI key</string>
 			<key>Key</key>
 			<string>openAIKey</string>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
-			<key>Title</key>
-			<string>Developer Mode</string>
-			<key>Key</key>
-			<string>isDeveloperModeEnabled</string>
-			<key>DefaultValue</key>
-			<true/>
 		</dict>
 		<dict>
 			<key>Type</key>
