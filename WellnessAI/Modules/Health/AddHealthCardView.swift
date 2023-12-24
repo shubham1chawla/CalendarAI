@@ -21,7 +21,7 @@ struct AddHealthCardView: View {
                     top: 4, leading: 16, bottom: 24, trailing: 16
                 ))
         }
-        .frame(maxWidth: .infinity)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(.ultraThinMaterial)
         .clipShape(RoundedRectangle(cornerRadius: 4))
     }

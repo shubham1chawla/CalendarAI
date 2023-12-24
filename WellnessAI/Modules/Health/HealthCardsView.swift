@@ -16,42 +16,37 @@ struct HealthCardsView: View {
         HStack {
             Image(systemName: "heart.text.square")
             Text("Health Cards")
+            Spacer()
+            NavigationLink {
+                HistoricalHealthCardsView(viewModel: viewModel)
+            } label: {
+                Image(systemName: "clock.arrow.circlepath")
+            }
         }
         .font(.subheadline)
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack {
+                if let userSession = viewModel.userSessions.first {
+                    HealthCardView(userSession: userSession, dateFormatter: { date in
+                        return date?.formatted(relativeTo: Date()) ?? ""
+                    })
+                    .frame(width: 300)
+                }
+                NavigationLink {
+                    HealthFormView()
+                } label: {
+                    AddHealthCardView()
+                }
+                .frame(width: 300)
+                .frame(maxHeight: .infinity)
+            }
+            .fixedSize(horizontal: false, vertical: /*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/)
+        }
+        .padding(EdgeInsets(
+            top: 8, leading: 0, bottom: 8, trailing: 0
+        ))
         .onAppear {
             viewModel.setup(context: context)
-        }
-        if viewModel.userSessions.isEmpty {
-            NavigationLink {
-                HealthFormView()
-            } label: {
-                AddHealthCardView()
-            }
-        } else {
-            HStack {
-                HealthCardView(userSession: viewModel.userSessions.first!, dateFormatter: { date in
-                    return date?.formatted(relativeTo: Date()) ?? ""
-                })
-                    .frame(width: 300)
-                VStack {
-                    NavigationLink {
-                        HealthFormView()
-                    } label: {
-                        Image(systemName: "plus.circle")
-                    }
-                    .padding()
-                    NavigationLink {
-                        HistoricalHealthCardsView(viewModel: viewModel)
-                    } label: {
-                        Image(systemName: "clock.arrow.circlepath")
-                    }
-                    .padding()
-                }
-                .font(.title)
-            }
-            .padding(EdgeInsets(
-                top: 8, leading: 0, bottom: 8, trailing: 0
-            ))
         }
     }
 }

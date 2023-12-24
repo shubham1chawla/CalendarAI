@@ -81,20 +81,29 @@ extension WeatherCardsView {
             return !(errorMessage ?? "").isEmpty
         }
         
-        func refreshWeatherInformation(context: NSManagedObjectContext) -> Void {
+        func refreshWeatherInformation(context: NSManagedObjectContext, force: Bool = false) -> Void {
             self.context = context
             self.errorMessage = nil
             
-            // Checking if weather information is set for the current user session
-            let userSession = getCurrentUserSession(context: context)
-            if userSession.weather != nil {
-                setUserSessionsWithWeather()
-            } else {
+            // Loading weather sessions from database
+            setUserSessionsWithWeather()
+            
+            if shouldCallOpenWeatherAPI(force: force) {
                 locationManager = CLLocationManager()
                 locationManager?.delegate = self
                 locationManager?.desiredAccuracy = kCLLocationAccuracyBest
                 locationManager?.requestWhenInUseAuthorization()
             }
+        }
+        
+        private func shouldCallOpenWeatherAPI(force: Bool) -> Bool {
+            if isAwaitingAPIResponse { return false }
+            if force { return true }
+            if userSessions.isEmpty { return true }
+            
+            let userSession = userSessions.first
+            let timestamp = userSession?.timestamp ?? Date()
+            return abs(Int(timestamp.timeIntervalSinceNow)) > APIConstants.API_THROTTLING_TIMEOUT
         }
         
         nonisolated func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
@@ -214,9 +223,12 @@ extension WeatherCardsView {
             let request = UserSession.fetchRequest()
             request.predicate = NSPredicate(format: "weather != nil")
             request.sortDescriptors = [NSSortDescriptor(key: "timestamp", ascending: false)]
+            
+            var userSessions: [UserSession] = []
             for userSession in try! context.fetch(request) {
                 userSessions.append(userSession)
             }
+            self.userSessions = userSessions
         }
         
     }

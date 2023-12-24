@@ -16,11 +16,15 @@ struct ErrorWeatherCardView: View {
                 .padding(EdgeInsets(
                     top: 24, leading: 16, bottom: 4, trailing: 16
                 ))
-            Text(errorMessage ?? "Unable to present weather information")
-                .font(.headline)
-                .padding(EdgeInsets(
-                    top: 4, leading: 16, bottom: 24, trailing: 16
-                ))
+            VStack {
+                Text("Something went wrong!")
+                    .font(.headline)
+                Text(errorMessage ?? "Unable to present weather information")
+                    .font(.caption)
+            }
+            .padding(EdgeInsets(
+                top: 4, leading: 16, bottom: 24, trailing: 16
+            ))
         }
         .frame(maxWidth: .infinity)
         .background(.ultraThinMaterial)

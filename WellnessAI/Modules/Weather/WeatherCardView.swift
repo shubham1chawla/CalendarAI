@@ -9,29 +9,29 @@ import SwiftUI
 
 struct WeatherCardView: View {
     
-    let userSession: UserSession
+    let weather: Weather
     
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
                 Image(systemName: "location")
-                Text(userSession.weather?.locationName ?? "Unknown")
+                Text(weather.locationName ?? "Unknown")
             }
             .font(.caption)
             .padding()
             HStack(alignment: .bottom, spacing: 8) {
                 VStack(alignment: .trailing) {
-                    Text(userSession.weather?.weatherMain ?? "Unknown")
+                    Text(weather.weatherMain ?? "Unknown")
                         .font(.headline)
-                    Text((userSession.weather?.weatherDescription ?? "Unknown").capitalized)
+                    Text((weather.weatherDescription ?? "Unknown").capitalized)
                         .font(.caption)
                 }
-                Image(systemName: userSession.weather?.iconSystemName ?? "questionmark")
+                Image(systemName: weather.iconSystemName ?? "questionmark")
                     .font(.largeTitle)
                 VStack(alignment: .leading) {
-                    Text("\(userSession.weather?.currentTemp ?? 0, specifier: "%.2f")° C")
+                    Text("\(weather.currentTemp, specifier: "%.2f")° C")
                         .font(.headline)
-                    Text("Feels like \(userSession.weather?.feelsLikeTemp ?? 0, specifier: "%.2f")° C")
+                    Text("Feels like \(weather.feelsLikeTemp, specifier: "%.2f")° C")
                         .font(.caption)
                 }
             }
@@ -42,47 +42,41 @@ struct WeatherCardView: View {
                     Image(systemName: "thermometer.low")
                     Text("Minimum Temperature")
                     Spacer()
-                    Text("\(userSession.weather?.minTemp ?? 0, specifier: "%.2f")° C")
+                    Text("\(weather.minTemp, specifier: "%.2f")° C")
                 }
                 HStack {
                     Image(systemName: "thermometer.high")
                     Text("Maximum Temperature")
                     Spacer()
-                    Text("\(userSession.weather?.maxTemp ?? 0, specifier: "%.2f")° C")
+                    Text("\(weather.maxTemp, specifier: "%.2f")° C")
                 }
                 HStack {
                     Image(systemName: "barometer")
                     Text("Pressure")
                     Spacer()
-                    Text("\(userSession.weather?.pressure ?? 0, specifier: "%.2f") hPa")
+                    Text("\(weather.pressure, specifier: "%.2f") hPa")
                 }
                 HStack {
                     Image(systemName: "humidity")
                     Text("Humidity")
                     Spacer()
-                    Text("\(userSession.weather?.humidity ?? 0, specifier: "%.2f") %")
+                    Text("\(weather.humidity, specifier: "%.2f") %")
                 }
                 HStack {
                     Image(systemName: "eye")
                     Text("Visibility")
                     Spacer()
-                    Text("\(userSession.weather?.visibility ?? 0, specifier: "%.2f") m")
+                    Text("\(weather.visibility, specifier: "%.2f") m")
                 }
                 HStack {
                     Image(systemName: "wind")
                     Text("Wind Speed")
                     Spacer()
-                    Text("\(userSession.weather?.windSpeed ?? 0, specifier: "%.2f") m/s")
+                    Text("\(weather.windSpeed, specifier: "%.2f") m/s")
                 }
             }
             .padding()
             .font(.subheadline)
-            HStack {
-                Image(systemName: "clock")
-                Text(userSession.timestamp!.formatted(relativeTo: Date()))
-            }
-            .font(.caption)
-            .padding()
         }
         .background(.ultraThinMaterial)
         .clipShape(RoundedRectangle(cornerRadius: 4))
