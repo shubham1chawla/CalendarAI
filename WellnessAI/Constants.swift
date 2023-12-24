@@ -22,3 +22,7 @@ struct MeasurementConstants {
     static let ACCELEROMETER_INTERVAL = 0.1
     static let ACCELEROMETER_DIFFERENCE_THRESHOLD = 0.15
 }
+
+struct APIConstants {
+    static let API_THROTTLING_TIMEOUT = 5 * 60
+}
