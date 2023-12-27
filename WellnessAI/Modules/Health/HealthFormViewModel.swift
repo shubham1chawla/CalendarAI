@@ -15,8 +15,6 @@ extension HealthFormView {
         private var context: NSManagedObjectContext?
         private var decodableViewModel: DecodableViewModel?
         private var timer: Timer?
-        private let defaults = UserDefaults.standard
-        private let motionManager = CMMotionManager()
         
         @Published private(set) var symptoms: [Symptom] = []
         @Published private(set) var intensities: [Int:String] = [:]
@@ -48,6 +46,7 @@ extension HealthFormView {
             isMeasuringRespRate.toggle()
             
             // Setting up accelerometer for capturing motion
+            let motionManager = CMMotionManager()
             motionManager.startAccelerometerUpdates()
             motionManager.accelerometerUpdateInterval = MeasurementConstants.ACCELEROMETER_INTERVAL
             
@@ -69,7 +68,7 @@ extension HealthFormView {
                     }
                     
                     // Fetching accelerometer data
-                    if let data = self.motionManager.accelerometerData {
+                    if let data = motionManager.accelerometerData {
                         let value = sqrt(pow(data.acceleration.x, 2) + pow(data.acceleration.y, 2) + pow(data.acceleration.z, 2))
                         if abs(value - previousValue) > MeasurementConstants.ACCELEROMETER_DIFFERENCE_THRESHOLD {
                             rawRespCount += 1
@@ -100,24 +99,16 @@ extension HealthFormView {
         func saveHealthInformation() -> Void {
             guard let context = context else { return }
             
-            // Extracting user session id from defaults
-            let uuid = defaults.string(forKey: Keys.LAST_USER_SESSSION)
-            if (uuid ?? "").isEmpty {
-                fatalError("No user session was set!")
-            }
-            
             // Getting current user session
-            let request = UserSession.fetchRequest()
-            request.predicate = NSPredicate(format: "uuid CONTAINS %@", uuid!)
-            let userSessions = try! context.fetch(request)
+            let userSessions = try! context.fetch(UserSession.fetchCurrentRequest())
             let userSession = userSessions.first ?? UserSession(context: context)
-            userSession.uuid = userSession.uuid ?? uuid!
+            userSession.uuid = userSession.uuid ?? UserDefaults.standard.string(forKey: Keys.LAST_USER_SESSSION)!
             userSession.timestamp = Date()
             
             // Adding user measurements if exists
             let userMeasurement = userSession.userMeasurement ?? UserMeasurement(context: context)
-            userMeasurement.heartRate = heartRate ?? 0
-            userMeasurement.respRate = respRate ?? 0
+            userMeasurement.heartRate = heartRate ?? userMeasurement.heartRate
+            userMeasurement.respRate = respRate ?? userMeasurement.respRate
             userMeasurement.userSession = userSession
             
             // Deleting old user symptoms and overwriting user symptoms
@@ -149,10 +140,7 @@ extension HealthFormView {
             decodableViewModel?.decodableSymptoms.forEach { decodableSymptom in
                 
                 // Checking if the symptom exists in database
-                let request = Symptom.fetchRequest()
-                request.predicate = NSPredicate(format: "id == %i", decodableSymptom.id)
-                let symptoms = try? context.fetch(request)
-        
+                let symptoms = try? context.fetch(Symptom.fetchRequest(forId: decodableSymptom.id))
                 if (symptoms ?? []).isEmpty {
                     let symptom = Symptom(context: context)
                     symptom.id = decodableSymptom.id

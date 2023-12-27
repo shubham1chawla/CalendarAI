@@ -1,5 +1,5 @@
 //
-//  AINotificationsView.swift
+//  SuggestionsView.swift
 //  WellnessAI
 //
 //  Created by Shubham Chawla on 12/16/23.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct AINotificationsView: View {
+struct SuggestionsView: View {
     var body: some View {
         HStack {
             Image(systemName: "wand.and.stars")
@@ -17,7 +17,7 @@ struct AINotificationsView: View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack {
                 ForEach(0..<3) { _ in
-                    AINotificationView()
+                    SuggestionView()
                         .frame(width: 300)
                 }
             }
@@ -29,5 +29,5 @@ struct AINotificationsView: View {
 }
 
 #Preview {
-    AINotificationsView()
+    SuggestionsView()
 }

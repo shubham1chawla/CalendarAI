@@ -12,7 +12,7 @@ struct HomeView: View {
         NavigationView {
             ScrollView(.vertical, showsIndicators: false) {
                 VStack(alignment: .leading) {
-                    AINotificationsView().padding(.horizontal)
+                    SuggestionsView().padding(.horizontal)
                     HealthCardsView().padding(.horizontal)
                     WeatherCardsView().padding(.horizontal)
                 }

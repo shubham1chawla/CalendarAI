@@ -12,7 +12,6 @@ extension HealthCardsView {
     @MainActor class ViewModel: ObservableObject {
         
         private var context: NSManagedObjectContext?
-        private let defaults = UserDefaults.standard
         
         @Published private(set) var userSessions: [UserSession] = []
         
@@ -25,13 +24,9 @@ extension HealthCardsView {
         
         private func loadUserSessions() -> Void {
             guard let context = context else { return }
-            
-            let request = UserSession.fetchRequest()
-            request.predicate = NSPredicate(format: "userMeasurement != nil || userSymptoms.@count > 0")
-            request.sortDescriptors = [NSSortDescriptor(key: "timestamp", ascending: false)]
-            
+
             var userSessions: [UserSession] = []
-            for userSession in try! context.fetch(request) {
+            for userSession in try! context.fetch(UserSession.fetchWithHealthRequest()) {
                 userSessions.append(userSession)
             }
             self.userSessions = userSessions

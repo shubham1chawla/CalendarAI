@@ -16,21 +16,21 @@ struct HealthCardsView: View {
         HStack {
             Image(systemName: "heart.text.square")
             Text("Health Cards")
-            Spacer()
-            NavigationLink {
-                HistoricalHealthCardsView(viewModel: viewModel)
-            } label: {
-                Image(systemName: "clock.arrow.circlepath")
+            if !viewModel.userSessions.isEmpty {
+                Spacer()
+                NavigationLink {
+                    HistoricalHealthCardsView(viewModel: viewModel)
+                } label: {
+                    Image(systemName: "clock.arrow.circlepath")
+                }
             }
         }
         .font(.subheadline)
         ScrollView(.horizontal, showsIndicators: false) {
             HStack {
                 if let userSession = viewModel.userSessions.first {
-                    HealthCardView(userSession: userSession, dateFormatter: { date in
-                        return date?.formatted(relativeTo: Date()) ?? ""
-                    })
-                    .frame(width: 300)
+                    HealthCardView(userSession: userSession, dateFormatter: { $0?.formatted(relativeTo: Date()) ?? "" })
+                        .frame(width: 300)
                 }
                 NavigationLink {
                     HealthFormView()
