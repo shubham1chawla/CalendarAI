@@ -25,7 +25,11 @@ struct HealthCardView: View {
                     VStack {
                         HStack {
                             Image(systemName: "heart")
-                            Text("\(userSession.userMeasurement?.heartRate ?? 0, specifier: "%.2f")")
+                            if let heartRate = userSession.userMeasurement?.heartRate {
+                                Text("\(heartRate, specifier: "%.2f")")
+                            } else {
+                                Text("--")
+                            }
                         }
                         .font(.headline)
                         Text("Heart Rate")
@@ -34,7 +38,11 @@ struct HealthCardView: View {
                     VStack {
                         HStack {
                             Image(systemName: "lungs")
-                            Text("\(userSession.userMeasurement?.respRate ?? 0, specifier: "%.2f")")
+                            if let respRate = userSession.userMeasurement?.respRate {
+                                Text("\(respRate, specifier: "%.2f")")
+                            } else {
+                                Text("--")
+                            }
                         }
                         .font(.headline)
                         Text("Respiratory Rate")
@@ -46,14 +54,19 @@ struct HealthCardView: View {
             .padding()
             VStack(spacing: 8) {
                 let userSymptoms = userSession.userSymptoms?.allObjects as! [UserSymptom]
-                ForEach(userSymptoms) { userSymptom in
-                    HStack {
-                        Image(systemName: "staroflife")
-                        Text(userSymptom.symptom!.name!)
-                        Spacer()
-                        Text("\(userSymptom.intensityLabel!) (\(Int(userSymptom.intensityValue)))")
+                if userSymptoms.isEmpty {
+                    Image(systemName: "exclamationmark.circle")
+                    Text("No Symptoms recorded!")
+                } else {
+                    ForEach(userSymptoms) { userSymptom in
+                        HStack {
+                            Image(systemName: "staroflife")
+                            Text(userSymptom.symptom!.name!)
+                            Spacer()
+                            Text("\(userSymptom.intensityLabel!) (\(Int(userSymptom.intensityValue)))")
+                        }
+                        .font(.subheadline)
                     }
-                    .font(.subheadline)
                 }
             }
             .padding()

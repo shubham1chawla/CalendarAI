@@ -5,8 +5,8 @@
 //  Created by Shubham Chawla on 12/21/23.
 //
 
-import Foundation
 import SwiftUI
+import CoreData
 
 extension View {
     
@@ -40,6 +40,42 @@ extension Date {
         let formatter = RelativeDateTimeFormatter()
         formatter.unitsStyle = .full
         return formatter.localizedString(for: self, relativeTo: relativeTo)
+    }
+    
+}
+
+extension UserSession {
+    
+    static func fetchCurrentRequest() -> NSFetchRequest<UserSession> {
+        let uuid = UserDefaults.standard.string(forKey: Keys.LAST_USER_SESSSION)
+        if (uuid ?? "").isEmpty { fatalError("No user session was set!") }
+        let request = UserSession.fetchRequest()
+        request.predicate = NSPredicate(format: "uuid CONTAINS %@", uuid!)
+        return request
+    }
+    
+    static func fetchWithHealthRequest() -> NSFetchRequest<UserSession> {
+        let request = UserSession.fetchRequest()
+        request.predicate = NSPredicate(format: "userMeasurement != nil || userSymptoms.@count > 0")
+        request.sortDescriptors = [NSSortDescriptor(key: "timestamp", ascending: false)]
+        return request
+    }
+    
+    static func fetchWithWeatherRequest() -> NSFetchRequest<UserSession> {
+        let request = UserSession.fetchRequest()
+        request.predicate = NSPredicate(format: "weather != nil")
+        request.sortDescriptors = [NSSortDescriptor(key: "timestamp", ascending: false)]
+        return request
+    }
+    
+}
+
+extension Symptom {
+    
+    static func fetchRequest(forId: Int16) -> NSFetchRequest<Symptom> {
+        let request = Symptom.fetchRequest()
+        request.predicate = NSPredicate(format: "id == %i", forId)
+        return request
     }
     
 }
