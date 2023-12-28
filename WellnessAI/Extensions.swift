@@ -152,11 +152,20 @@ extension FineTuneParameter {
     }
     
     static func ofWeather(context: NSManagedObjectContext, weather: Weather) -> FineTuneParameter {
-        return FineTuneParameter.of(context: context, label: .Weather, value: weather.locationName ?? "Unknown")
+        let value = weather.weatherDescription!.capitalized
+        return FineTuneParameter.of(context: context, label: .Weather, value: value)
     }
     
     static func ofCalendar(context: NSManagedObjectContext, event: EKEvent) -> FineTuneParameter {
         return FineTuneParameter.of(context: context, label: .Calendar, value: event.title ?? "Unknown")
+    }
+    
+    static func ofEmptyCalendar(context: NSManagedObjectContext) -> FineTuneParameter {
+        return FineTuneParameter.of(context: context, label: .Calendar, value: "No upcoming events!")
+    }
+    
+    static func ofBusyCalendar(context: NSManagedObjectContext, events: [EKEvent]) -> FineTuneParameter {
+        return FineTuneParameter.of(context: context, label: .Calendar, value: "\(events.count) events this week")
     }
     
     static func of(context: NSManagedObjectContext, label: Label, value: String) -> FineTuneParameter {

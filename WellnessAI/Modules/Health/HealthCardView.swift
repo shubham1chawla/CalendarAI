@@ -25,7 +25,10 @@ struct HealthCardView: View {
                     VStack {
                         HStack {
                             Image(systemName: "heart")
-                            if let heartRate = userSession.userMeasurement?.heartRate {
+                            if 
+                                let heartRate = userSession.userMeasurement?.heartRate,
+                                heartRate > 0
+                            {
                                 Text("\(heartRate, specifier: "%.2f")")
                             } else {
                                 Text("--")
@@ -38,7 +41,10 @@ struct HealthCardView: View {
                     VStack {
                         HStack {
                             Image(systemName: "lungs")
-                            if let respRate = userSession.userMeasurement?.respRate {
+                            if 
+                                let respRate = userSession.userMeasurement?.respRate,
+                                respRate > 0
+                            {
                                 Text("\(respRate, specifier: "%.2f")")
                             } else {
                                 Text("--")

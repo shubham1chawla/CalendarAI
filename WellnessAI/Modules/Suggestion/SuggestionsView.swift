@@ -30,7 +30,7 @@ struct SuggestionsView: View {
         }
         .font(.subheadline)
         ScrollView(.horizontal, showsIndicators: false) {
-            HStack {
+            HStack(alignment: .top) {
                 if viewModel.isError {
                     ErrorSuggestionCardView(errorMessage: viewModel.errorMessage).frame(width: 300)
                 } else if viewModel.suggestions.isEmpty {
@@ -48,7 +48,7 @@ struct SuggestionsView: View {
                 }
                 .frame(width: 300)
             }
-            .fixedSize(horizontal: false, vertical: /*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/)
+            .fixedSize(horizontal: false, vertical: true)
         }
         .padding(EdgeInsets(
             top: 8, leading: 0, bottom: 8, trailing: 0
