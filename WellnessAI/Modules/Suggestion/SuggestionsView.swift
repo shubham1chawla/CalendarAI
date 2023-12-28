@@ -15,14 +15,25 @@ struct SuggestionsView: View {
     var body: some View {
         HStack {
             Image(systemName: "wand.and.stars")
-            Text("AI Notifications")
+            Text("AI Suggestions")
+            Spacer()
+            Button {
+                viewModel.refreshSuggestions(context: context, force: true)
+            } label: {
+                if viewModel.isUpdatingSuggestions {
+                    ProgressView()
+                } else {
+                    Image(systemName: "arrow.clockwise")
+                }
+            }
+            .disabled(viewModel.isUpdatingSuggestions)
         }
         .font(.subheadline)
         ScrollView(.horizontal, showsIndicators: false) {
             HStack {
                 if viewModel.isError {
                     ErrorSuggestionCardView(errorMessage: viewModel.errorMessage).frame(width: 300)
-                } else if viewModel.isUpdatingSuggestions {
+                } else if viewModel.suggestions.isEmpty {
                     LoadingSuggestionCardView().frame(width: 300)
                 } else {
                     ForEach(viewModel.suggestions) { suggestion in
@@ -30,6 +41,12 @@ struct SuggestionsView: View {
                     }
                     .frame(width: 300)
                 }
+                NavigationLink {
+                    HistoricalSuggestionsCardView(viewModel: viewModel)
+                } label: {
+                    ViewHistoricalSuggestionsCardView()
+                }
+                .frame(width: 300)
             }
             .fixedSize(horizontal: false, vertical: /*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/)
         }

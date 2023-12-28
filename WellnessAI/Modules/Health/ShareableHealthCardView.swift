@@ -14,7 +14,7 @@ struct ShareableHealthCardView: View {
     
     var card: some View {
         HealthCardView(userSession: userSession, dateFormatter: { $0?.formatted() ?? "" })
-        .padding()
+            .padding(.horizontal)
     }
     
     var body: some View {

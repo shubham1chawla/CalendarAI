@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22222" systemVersion="23B92" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
     <entity name="FineTuneParameter" representedClassName=".FineTuneParameter" syncable="YES" codeGenerationType="class">
-        <attribute name="icon" attributeType="String"/>
         <attribute name="label" attributeType="String"/>
         <attribute name="value" attributeType="String"/>
         <relationship name="suggestion" maxCount="1" deletionRule="Nullify" destinationEntity="Suggestion" inverseName="parameters" inverseEntity="Suggestion"/>
