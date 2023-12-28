@@ -23,6 +23,9 @@
 		515A41F42B3C561E005B26C3 /* OpenWeatherAPIResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515A41F32B3C561E005B26C3 /* OpenWeatherAPIResponseModel.swift */; };
 		515A41F62B3C6155005B26C3 /* GoogleNearbyPlacesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515A41F52B3C6155005B26C3 /* GoogleNearbyPlacesModel.swift */; };
 		515A41F82B3C67C5005B26C3 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515A41F72B3C67C5005B26C3 /* Errors.swift */; };
+		515A41FC2B3C8F51005B26C3 /* ErrorSuggestionCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515A41FB2B3C8F51005B26C3 /* ErrorSuggestionCardView.swift */; };
+		515A41FE2B3CA1D9005B26C3 /* ChatGPTModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515A41FD2B3CA1D9005B26C3 /* ChatGPTModel.swift */; };
+		515A42002B3D9E55005B26C3 /* LoadingSuggestionCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515A41FF2B3D9E55005B26C3 /* LoadingSuggestionCardView.swift */; };
 		516CC8392B0DFBB000696BF1 /* WellnessAIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516CC8382B0DFBB000696BF1 /* WellnessAIApp.swift */; };
 		516CC83D2B0DFBB200696BF1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 516CC83C2B0DFBB200696BF1 /* Assets.xcassets */; };
 		516CC8402B0DFBB200696BF1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 516CC83F2B0DFBB200696BF1 /* Preview Assets.xcassets */; };
@@ -58,6 +61,9 @@
 		515A41F32B3C561E005B26C3 /* OpenWeatherAPIResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenWeatherAPIResponseModel.swift; sourceTree = "<group>"; };
 		515A41F52B3C6155005B26C3 /* GoogleNearbyPlacesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleNearbyPlacesModel.swift; sourceTree = "<group>"; };
 		515A41F72B3C67C5005B26C3 /* Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
+		515A41FB2B3C8F51005B26C3 /* ErrorSuggestionCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorSuggestionCardView.swift; sourceTree = "<group>"; };
+		515A41FD2B3CA1D9005B26C3 /* ChatGPTModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatGPTModel.swift; sourceTree = "<group>"; };
+		515A41FF2B3D9E55005B26C3 /* LoadingSuggestionCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingSuggestionCardView.swift; sourceTree = "<group>"; };
 		516CC8352B0DFBB000696BF1 /* WellnessAI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WellnessAI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		516CC8382B0DFBB000696BF1 /* WellnessAIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WellnessAIApp.swift; sourceTree = "<group>"; };
 		516CC83C2B0DFBB200696BF1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -137,6 +143,9 @@
 				51D7E8012B2E089D00E52818 /* SuggestionView.swift */,
 				515A41F12B3C4AA8005B26C3 /* SuggestionsViewModel.swift */,
 				515A41F52B3C6155005B26C3 /* GoogleNearbyPlacesModel.swift */,
+				515A41FB2B3C8F51005B26C3 /* ErrorSuggestionCardView.swift */,
+				515A41FD2B3CA1D9005B26C3 /* ChatGPTModel.swift */,
+				515A41FF2B3D9E55005B26C3 /* LoadingSuggestionCardView.swift */,
 			);
 			path = Suggestion;
 			sourceTree = "<group>";
@@ -269,7 +278,9 @@
 				51D7E81C2B30BABA00E52818 /* Constants.swift in Sources */,
 				51D7E8022B2E089D00E52818 /* SuggestionView.swift in Sources */,
 				51D7E80C2B2F217500E52818 /* HealthFormViewModel.swift in Sources */,
+				515A41FC2B3C8F51005B26C3 /* ErrorSuggestionCardView.swift in Sources */,
 				5145F5CE2B332D60003DE488 /* HeartRateMeasurementViewModel.swift in Sources */,
+				515A42002B3D9E55005B26C3 /* LoadingSuggestionCardView.swift in Sources */,
 				5145F5C22B322E7A003DE488 /* HistoricalHealthCardsView.swift in Sources */,
 				51D7E7FE2B2DFDB100E52818 /* HomeView.swift in Sources */,
 				5145F5D22B3384ED003DE488 /* WeatherCardView.swift in Sources */,
@@ -277,6 +288,7 @@
 				51D7E8042B2EE80B00E52818 /* HealthCardView.swift in Sources */,
 				51D7E8182B2F6B7600E52818 /* WellnessAI.xcdatamodeld in Sources */,
 				516CC8392B0DFBB000696BF1 /* WellnessAIApp.swift in Sources */,
+				515A41FE2B3CA1D9005B26C3 /* ChatGPTModel.swift in Sources */,
 				5145F5E02B34C16B003DE488 /* DecodableViewModel.swift in Sources */,
 				5145F5BA2B31F94D003DE488 /* HealthCardsViewModel.swift in Sources */,
 				51D7E81E2B30D75900E52818 /* AddHealthCardView.swift in Sources */,

@@ -100,10 +100,7 @@ extension HealthFormView {
             guard let context = context else { return }
             
             // Getting current user session
-            let userSessions = try! context.fetch(UserSession.fetchCurrentRequest())
-            let userSession = userSessions.first ?? UserSession(context: context)
-            userSession.uuid = userSession.uuid ?? UserDefaults.standard.string(forKey: Keys.LAST_USER_SESSSION)!
-            userSession.timestamp = Date()
+            let userSession = UserSession.getCurrent(context: context)
             
             // Adding user measurements if exists
             let userMeasurement = userSession.userMeasurement ?? UserMeasurement(context: context)

@@ -11,7 +11,9 @@ struct Keys {
     static let APPLICATION_NAME = "WellnessAI"
     static let LAST_USER_SESSSION = "lastUserSession"
     static let IS_DEVELOPER_MODE_ENABLED = "isDeveloperModeEnabled"
+    static let GOOGLE_NEARBY_PLACES_API_KEY_IDENTIFIER = "googleAPIKey"
     static let OPEN_WEATHER_API_KEY_IDENTIFIER = "openWeatherKey"
+    static let OPEN_AI_API_KEY_IDENTIFIER = "openAIKey"
 }
 
 struct MeasurementConstants {
@@ -27,6 +29,8 @@ struct APIConstants {
     static let API_THROTTLING_TIMEOUT = 5 * 60
     static let GOOGLE_NEARBY_PLACES_RADIUS = 5_000
     static let OPEN_WEATHER_UNITS = "metric"
+    static let CHAT_GPT_MODEL = "gpt-3.5-turbo"
+    static let CHAT_GPT_MODEL_TEMPERATURE = 0.7
 }
 
 struct WeatherConstants {
@@ -54,4 +58,12 @@ struct WeatherConstants {
     static func getSystemName(forIcon: String) -> String? {
         return WeatherConstants.ICON_TO_SYSTEM_NAME_MAPPING[forIcon]
     }
+}
+
+struct CalendarConstants {
+    static let EVENTS_FUTURE_LOOKUP_TIME_INTERVAL: TimeInterval = 7 * 24 * 3600
+}
+
+struct SuggestionConstants {
+    static let BUSY_WEEK_EVENTS_COUNT = 10
 }

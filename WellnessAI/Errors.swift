@@ -10,13 +10,16 @@ import Foundation
 enum AppError: LocalizedError {
     case googleNearbyPlacesAPIKeyMissing
     case openWeatherAPIKeyMissing
+    case openAIAPIKeyMissing
     
     var errorDescription: String? {
         switch self {
         case .googleNearbyPlacesAPIKeyMissing:
-            return "Google Nearby Places API not set in the Settings!"
+            return "Google Nearby Places API key not set in the Settings!"
         case .openWeatherAPIKeyMissing:
-            return "Open Weather API not set in the Settings!"
+            return "Open Weather API key not set in the Settings!"
+        case .openAIAPIKeyMissing:
+            return "Open AI API key not set in the Settings!"
         }
     }
 }

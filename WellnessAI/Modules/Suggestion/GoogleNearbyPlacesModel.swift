@@ -28,17 +28,39 @@ struct GoogleNearbyPlace: Decodable {
     let rating: Double?
     let userRatingsTotal: Int?
     let types: [String]
+    let businessStatus: String?
+    let permanentlyClosed: Bool?
+}
+
+extension GoogleNearbyPlace: Comparable {
+    
+    func isOperational() -> Bool {
+        return businessStatus == "OPERATIONAL" && !(permanentlyClosed ?? false)
+    }
+    
+    static func < (lhs: GoogleNearbyPlace, rhs: GoogleNearbyPlace) -> Bool {
+        let lhsRating = lhs.rating ?? 0
+        let lhsCount = Double(lhs.userRatingsTotal ?? 0)
+        let rhsRating = rhs.rating ?? 0
+        let rhsCount = Double(rhs.userRatingsTotal ?? 0)
+        return lhsRating * lhsCount > rhsRating * rhsCount
+    }
+    
+    static func getBestPlace(from places: [GoogleNearbyPlace]) -> GoogleNearbyPlace? {
+        return places.filter { $0.isOperational() }.sorted().first
+    }
+    
 }
 
 extension GoogleNearbyPlacesRequest {
     
     func fetch() async throws -> [GoogleNearbyPlace] {
-        let apiKey = UserDefaults.standard.string(forKey: Keys.OPEN_WEATHER_API_KEY_IDENTIFIER)
+        let apiKey = UserDefaults.standard.string(forKey: Keys.GOOGLE_NEARBY_PLACES_API_KEY_IDENTIFIER)
         guard !(apiKey ?? "").isEmpty else { throw AppError.googleNearbyPlacesAPIKeyMissing }
         
         var components = URLComponents(string: "https://maps.googleapis.com/maps/api/place/nearbysearch/json")!
         components.queryItems = [
-            URLQueryItem(name: "location", value: "\(location.coordinate.latitude)/\(location.coordinate.longitude)"),
+            URLQueryItem(name: "location", value: "\(location.coordinate.latitude),\(location.coordinate.longitude)"),
             URLQueryItem(name: "radius", value: "\(APIConstants.GOOGLE_NEARBY_PLACES_RADIUS)"),
             URLQueryItem(name: "type", value: type.rawValue),
             URLQueryItem(name: "key", value: apiKey)
@@ -54,7 +76,9 @@ extension GoogleNearbyPlacesRequest {
             throw URLError(.badServerResponse)
         }
         
-        let apiResponse = try JSONDecoder().decode(GoogleNearbyPlacesResponse.self, from: data)
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        let apiResponse = try decoder.decode(GoogleNearbyPlacesResponse.self, from: data)
         guard apiResponse.status == "OK" else { throw URLError(.badServerResponse) }
         return apiResponse.results
     }
