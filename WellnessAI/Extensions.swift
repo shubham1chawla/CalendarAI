@@ -38,6 +38,7 @@ extension View {
 extension Date {
     
     func formatted(relativeTo: Date) -> String {
+        if self + 60 > relativeTo { return "Now" }
         let formatter = RelativeDateTimeFormatter()
         formatter.unitsStyle = .full
         return formatter.localizedString(for: self, relativeTo: relativeTo)
@@ -122,6 +123,51 @@ extension Suggestion {
     
 }
 
+extension FineTuneParameter {
+    
+    enum Label: String {
+        case Place
+        case Weather
+        case Health
+        case Calendar
+    }
+    
+    var icon: String {
+        guard
+            let labelString = self.label,
+            let labelEnum = Label(rawValue: labelString)
+        else {
+            return "questionmark.circle"
+        }
+        switch labelEnum {
+        case .Place: return "map"
+        case .Weather: return "cloud.sun"
+        case .Health: return "heart.text.square"
+        case .Calendar: return "calendar"
+        }
+    }
+    
+    static func ofPlace(context: NSManagedObjectContext, place: GoogleNearbyPlace) -> FineTuneParameter {
+        return FineTuneParameter.of(context: context, label: .Place, value: place.name)
+    }
+    
+    static func ofWeather(context: NSManagedObjectContext, weather: Weather) -> FineTuneParameter {
+        return FineTuneParameter.of(context: context, label: .Weather, value: weather.locationName ?? "Unknown")
+    }
+    
+    static func ofCalendar(context: NSManagedObjectContext, event: EKEvent) -> FineTuneParameter {
+        return FineTuneParameter.of(context: context, label: .Calendar, value: event.title ?? "Unknown")
+    }
+    
+    static func of(context: NSManagedObjectContext, label: Label, value: String) -> FineTuneParameter {
+        let parameter = FineTuneParameter(context: context)
+        parameter.label = label.rawValue
+        parameter.value = value
+        return parameter
+    }
+    
+}
+
 extension EKEventStore {
     
     func upcomingEvents() -> [EKEvent] {
@@ -131,7 +177,7 @@ extension EKEventStore {
         let predicate = self.predicateForEvents(withStart: startDate, end: endDate, calendars: calendars)
         
         var events = self.events(matching: predicate)
-        events.sort { $0.startDate > $1.startDate }
+        events.sort { $0.startDate < $1.startDate }
         return events
     }
     

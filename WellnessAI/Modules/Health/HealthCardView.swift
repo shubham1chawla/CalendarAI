@@ -52,10 +52,14 @@ struct HealthCardView: View {
             }
             .frame(maxWidth: .infinity)
             .padding()
-            VStack(spacing: 8) {
+            VStack(alignment: .leading, spacing: 8) {
+                HStack {
+                    Image(systemName: "list.bullet.clipboard")
+                    Text("Recorded Symptoms")
+                }
+                .fontWeight(.bold)
                 let userSymptoms = userSession.userSymptoms?.allObjects as! [UserSymptom]
                 if userSymptoms.isEmpty {
-                    Image(systemName: "exclamationmark.circle")
                     Text("No Symptoms recorded!")
                 } else {
                     ForEach(userSymptoms) { userSymptom in
@@ -65,10 +69,11 @@ struct HealthCardView: View {
                             Spacer()
                             Text("\(userSymptom.intensityLabel!) (\(Int(userSymptom.intensityValue)))")
                         }
-                        .font(.subheadline)
+                        
                     }
                 }
             }
+            .font(.subheadline)
             .padding()
         }
         .background(.ultraThinMaterial)

@@ -46,15 +46,30 @@ extension SuggestionsView {
             requestFullAccesstoCalendarEvents()
         }
         
-        func refreshSuggestions(context: NSManagedObjectContext) -> Void {
+        func refreshSuggestions(context: NSManagedObjectContext, force: Bool = false) -> Void {
             guard hasCalendarAccess else { return }
             self.context = context
             errorMessage = nil
             
-            locationManager = CLLocationManager()
-            locationManager?.delegate = self
-            locationManager?.desiredAccuracy = kCLLocationAccuracyBest
-            locationManager?.requestWhenInUseAuthorization()
+            // Loading sessions with suggestions from database
+            setUserSessionsWithSuggestions()
+            
+            if shouldCallOpenWeatherAPI(force: force) {
+                locationManager = CLLocationManager()
+                locationManager?.delegate = self
+                locationManager?.desiredAccuracy = kCLLocationAccuracyBest
+                locationManager?.requestWhenInUseAuthorization()
+            }
+        }
+        
+        private func shouldCallOpenWeatherAPI(force: Bool) -> Bool {
+            if isUpdatingSuggestions { return false }
+            if force { return true }
+            if userSessions.isEmpty { return true }
+            
+            let userSession = userSessions.first
+            let timestamp = userSession?.timestamp ?? Date.now
+            return abs(Int(timestamp.timeIntervalSinceNow)) > APIConstants.API_THROTTLING_TIMEOUT
         }
         
         nonisolated func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
@@ -84,7 +99,8 @@ extension SuggestionsView {
                         isUpdatingSuggestions = false
                     }
                     await setNearbyPlacesAndWeather(currentLocation)
-                    try await setSuggestions()
+                    try await saveSuggestions()
+                    setUserSessionsWithSuggestions()
                 } catch {
                     errorMessage = error.localizedDescription
                 }
@@ -118,58 +134,46 @@ extension SuggestionsView {
          - Get the recent 3 health card have same symptom, suggest visiting hospital (Google Nearby API).
          - Get the recent 3 health card have high heart rate/ resp rate, suggest visiting hospital (Google Nearby API).
          */
-        private func setSuggestions() async throws -> Void {
+        private func saveSuggestions() async throws -> Void {
             guard let context = context else { return }
-            var suggestions: [Suggestion] = []
+            
+            // Clearing old suggestions in current user session
+            let userSession = UserSession.getCurrent(context: context)
+            userSession.suggestions = []
+            try context.save()
             
             // Generating suggestions from events
-            await getSuggestions(forEvents: eventStore.upcomingEvents()).forEach { suggestions.append($0) }
-            
-            // Saving new suggestions and loading from database
-            try context.save()
-            var userSessions: [UserSession] = []
-            for userSession in try context.fetch(UserSession.fetchWithSuggestionsRequest()) {
-                userSessions.append(userSession)
-            }
-            self.userSessions = userSessions
+            await saveSuggestions(forEvents: eventStore.upcomingEvents())
         }
         
-        /**
-         Following use cases are covered while generating suggestions from events -
-         1. If no events found, suggest to rest for the week.
-         2. if more than 10 events, alert the user of busy week.
-         3. Classify the upcoming event and use Google Nearby Places  and weather information to fine tune suggestion
-         */
-        private func getSuggestions(forEvents events: [EKEvent]) async -> [Suggestion] {
-            var suggestions: [Suggestion] = []
+        private func saveSuggestions(forEvents events: [EKEvent]) async -> Void {
             if events.isEmpty {
                 // TODO: Generate an enjoy your week suggestion
             } else {
-                
-                // Adding suggestion from the upcoming event
-                if let event = events.first, let suggestion = await getSuggestion(forEvent: event) {
-                    suggestions.append(suggestion)
-                }
+                // Saving suggestion from the upcoming event
+                if let event = events.first { await saveSuggestion(forEvent: event) }
                 
                 // Adding suggestion if busy week
                 if events.count > SuggestionConstants.BUSY_WEEK_EVENTS_COUNT {
                     // TODO: Generate a suggestion of busy week ahead
                 }
             }
-            return suggestions
         }
         
-        private func getSuggestion(forEvent event: EKEvent) async -> Suggestion? {
-            guard let context = context else { return nil }
+        private func saveSuggestion(forEvent event: EKEvent) async -> Void {
+            guard let context = context else { return }
             do {
                 if
                     let response = try await ChatGPTAPIRequest.classifyRequest(ofEvent: event)?.fetch(),
                     let classification = response.getClassification()
                 {
                     var request: ChatGPTAPIRequest? = nil
+                    var parameters: [FineTuneParameter] = [FineTuneParameter.ofCalendar(context: context, event: event)]
                     switch classification {
                     case .Celebration:
                         request = ChatGPTAPIRequest.shoppingRequest(forEvent: event, atPlace: mall, weather: weather)
+                        mall != nil ? parameters.append(FineTuneParameter.ofPlace(context: context, place: mall!)) : nil
+                        weather != nil ? parameters.append(FineTuneParameter.ofWeather(context: context, weather: weather!)) : nil
                         break
                     case .Health:
                         break
@@ -179,13 +183,23 @@ extension SuggestionsView {
                         break
                     }
                     if let request = request, let content = try await request.fetch().getContent() {
-                        return Suggestion.fromCalendar(context: context, content: content)
+                        let suggestion = Suggestion.fromCalendar(context: context, content: content)
+                        parameters.forEach { $0.suggestion = suggestion }
+                        try context.save()
                     }
                 }
             } catch {
                 print(error.localizedDescription)
             }
-            return nil
+        }
+        
+        private func setUserSessionsWithSuggestions() -> Void {
+            guard let context = context else { return }
+            var userSessions: [UserSession] = []
+            for userSession in try! context.fetch(UserSession.fetchWithSuggestionsRequest()) {
+                userSessions.append(userSession)
+            }
+            self.userSessions = userSessions
         }
         
         private func getLatestWeather(location: CLLocation) -> Weather? {

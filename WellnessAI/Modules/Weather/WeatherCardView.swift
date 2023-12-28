@@ -14,8 +14,15 @@ struct WeatherCardView: View {
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
-                Image(systemName: "location")
-                Text(weather.locationName ?? "Unknown")
+                HStack {
+                    Image(systemName: "clock")
+                    Text(weather.userSession?.timestamp?.formatted(relativeTo: Date.now) ?? "Unknown")
+                }
+                Spacer()
+                HStack {
+                    Image(systemName: "location")
+                    Text(weather.locationName ?? "Unknown")
+                }
             }
             .font(.caption)
             .padding()

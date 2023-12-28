@@ -15,8 +15,15 @@ struct SuggestionView: View {
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
-                Image(systemName: "clock")
-                Text(dateFormatter(suggestion.userSession?.timestamp))
+                HStack {
+                    Image(systemName: "clock")
+                    Text(dateFormatter(suggestion.userSession?.timestamp))
+                }
+                Spacer()
+                HStack {
+                    Image(systemName: "tag")
+                    Text(suggestion.source ?? "Unknown")
+                }
             }
             .font(.caption)
             .padding()
@@ -26,17 +33,23 @@ struct SuggestionView: View {
             .font(.headline)
             .frame(maxWidth: .infinity)
             .padding()
-            VStack(spacing: 8) {
+            VStack(alignment: .leading, spacing: 8) {
                 HStack {
                     Image(systemName: "slider.horizontal.3")
                     Text("Fine-tune Parameters")
                 }
-                ForEach(suggestion.parameters?.allObjects as! [FineTuneParameter]) { parameter in
-                    HStack {
-                        Image(systemName: parameter.icon!)
-                        Text(parameter.label!)
-                        Spacer()
-                        Text(parameter.value!)
+                .fontWeight(.bold)
+                let parameters = suggestion.parameters?.allObjects as! [FineTuneParameter]
+                if parameters.isEmpty {
+                    Text("No fine-tune parameters recorded!")
+                } else {
+                    ForEach(parameters.sorted(by: { $0.label! < $1.label! })) { parameter in
+                        HStack {
+                            Image(systemName: parameter.icon)
+                            Text(parameter.label!)
+                            Spacer()
+                            Text(parameter.value!)
+                        }
                     }
                 }
             }

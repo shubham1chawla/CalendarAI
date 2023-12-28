@@ -29,7 +29,7 @@ struct HealthCardsView: View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack {
                 if let userSession = viewModel.userSessions.first {
-                    HealthCardView(userSession: userSession, dateFormatter: { $0?.formatted(relativeTo: Date()) ?? "" })
+                    HealthCardView(userSession: userSession, dateFormatter: { $0?.formatted(relativeTo: Date.now) ?? "" })
                         .frame(width: 300)
                 }
                 NavigationLink {

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		51329AB72B3DD21500469F20 /* HistoricalSuggestionCardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51329AB62B3DD21500469F20 /* HistoricalSuggestionCardsView.swift */; };
+		51329AB92B3DD35800469F20 /* ViewHistoricalSuggestionsCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51329AB82B3DD35800469F20 /* ViewHistoricalSuggestionsCardView.swift */; };
 		5145F5BA2B31F94D003DE488 /* HealthCardsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5145F5B92B31F94D003DE488 /* HealthCardsViewModel.swift */; };
 		5145F5C22B322E7A003DE488 /* HistoricalHealthCardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5145F5C12B322E7A003DE488 /* HistoricalHealthCardsView.swift */; };
 		5145F5C62B3236F2003DE488 /* ShareableHealthCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5145F5C52B3236F2003DE488 /* ShareableHealthCardView.swift */; };
@@ -45,6 +47,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		51329AB62B3DD21500469F20 /* HistoricalSuggestionCardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoricalSuggestionCardsView.swift; sourceTree = "<group>"; };
+		51329AB82B3DD35800469F20 /* ViewHistoricalSuggestionsCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewHistoricalSuggestionsCardView.swift; sourceTree = "<group>"; };
 		5145F5B92B31F94D003DE488 /* HealthCardsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCardsViewModel.swift; sourceTree = "<group>"; };
 		5145F5C12B322E7A003DE488 /* HistoricalHealthCardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoricalHealthCardsView.swift; sourceTree = "<group>"; };
 		5145F5C52B3236F2003DE488 /* ShareableHealthCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareableHealthCardView.swift; sourceTree = "<group>"; };
@@ -142,10 +146,12 @@
 				51D7E7FF2B2E027200E52818 /* SuggestionsView.swift */,
 				51D7E8012B2E089D00E52818 /* SuggestionView.swift */,
 				515A41F12B3C4AA8005B26C3 /* SuggestionsViewModel.swift */,
-				515A41F52B3C6155005B26C3 /* GoogleNearbyPlacesModel.swift */,
 				515A41FB2B3C8F51005B26C3 /* ErrorSuggestionCardView.swift */,
-				515A41FD2B3CA1D9005B26C3 /* ChatGPTModel.swift */,
 				515A41FF2B3D9E55005B26C3 /* LoadingSuggestionCardView.swift */,
+				51329AB62B3DD21500469F20 /* HistoricalSuggestionCardsView.swift */,
+				51329AB82B3DD35800469F20 /* ViewHistoricalSuggestionsCardView.swift */,
+				515A41F52B3C6155005B26C3 /* GoogleNearbyPlacesModel.swift */,
+				515A41FD2B3CA1D9005B26C3 /* ChatGPTModel.swift */,
 			);
 			path = Suggestion;
 			sourceTree = "<group>";
@@ -282,6 +288,7 @@
 				5145F5CE2B332D60003DE488 /* HeartRateMeasurementViewModel.swift in Sources */,
 				515A42002B3D9E55005B26C3 /* LoadingSuggestionCardView.swift in Sources */,
 				5145F5C22B322E7A003DE488 /* HistoricalHealthCardsView.swift in Sources */,
+				51329AB72B3DD21500469F20 /* HistoricalSuggestionCardsView.swift in Sources */,
 				51D7E7FE2B2DFDB100E52818 /* HomeView.swift in Sources */,
 				5145F5D22B3384ED003DE488 /* WeatherCardView.swift in Sources */,
 				515A41F22B3C4AA8005B26C3 /* SuggestionsViewModel.swift in Sources */,
@@ -297,6 +304,7 @@
 				5145F5C82B32E947003DE488 /* HeartRateMeasurementView.swift in Sources */,
 				51D7E8062B2EEF6200E52818 /* HealthCardsView.swift in Sources */,
 				51D7E8082B2F205100E52818 /* HealthFormView.swift in Sources */,
+				51329AB92B3DD35800469F20 /* ViewHistoricalSuggestionsCardView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -44,7 +44,7 @@ extension WeatherCardsView {
             if userSessions.isEmpty { return true }
             
             let userSession = userSessions.first
-            let timestamp = userSession?.timestamp ?? Date()
+            let timestamp = userSession?.timestamp ?? Date.now
             return abs(Int(timestamp.timeIntervalSinceNow)) > APIConstants.API_THROTTLING_TIMEOUT
         }
         
