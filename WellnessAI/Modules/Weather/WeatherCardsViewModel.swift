@@ -90,16 +90,8 @@ extension WeatherCardsView {
             let weather = response.toWeather(context: context)
             
             // Connecting weather entity to session and persisting
-            weather.userSession = getCurrentUserSession(context: context)
+            weather.userSession = UserSession.getCurrent(context: context)
             try? context.save()
-        }
-        
-        private func getCurrentUserSession(context: NSManagedObjectContext) -> UserSession {
-            let userSessions = try! context.fetch(UserSession.fetchCurrentRequest())
-            let userSession = userSessions.first ?? UserSession(context: context)
-            userSession.uuid = userSession.uuid ?? UserDefaults.standard.string(forKey: Keys.LAST_USER_SESSSION)!
-            userSession.timestamp = Date()
-            return userSession
         }
         
         private func setUserSessionsWithWeather() -> Void {

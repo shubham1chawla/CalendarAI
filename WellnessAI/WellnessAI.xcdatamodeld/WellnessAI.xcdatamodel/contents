@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22222" systemVersion="23B92" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
+    <entity name="FineTuneParameter" representedClassName=".FineTuneParameter" syncable="YES" codeGenerationType="class">
+        <attribute name="icon" attributeType="String"/>
+        <attribute name="label" attributeType="String"/>
+        <attribute name="value" attributeType="String"/>
+        <relationship name="suggestion" maxCount="1" deletionRule="Nullify" destinationEntity="Suggestion" inverseName="parameters" inverseEntity="Suggestion"/>
+    </entity>
+    <entity name="Suggestion" representedClassName=".Suggestion" syncable="YES" codeGenerationType="class">
+        <attribute name="content" attributeType="String"/>
+        <attribute name="source" attributeType="String"/>
+        <relationship name="parameters" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="FineTuneParameter" inverseName="suggestion" inverseEntity="FineTuneParameter"/>
+        <relationship name="userSession" maxCount="1" deletionRule="Nullify" destinationEntity="UserSession" inverseName="suggestions" inverseEntity="UserSession"/>
+    </entity>
     <entity name="Symptom" representedClassName=".Symptom" syncable="YES" codeGenerationType="class">
         <attribute name="id" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="name" attributeType="String"/>
@@ -13,6 +25,7 @@
     <entity name="UserSession" representedClassName=".UserSession" syncable="YES" codeGenerationType="class">
         <attribute name="timestamp" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="uuid" attributeType="String"/>
+        <relationship name="suggestions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Suggestion" inverseName="userSession" inverseEntity="Suggestion"/>
         <relationship name="userMeasurement" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="UserMeasurement" inverseName="userSession" inverseEntity="UserMeasurement"/>
         <relationship name="userSymptoms" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="UserSymptom" inverseName="userSession" inverseEntity="UserSymptom"/>
         <relationship name="weather" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Weather" inverseName="userSession" inverseEntity="Weather"/>

@@ -38,9 +38,7 @@ extension HeartRateMeasurementView {
             if isRecording || isProcessing { return }
             self.completion = completion
 
-            let uuid = defaults.string(forKey: Keys.LAST_USER_SESSSION)
-            guard let uuid = uuid else { return }
-            let filePath = NSTemporaryDirectory() + "\(uuid).mov"
+            let filePath = NSTemporaryDirectory() + "\(UserSession.getCurrentUUID()).mov"
             output.startRecording(to: URL(filePath: filePath), recordingDelegate: self)
             
             isRecording.toggle()

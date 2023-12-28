@@ -7,6 +7,7 @@
 
 import SwiftUI
 import CoreData
+import EventKit
 
 extension View {
     
@@ -46,11 +47,19 @@ extension Date {
 
 extension UserSession {
     
-    static func fetchCurrentRequest() -> NSFetchRequest<UserSession> {
+    static func getCurrentUUID() -> String {
         let uuid = UserDefaults.standard.string(forKey: Keys.LAST_USER_SESSSION)
         if (uuid ?? "").isEmpty { fatalError("No user session was set!") }
+        return uuid!
+    }
+    
+    static func fetchCurrentRequest() -> NSFetchRequest<UserSession> {
+        return UserSession.fetchRequest(uuid: getCurrentUUID())
+    }
+    
+    static func fetchRequest(uuid: String) -> NSFetchRequest<UserSession> {
         let request = UserSession.fetchRequest()
-        request.predicate = NSPredicate(format: "uuid CONTAINS %@", uuid!)
+        request.predicate = NSPredicate(format: "uuid CONTAINS %@", uuid)
         return request
     }
     
@@ -68,6 +77,22 @@ extension UserSession {
         return request
     }
     
+    static func fetchWithSuggestionsRequest() -> NSFetchRequest<UserSession> {
+        let request = UserSession.fetchRequest()
+        request.predicate = NSPredicate(format: "suggestions.@count > 0")
+        request.sortDescriptors = [NSSortDescriptor(key: "timestamp", ascending: false)]
+        return request
+    }
+    
+    static func getCurrent(context: NSManagedObjectContext) -> UserSession {
+        let uuid = getCurrentUUID()
+        let userSessions = try! context.fetch(UserSession.fetchRequest(uuid: uuid))
+        let userSession = userSessions.first ?? UserSession(context: context)
+        userSession.uuid = userSession.uuid ?? uuid
+        userSession.timestamp = Date.now
+        return userSession
+    }
+    
 }
 
 extension Symptom {
@@ -76,6 +101,38 @@ extension Symptom {
         let request = Symptom.fetchRequest()
         request.predicate = NSPredicate(format: "id == %i", forId)
         return request
+    }
+    
+}
+
+extension Suggestion {
+    
+    enum Source: String {
+        case Calendar
+        case Health
+    }
+    
+    static func fromCalendar(context: NSManagedObjectContext, content: String) -> Suggestion {
+        let suggestion = Suggestion(context: context)
+        suggestion.source = Source.Calendar.rawValue
+        suggestion.content = content
+        suggestion.userSession = UserSession.getCurrent(context: context)
+        return suggestion
+    }
+    
+}
+
+extension EKEventStore {
+    
+    func upcomingEvents() -> [EKEvent] {
+        let startDate = Date.now
+        let endDate = startDate + CalendarConstants.EVENTS_FUTURE_LOOKUP_TIME_INTERVAL
+        let calendars = self.calendars(for: .event)
+        let predicate = self.predicateForEvents(withStart: startDate, end: endDate, calendars: calendars)
+        
+        var events = self.events(matching: predicate)
+        events.sort { $0.startDate > $1.startDate }
+        return events
     }
     
 }

@@ -1,13 +1,13 @@
 //
-//  ErrorWeatherCardView.swift
+//  ErrorSuggestionCardView.swift
 //  WellnessAI
 //
-//  Created by Shubham Chawla on 12/22/23.
+//  Created by Shubham Chawla on 12/27/23.
 //
 
 import SwiftUI
 
-struct ErrorWeatherCardView: View {
+struct ErrorSuggestionCardView: View {
     var errorMessage: String?
     var body: some View {
         VStack {
@@ -19,7 +19,7 @@ struct ErrorWeatherCardView: View {
             VStack(alignment: .leading) {
                 Text("Something went wrong!")
                     .font(.headline)
-                Text(errorMessage ?? "Unable to present weather information")
+                Text(errorMessage ?? "Unable to present suggestions")
                     .font(.caption)
             }
             .padding(EdgeInsets(
@@ -33,5 +33,5 @@ struct ErrorWeatherCardView: View {
 }
 
 #Preview {
-    ErrorWeatherCardView()
+    ErrorSuggestionCardView()
 }
