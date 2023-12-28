@@ -33,6 +33,7 @@ struct SuggestionView: View {
             .font(.headline)
             .frame(maxWidth: .infinity)
             .padding()
+            Spacer()
             VStack(alignment: .leading, spacing: 8) {
                 HStack {
                     Image(systemName: "slider.horizontal.3")

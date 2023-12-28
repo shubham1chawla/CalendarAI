@@ -121,4 +121,38 @@ extension ChatGPTAPIRequest {
         return ChatGPTAPIRequest(prompt: prompts.joined(separator: " "))
     }
     
+    static func healthRequest(forEvent event: EKEvent, atPlace place: GoogleNearbyPlace?, weather: Weather?) -> ChatGPTAPIRequest? {
+        guard let title = event.title else { return nil }
+        var prompts = [
+            "Write one liner notification for a user with an upcoming \"\(title)\" health-related event on their calendar.",
+        ]
+        if let place = place {
+            prompts.append("You may suggest the user to check-up at \(place.name) if they want to. This hospital is near them based on the device's location")
+        }
+        if let weather = weather, let main = weather.weatherMain, let desc = weather.weatherDescription {
+            prompts.append("The weather at user's place is described as \"\(main) (\(desc)\"")
+        }
+        return ChatGPTAPIRequest(prompt: prompts.joined(separator: " "))
+    }
+    
+    static func emptyCalendarRequest(weather: Weather?) -> ChatGPTAPIRequest {
+        var prompts = [
+            "Write one liner notification for a user with no upcoming calendar events for the next week.",
+            "You may suggest the user to take a break and focus on their well-being."
+        ]
+        if let weather = weather, let main = weather.weatherMain, let desc = weather.weatherDescription {
+            prompts.append("The weather at user's place is described as \"\(main) (\(desc)\"")
+        }
+        return ChatGPTAPIRequest(prompt: prompts.joined(separator: " "))
+    }
+    
+    static func busyCalendarRequest(events: [EKEvent]) -> ChatGPTAPIRequest {
+        let prompt = [
+            "Write one liner notification for a user with a busy calendar.",
+            "The user has \(events.count) calendar events for the next week.",
+            "You may suggest the user to take care of their well-being."
+        ].joined(separator: " ")
+        return ChatGPTAPIRequest(prompt: prompt)
+    }
+    
 }

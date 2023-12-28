@@ -98,7 +98,7 @@ extension SuggestionsView {
                     defer {
                         isUpdatingSuggestions = false
                     }
-                    await setNearbyPlacesAndWeather(currentLocation)
+                    try await setNearbyPlacesAndWeather(currentLocation)
                     try await saveSuggestions()
                     setUserSessionsWithSuggestions()
                 } catch {
@@ -107,15 +107,9 @@ extension SuggestionsView {
             }
         }
         
-        private func setNearbyPlacesAndWeather(_ location: CLLocation) async -> Void {
-            var hospitals: [GoogleNearbyPlace] = []
-            var malls: [GoogleNearbyPlace] = []
-            do {
-                hospitals = try await GoogleNearbyPlacesRequest(location: location, type: .hospital).fetch()
-                malls = try await GoogleNearbyPlacesRequest(location: location, type: .shopping_mall).fetch()
-            } catch {
-                print(error.localizedDescription)
-            }
+        private func setNearbyPlacesAndWeather(_ location: CLLocation) async throws -> Void {
+            let hospitals = try await GoogleNearbyPlacesRequest(location: location, type: .hospital).fetch()
+            let malls = try await GoogleNearbyPlacesRequest(location: location, type: .shopping_mall).fetch()
             await MainActor.run {
                 self.hospital = GoogleNearbyPlace.getBestPlace(from: hospitals)
                 self.mall = GoogleNearbyPlace.getBestPlace(from: malls)
@@ -125,10 +119,6 @@ extension SuggestionsView {
         
         /**
          Cases to cover for suggestion -
-         Events
-         - If more than 10 events in a week, suggest a busy week.
-         - Tag upcoming event, if shopping use Google Nearby API to find a shopping place.
-         - If no upcoming events, simple suggestion of enjoy your time.
          Health
          - If there is no health card in current user session, suggest taking health check.
          - Get the recent 3 health card have same symptom, suggest visiting hospital (Google Nearby API).
@@ -148,16 +138,35 @@ extension SuggestionsView {
         
         private func saveSuggestions(forEvents events: [EKEvent]) async -> Void {
             if events.isEmpty {
-                // TODO: Generate an enjoy your week suggestion
+                // Saving suggestion for empty calendar and well-being
+                await saveSuggestionEmptyCalendar()
             } else {
                 // Saving suggestion from the upcoming event
-                if let event = events.first { await saveSuggestion(forEvent: event) }
+                if let event = events.first {
+                    await saveSuggestion(forEvent: event)
+                }
                 
                 // Adding suggestion if busy week
                 if events.count > SuggestionConstants.BUSY_WEEK_EVENTS_COUNT {
-                    // TODO: Generate a suggestion of busy week ahead
+                    await saveSuggestionBusyCalendar(forEvents: events)
                 }
             }
+        }
+        
+        private func saveSuggestionEmptyCalendar() async -> Void {
+            guard 
+                let context = context,
+                let response = try? await ChatGPTAPIRequest.emptyCalendarRequest(weather: weather).fetch(),
+                let content = response.getContent()
+            else { return }
+            let suggestion = Suggestion.fromCalendar(context: context, content: content)
+            if let weather = weather {
+                [
+                    FineTuneParameter.ofWeather(context: context, weather: weather),
+                    FineTuneParameter.ofEmptyCalendar(context: context)
+                ].forEach { $0.suggestion = suggestion }
+            }
+            try? context.save()
         }
         
         private func saveSuggestion(forEvent event: EKEvent) async -> Void {
@@ -176,6 +185,9 @@ extension SuggestionsView {
                         weather != nil ? parameters.append(FineTuneParameter.ofWeather(context: context, weather: weather!)) : nil
                         break
                     case .Health:
+                        request = ChatGPTAPIRequest.healthRequest(forEvent: event, atPlace: hospital, weather: weather)
+                        hospital != nil ? parameters.append(FineTuneParameter.ofPlace(context: context, place: hospital!)) : nil
+                        weather != nil ? parameters.append(FineTuneParameter.ofWeather(context: context, weather: weather!)) : nil
                         break
                     case .Work:
                         break
@@ -191,6 +203,17 @@ extension SuggestionsView {
             } catch {
                 print(error.localizedDescription)
             }
+        }
+        
+        private func saveSuggestionBusyCalendar(forEvents events: [EKEvent]) async -> Void {
+            guard 
+                let context = context,
+                let response = try? await ChatGPTAPIRequest.busyCalendarRequest(events: events).fetch(),
+                let content = response.getContent()
+            else { return }
+            let suggestion = Suggestion.fromCalendar(context: context, content: content)
+            [FineTuneParameter.ofBusyCalendar(context: context, events: events)].forEach { $0.suggestion = suggestion }
+            try? context.save()
         }
         
         private func setUserSessionsWithSuggestions() -> Void {
@@ -223,21 +246,20 @@ extension SuggestionsView {
         private func requestFullAccesstoCalendarEvents() -> Void {
             switch EKEventStore.authorizationStatus(for: .event) {
             case .notDetermined:
-                eventStore.requestFullAccessToEvents { [weak self] granted, error in
-                    if let error = error {
-                        self?.errorMessage = error.localizedDescription
-                        return
-                    }
-                    guard granted else {
-                        self?.errorMessage = "Permissions to the calendar denied!"
-                        return
+                Task {
+                    var granted = false
+                    do { granted = try await eventStore.requestFullAccessToEvents() } catch { granted = false }
+                    if !granted {
+                        await MainActor.run {
+                            errorMessage = "Permissions denied to access your calendar!"
+                        }
                     }
                 }
             case .fullAccess:
                 self.hasCalendarAccess = true
                 break
             default:
-                errorMessage = "Unable to access your calendar!"
+                errorMessage = "Permissions denied to access your calendar!"
             }
         }
         
