@@ -64,12 +64,11 @@ extension SuggestionsView {
         
         private func shouldCallOpenWeatherAPI(force: Bool) -> Bool {
             if isUpdatingSuggestions { return false }
-            if force { return true }
             if userSessions.isEmpty { return true }
-            
             let userSession = userSessions.first
             let timestamp = userSession?.timestamp ?? Date.now
-            return abs(Int(timestamp.timeIntervalSinceNow)) > APIConstants.API_THROTTLING_TIMEOUT
+            let timeout = force ? APIConstants.API_THROTTLING_FORCE_TIMEOUT : APIConstants.API_THROTTLING_REGULAR_TIMEOUT
+            return abs(Int(timestamp.timeIntervalSinceNow)) > timeout
         }
         
         nonisolated func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
