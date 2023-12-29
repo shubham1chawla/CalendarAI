@@ -9,24 +9,12 @@ import SwiftUI
 
 struct WeatherCardsView: View {
     
-    @Environment(\.managedObjectContext) var context
-    @StateObject private var viewModel = ViewModel()
+    @ObservedObject var viewModel: ViewModel
     
     var body: some View {
         HStack {
             Image(systemName: "cloud.sun")
             Text("Weather Cards")
-            Spacer()
-            Button {
-                viewModel.refreshWeatherInformation(context: context, force: true)
-            } label: {
-                if viewModel.isAwaitingAPIResponse {
-                    ProgressView()
-                } else {
-                    Image(systemName: "arrow.clockwise")
-                }
-            }
-            .disabled(viewModel.isAwaitingAPIResponse)
         }
         .font(.subheadline)
         ScrollView(.horizontal, showsIndicators: false) {
@@ -36,6 +24,13 @@ struct WeatherCardsView: View {
                 } else if viewModel.userSessions.isEmpty {
                     LoadingWeatherCardView()
                 } else {
+                    if viewModel.isAwaitingAPIResponse {
+                        HStack(alignment: .center) {
+                            ProgressView()
+                        }
+                        .controlSize(.large)
+                        .padding()
+                    }
                     WeatherCardView(weather: viewModel.userSessions.first!.weather!)
                 }
             }
@@ -44,8 +39,5 @@ struct WeatherCardsView: View {
         .padding(EdgeInsets(
             top: 8, leading: 0, bottom: 8, trailing: 0
         ))
-        .onAppear {
-            viewModel.refreshWeatherInformation(context: context)
-        }
     }
 }

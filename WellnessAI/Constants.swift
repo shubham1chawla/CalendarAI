@@ -26,7 +26,8 @@ struct MeasurementConstants {
 }
 
 struct APIConstants {
-    static let API_THROTTLING_TIMEOUT = 15 * 60
+    static let API_THROTTLING_REGULAR_TIMEOUT = 15 * 60
+    static let API_THROTTLING_FORCE_TIMEOUT = 60
     static let GOOGLE_NEARBY_PLACES_RADIUS = 5_000
     static let OPEN_WEATHER_UNITS = "metric"
     static let CHAT_GPT_MODEL = "gpt-3.5-turbo"
