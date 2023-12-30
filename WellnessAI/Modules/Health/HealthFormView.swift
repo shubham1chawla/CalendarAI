@@ -12,7 +12,6 @@ struct HealthFormView: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.managedObjectContext) var context
     @StateObject private var viewModel = ViewModel()
-    @StateObject private var decodableViewModel = DecodableViewModel()
     
     var body: some View {
         Form {
@@ -126,7 +125,7 @@ struct HealthFormView: View {
             }
         }
         .onAppear {
-            viewModel.setup(context: context, decodableViewModel: decodableViewModel)
+            viewModel.setup(context: context)
         }
     }
 }

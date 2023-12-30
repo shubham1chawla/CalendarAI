@@ -13,7 +13,6 @@ extension HealthFormView {
     @MainActor class ViewModel: ObservableObject {
         
         private var context: NSManagedObjectContext?
-        private var decodableViewModel: DecodableViewModel?
         private var timer: Timer?
         
         @Published private(set) var symptoms: [Symptom] = []
@@ -30,9 +29,8 @@ extension HealthFormView {
         @Published var selectedSymptomIndex: Int = 0
         @Published var selectedIntensityValue: Int = 1
         
-        func setup(context: NSManagedObjectContext, decodableViewModel: DecodableViewModel) {
+        func setup(context: NSManagedObjectContext) {
             self.context = context
-            self.decodableViewModel = decodableViewModel
             
             // Setting up symptoms & intensities from JSON file
             loadDefaultSymptoms()
@@ -134,23 +132,19 @@ extension HealthFormView {
         
         private func loadDefaultSymptoms() -> Void {
             guard let context = context else { return }
-            decodableViewModel?.decodableSymptoms.forEach { decodableSymptom in
+            DecodableSymptom.symptoms.forEach { decodableSymptom in
                 
                 // Checking if the symptom exists in database
                 let symptoms = try? context.fetch(Symptom.fetchRequest(forId: decodableSymptom.id))
                 if (symptoms ?? []).isEmpty {
-                    let symptom = Symptom(context: context)
-                    symptom.id = decodableSymptom.id
-                    symptom.name = decodableSymptom.name
+                    let _ = Symptom.create(context: context, from: decodableSymptom)
                     try? context.save()
                 }
             }
         }
         
         private func loadDefaultIntensities() -> Void {
-            decodableViewModel?.decodableIntensities.forEach { decodableIntensity in
-                intensities[decodableIntensity.value] = decodableIntensity.label
-            }
+            intensities = DecodableIntensity.map
         }
         
     }
