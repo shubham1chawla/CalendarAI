@@ -155,4 +155,19 @@ extension ChatGPTAPIRequest {
         return ChatGPTAPIRequest(prompt: prompt)
     }
     
+    static func staleHealthInformationRequest(userSession: UserSession?) -> ChatGPTAPIRequest {
+        var prompts = [
+            "Write one liner notification for a user",
+            "who didn't measure their heart rate, respiratory rate, or recorded symptoms",
+            "using the application's built in measurement features",
+        ]
+        if let userSession = userSession, let timestamp = userSession.timestamp {
+            prompts.append("in a long time.")
+            prompts.append("The user last updated their health information \(timestamp.formatted(relativeTo: Date.now))")
+        } else {
+            prompts.append("ever.")
+        }
+        return ChatGPTAPIRequest(prompt: prompts.joined(separator: " "))
+    }
+    
 }

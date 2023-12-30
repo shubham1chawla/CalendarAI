@@ -116,13 +116,6 @@ extension SuggestionsView {
             }
         }
         
-        /**
-         Cases to cover for suggestion -
-         Health
-         - If there is no health card in current user session, suggest taking health check.
-         - Get the recent 3 health card have same symptom, suggest visiting hospital (Google Nearby API).
-         - Get the recent 3 health card have high heart rate/ resp rate, suggest visiting hospital (Google Nearby API).
-         */
         private func saveSuggestions() async throws -> Void {
             guard let context = context else { return }
             
@@ -132,10 +125,14 @@ extension SuggestionsView {
             try context.save()
             
             // Generating suggestions from events
-            await saveSuggestions(forEvents: eventStore.upcomingEvents())
+            await saveSuggestionsFromCalendarEvents()
+            
+            // Generating suggestions from health cards
+            await saveSuggestionsFromHealthInformation()
         }
         
-        private func saveSuggestions(forEvents events: [EKEvent]) async -> Void {
+        private func saveSuggestionsFromCalendarEvents() async -> Void {
+            let events = eventStore.upcomingEvents()
             if events.isEmpty {
                 // Saving suggestion for empty calendar and well-being
                 await saveSuggestionEmptyCalendar()
@@ -215,6 +212,37 @@ extension SuggestionsView {
             try? context.save()
         }
         
+        private func saveSuggestionsFromHealthInformation() async -> Void {
+            let userSessions = getUserSessionsWithHealthInformation()
+            
+            // Saving suggestions with stale or no health information
+            await saveSuggestionStaleOrNoHealthInformation(userSessions)
+            
+            // TODO: If a symptom is recorded more than X times in last week, suugest user for check-up
+            
+            // TODO: If heart rate is high in last week, suggest user for check-up
+            
+            // TODO: If resp rate is high in last week, suggest user for check-up
+        }
+        
+        private func saveSuggestionStaleOrNoHealthInformation(_ userSessions: [UserSession]) async -> Void {
+            if 
+                !userSessions.isEmpty,
+                let userSession = userSessions.first,
+                let timestamp = userSession.timestamp,
+                abs(Int(timestamp.timeIntervalSinceNow)) < SuggestionConstants.STALE_HEALTH_TIME_INTERVAL
+            { return }
+            let userSession: UserSession? = userSessions.isEmpty ? nil : userSessions.first
+            guard
+                let context = context,
+                let response = try? await ChatGPTAPIRequest.staleHealthInformationRequest(userSession: userSession).fetch(),
+                let content = response.getContent()
+            else { return }
+            let suggestion = Suggestion.fromHealth(context: context, content: content)
+            [FineTuneParameter.ofStaleHealthInformation(context: context, userSession: userSession)].forEach { $0.suggestion = suggestion }
+            try? context.save()
+        }
+        
         private func setUserSessionsWithSuggestions() -> Void {
             guard let context = context else { return }
             var userSessions: [UserSession] = []
@@ -222,6 +250,11 @@ extension SuggestionsView {
                 userSessions.append(userSession)
             }
             self.userSessions = userSessions
+        }
+        
+        private func getUserSessionsWithHealthInformation() -> [UserSession] {
+            guard let context = context else { return [] }
+            return (try? context.fetch(UserSession.fetchWithHealthRequest())) ?? []
         }
         
         private func getLatestWeather(location: CLLocation) -> Weather? {

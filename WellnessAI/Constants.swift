@@ -67,4 +67,5 @@ struct CalendarConstants {
 
 struct SuggestionConstants {
     static let BUSY_WEEK_EVENTS_COUNT = 10
+    static let STALE_HEALTH_TIME_INTERVAL = 24 * 3600
 }
