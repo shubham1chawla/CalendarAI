@@ -191,6 +191,11 @@ extension FineTuneParameter {
         return FineTuneParameter.of(context: context, label: .Health, value: value)
     }
     
+    static func ofSymptom(context: NSManagedObjectContext, symptom: Symptom) -> FineTuneParameter {
+        let value = "\(symptom.name!) (Symptom)"
+        return FineTuneParameter.of(context: context, label: .Health, value: value)
+    }
+    
     private static func of(context: NSManagedObjectContext, label: Label, value: String) -> FineTuneParameter {
         let parameter = FineTuneParameter(context: context)
         parameter.label = label.rawValue

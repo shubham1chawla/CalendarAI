@@ -218,7 +218,8 @@ extension SuggestionsView {
             // Saving suggestions with stale or no health information
             await saveSuggestionStaleOrNoHealthInformation(userSessions)
             
-            // TODO: If a symptom is recorded more than X times in last week, suugest user for check-up
+            // Saving suggestions if persistent symptoms persists
+            await saveSuggestions(forSymptomsIn: userSessions)
             
             // TODO: If heart rate is high in last week, suggest user for check-up
             
@@ -243,6 +244,52 @@ extension SuggestionsView {
             try? context.save()
         }
         
+        private func saveSuggestions(forSymptomsIn userSessions: [UserSession]) async -> Void {
+            if userSessions.isEmpty { return }
+            
+            // Finding all registered symptoms and their frequency and intensities
+            var reduce: [Symptom:[UserSymptom]] = [:]
+            userSessions
+                .filter { abs(Int($0.timestamp!.timeIntervalSinceNow)) < SuggestionConstants.HEALTH_PAST_LOOKUP_TIME_INTERVAL }
+                .filter { !($0.userSymptoms?.allObjects.isEmpty ?? true) }
+                .forEach({ userSession in
+                    if let set = userSession.userSymptoms, let userSymptoms = set.allObjects as? [UserSymptom] {
+                        for userSymptom in userSymptoms {
+                            guard let symptom = userSymptom.symptom else { continue }
+                            var values = reduce[symptom] ?? []
+                            values.append(userSymptom)
+                            reduce[symptom] = values
+                        }
+                    }
+                })
+            
+            // Finding out prominent symptoms
+            var prominentSymptoms: [Symptom] = []
+            for entry in reduce {
+                let count = entry.value.count
+                let total = entry.value.reduce(0, { $0 + Double($1.intensityValue) })
+                if
+                    count >= SuggestionConstants.SYMPTOM_COUNT_THRESHOLD,
+                    (total / Double(count)) >= SuggestionConstants.SYMPTOM_AVERAGE_INTENSITY_THRESHOLD
+                { prominentSymptoms.append(entry.key) }
+            }
+            
+            guard
+                let context = context,
+                !prominentSymptoms.isEmpty,
+                let request = ChatGPTAPIRequest.symptomRequest(for: prominentSymptoms, hospital: hospital, weather: weather),
+                let response = try? await request.fetch(),
+                let content = response.getContent()
+            else { return }
+            
+            let suggestion = Suggestion.fromHealth(context: context, content: content)
+            var parameters = prominentSymptoms.map { FineTuneParameter.ofSymptom(context: context, symptom: $0) }
+            if let hospital = hospital { parameters.append(FineTuneParameter.ofPlace(context: context, place: hospital)) }
+            if let weather = weather { parameters.append(FineTuneParameter.ofWeather(context: context, weather: weather)) }
+            parameters.forEach { $0.suggestion = suggestion }
+            try? context.save()
+        }
+        
         private func setUserSessionsWithSuggestions() -> Void {
             guard let context = context else { return }
             var userSessions: [UserSession] = []
@@ -258,20 +305,16 @@ extension SuggestionsView {
         }
         
         private func getLatestWeather(location: CLLocation) -> Weather? {
-            guard let context = context else { return nil }
-            let userSessions = try? context.fetch(UserSession.fetchWithWeatherRequest())
-            
             // Checking if weather is a) not too old b) roughly same coordinates
             guard
-                let userSessions = userSessions,
+                let context = context,
+                let userSessions = try? context.fetch(UserSession.fetchWithWeatherRequest()),
                 let userSession = userSessions.first,
-                userSession.timestamp! > Date.now - 3600,
+                userSession.timestamp! > (Date.now - SuggestionConstants.STALE_WEATHER_TIME_INTERVAL),
                 let weather = userSession.weather,
                 abs(weather.latitude - location.coordinate.latitude) < 0.5,
                 abs(weather.longitude - location.coordinate.longitude) < 0.5
-            else {
-                return nil
-            }
+            else { return nil }
             return weather
         }
         
