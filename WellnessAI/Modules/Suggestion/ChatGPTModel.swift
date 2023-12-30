@@ -170,4 +170,23 @@ extension ChatGPTAPIRequest {
         return ChatGPTAPIRequest(prompt: prompts.joined(separator: " "))
     }
     
+    static func symptomRequest(for symptoms: [Symptom], hospital: GoogleNearbyPlace?, weather: Weather?) -> ChatGPTAPIRequest? {
+        guard !symptoms.isEmpty else { return nil }
+        let names = symptoms.map { $0.name! }.joined(separator: ", ")
+        var prompts = [
+            "Write one liner notification for a user",
+            "who has been suffering from \(names) symptoms for some while now.",
+        ]
+        if let hospital = hospital {
+            prompts.append("You may recommend them to get themselves checked at \(hospital.name)")
+            prompts.append("located near them based on their device's location.")
+        } else {
+            prompts.append("You may recommend them to take care of themselves and see a doctor, if needed.")
+        }
+        if let weather = weather, let main = weather.weatherMain, let desc = weather.weatherDescription {
+            prompts.append("The weather at user's place is described as \"\(main) (\(desc)\"")
+        }
+        return ChatGPTAPIRequest(prompt: prompts.joined(separator: " "))
+    }
+    
 }

@@ -66,6 +66,10 @@ struct CalendarConstants {
 }
 
 struct SuggestionConstants {
+    static let STALE_WEATHER_TIME_INTERVAL: TimeInterval = 3600
     static let BUSY_WEEK_EVENTS_COUNT = 10
     static let STALE_HEALTH_TIME_INTERVAL = 24 * 3600
+    static let HEALTH_PAST_LOOKUP_TIME_INTERVAL = 7 * 24 * 3600
+    static let SYMPTOM_COUNT_THRESHOLD = 5
+    static let SYMPTOM_AVERAGE_INTENSITY_THRESHOLD = 3.0
 }
