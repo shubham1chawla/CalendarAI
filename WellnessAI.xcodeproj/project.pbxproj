@@ -18,7 +18,7 @@
 		5145F5D42B34219A003DE488 /* WeatherCardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5145F5D32B34219A003DE488 /* WeatherCardsView.swift */; };
 		5145F5D62B3429AC003DE488 /* WeatherCardsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5145F5D52B3429AC003DE488 /* WeatherCardsViewModel.swift */; };
 		5145F5DE2B34B8FC003DE488 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5145F5DD2B34B8FC003DE488 /* Extensions.swift */; };
-		5145F5E02B34C16B003DE488 /* DecodableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5145F5DF2B34C16B003DE488 /* DecodableViewModel.swift */; };
+		5145F5E02B34C16B003DE488 /* DecodableModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5145F5DF2B34C16B003DE488 /* DecodableModel.swift */; };
 		5145F5E22B35CC99003DE488 /* LoadingWeatherCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5145F5E12B35CC99003DE488 /* LoadingWeatherCardView.swift */; };
 		5145F5E42B35CEB9003DE488 /* ErrorWeatherCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5145F5E32B35CEB9003DE488 /* ErrorWeatherCardView.swift */; };
 		515A41F22B3C4AA8005B26C3 /* SuggestionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515A41F12B3C4AA8005B26C3 /* SuggestionsViewModel.swift */; };
@@ -58,7 +58,7 @@
 		5145F5D32B34219A003DE488 /* WeatherCardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherCardsView.swift; sourceTree = "<group>"; };
 		5145F5D52B3429AC003DE488 /* WeatherCardsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherCardsViewModel.swift; sourceTree = "<group>"; };
 		5145F5DD2B34B8FC003DE488 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		5145F5DF2B34C16B003DE488 /* DecodableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecodableViewModel.swift; sourceTree = "<group>"; };
+		5145F5DF2B34C16B003DE488 /* DecodableModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecodableModel.swift; sourceTree = "<group>"; };
 		5145F5E12B35CC99003DE488 /* LoadingWeatherCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingWeatherCardView.swift; sourceTree = "<group>"; };
 		5145F5E32B35CEB9003DE488 /* ErrorWeatherCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorWeatherCardView.swift; sourceTree = "<group>"; };
 		515A41F12B3C4AA8005B26C3 /* SuggestionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionsViewModel.swift; sourceTree = "<group>"; };
@@ -112,6 +112,9 @@
 		5145F5DA2B34A2AE003DE488 /* Health */ = {
 			isa = PBXGroup;
 			children = (
+				51D7E8122B2F6AD400E52818 /* symptoms.json */,
+				51D7E8142B2F6AF200E52818 /* intensities.json */,
+				5145F5DF2B34C16B003DE488 /* DecodableModel.swift */,
 				51D7E80B2B2F217500E52818 /* HealthFormViewModel.swift */,
 				5145F5B92B31F94D003DE488 /* HealthCardsViewModel.swift */,
 				5145F5CD2B332D60003DE488 /* HeartRateMeasurementViewModel.swift */,
@@ -122,7 +125,6 @@
 				5145F5C12B322E7A003DE488 /* HistoricalHealthCardsView.swift */,
 				5145F5C52B3236F2003DE488 /* ShareableHealthCardView.swift */,
 				5145F5C72B32E947003DE488 /* HeartRateMeasurementView.swift */,
-				5145F5DF2B34C16B003DE488 /* DecodableViewModel.swift */,
 			);
 			path = Health;
 			sourceTree = "<group>";
@@ -183,8 +185,6 @@
 				515A41F72B3C67C5005B26C3 /* Errors.swift */,
 				51D7E81B2B30BABA00E52818 /* Constants.swift */,
 				5145F5DD2B34B8FC003DE488 /* Extensions.swift */,
-				51D7E8122B2F6AD400E52818 /* symptoms.json */,
-				51D7E8142B2F6AF200E52818 /* intensities.json */,
 				51D7E8162B2F6B7600E52818 /* WellnessAI.xcdatamodeld */,
 				516CC83C2B0DFBB200696BF1 /* Assets.xcassets */,
 				516CC83E2B0DFBB200696BF1 /* Preview Content */,
@@ -296,7 +296,7 @@
 				51D7E8182B2F6B7600E52818 /* WellnessAI.xcdatamodeld in Sources */,
 				516CC8392B0DFBB000696BF1 /* WellnessAIApp.swift in Sources */,
 				515A41FE2B3CA1D9005B26C3 /* ChatGPTModel.swift in Sources */,
-				5145F5E02B34C16B003DE488 /* DecodableViewModel.swift in Sources */,
+				5145F5E02B34C16B003DE488 /* DecodableModel.swift in Sources */,
 				5145F5BA2B31F94D003DE488 /* HealthCardsViewModel.swift in Sources */,
 				51D7E81E2B30D75900E52818 /* AddHealthCardView.swift in Sources */,
 				5145F5E42B35CEB9003DE488 /* ErrorWeatherCardView.swift in Sources */,

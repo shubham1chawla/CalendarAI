@@ -98,6 +98,13 @@ extension UserSession {
 
 extension Symptom {
     
+    static func create(context: NSManagedObjectContext, from decodable: DecodableSymptom) -> Symptom {
+        let symptom = Symptom(context: context)
+        symptom.id = decodable.id
+        symptom.name = decodable.name
+        return symptom
+    }
+    
     static func fetchRequest(forId: Int16) -> NSFetchRequest<Symptom> {
         let request = Symptom.fetchRequest()
         request.predicate = NSPredicate(format: "id == %i", forId)
