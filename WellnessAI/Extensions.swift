@@ -121,8 +121,16 @@ extension Suggestion {
     }
     
     static func fromCalendar(context: NSManagedObjectContext, content: String) -> Suggestion {
+        return Suggestion.from(context: context, source: .Calendar, content: content)
+    }
+    
+    static func fromHealth(context: NSManagedObjectContext, content: String) -> Suggestion {
+        return Suggestion.from(context: context, source: .Health, content: content)
+    }
+    
+    private static func from(context: NSManagedObjectContext, source: Source, content: String) -> Suggestion {
         let suggestion = Suggestion(context: context)
-        suggestion.source = Source.Calendar.rawValue
+        suggestion.source = source.rawValue
         suggestion.content = content
         suggestion.userSession = UserSession.getCurrent(context: context)
         return suggestion
@@ -175,7 +183,15 @@ extension FineTuneParameter {
         return FineTuneParameter.of(context: context, label: .Calendar, value: "\(events.count) events this week")
     }
     
-    static func of(context: NSManagedObjectContext, label: Label, value: String) -> FineTuneParameter {
+    static func ofStaleHealthInformation(context: NSManagedObjectContext, userSession: UserSession?) -> FineTuneParameter {
+        var value = "No health information!"
+        if let userSession = userSession, let timestamp = userSession.timestamp {
+            value = "Health Card from \(timestamp.formatted(date: .abbreviated, time: .shortened))"
+        }
+        return FineTuneParameter.of(context: context, label: .Health, value: value)
+    }
+    
+    private static func of(context: NSManagedObjectContext, label: Label, value: String) -> FineTuneParameter {
         let parameter = FineTuneParameter(context: context)
         parameter.label = label.rawValue
         parameter.value = value
