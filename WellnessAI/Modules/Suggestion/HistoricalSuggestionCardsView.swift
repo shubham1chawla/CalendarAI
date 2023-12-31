@@ -23,10 +23,10 @@ struct HistoricalSuggestionsCardView: View {
                                     SuggestionView(suggestion: suggestion, dateFormatter: { $0?.formatted() ?? "" })
                                 }
                                 .padding(.horizontal)
-                                .navigationTitle("Suggestions")
                             }
                         }
                     }
+                    .navigationTitle("Suggestions")
                 } label: {
                     Image(systemName: "wand.and.stars")
                     Text("Suggestions from \(userSession.timestamp!.formatted(relativeTo: Date.now))")

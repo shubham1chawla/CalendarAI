@@ -5,7 +5,7 @@
 //  Created by Shubham Chawla on 12/18/23.
 //
 
-import Foundation
+import SwiftUI
 
 struct Keys {
     static let APPLICATION_NAME = "WellnessAI"
@@ -30,7 +30,7 @@ struct MeasurementConstants {
 }
 
 struct APIConstants {
-    static let API_THROTTLING_REGULAR_TIMEOUT = 15 * 60
+    static let API_THROTTLING_REGULAR_TIMEOUT = 30 * 60
     static let API_THROTTLING_FORCE_TIMEOUT = 60
     static let GOOGLE_NEARBY_PLACES_RADIUS = 5_000
     static let OPEN_WEATHER_UNITS = "metric"
@@ -83,6 +83,14 @@ struct SuggestionConstants {
     static let SYMPTOM_COUNT_THRESHOLD = 5
     static let SYMPTOM_AVERAGE_INTENSITY_THRESHOLD = 3.0
     static let MEASUREMENT_COUNT_THRESHOLD = 5
+    
+    private init() {}
+}
+
+struct UIConstants {
+    static let CORNER_RADIUS: CGFloat = 10
+    static let BACKGROUND_MATERIAL: Material = .ultraThin
+    static let CARD_FRAME_WIDTH: CGFloat = 320
     
     private init() {}
 }

@@ -9,21 +9,15 @@ import SwiftUI
 
 struct AddHealthCardView: View {
     var body: some View {
-        VStack {
+        VStack(spacing: 8) {
             Image(systemName: "plus.circle")
-                .font(.title)
-                .padding(EdgeInsets(
-                    top: 24, leading: 16, bottom: 4, trailing: 16
-                ))
+                .font(.largeTitle)
             Text("Add Health Information")
-                .font(.headline)
-                .padding(EdgeInsets(
-                    top: 4, leading: 16, bottom: 24, trailing: 16
-                ))
         }
+        .fontWeight(.bold)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(.ultraThinMaterial)
-        .clipShape(RoundedRectangle(cornerRadius: 4))
+        .background(UIConstants.BACKGROUND_MATERIAL)
+        .clipShape(RoundedRectangle(cornerRadius: UIConstants.CORNER_RADIUS))
     }
 }
 

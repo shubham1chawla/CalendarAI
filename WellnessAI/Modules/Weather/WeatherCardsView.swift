@@ -12,35 +12,32 @@ struct WeatherCardsView: View {
     @ObservedObject var viewModel: ViewModel
     
     var body: some View {
-        HStack {
-            Image(systemName: "cloud.sun")
-            Text("Weather Cards")
-        }
-        .font(.subheadline)
-        ScrollView(.horizontal, showsIndicators: false) {
+        VStack(alignment: .leading) {
             HStack {
-                if viewModel.isAwaitingAPIResponse {
-                    HStack(alignment: .center) {
-                        ProgressView()
+                Image(systemName: "cloud.sun")
+                Text("Weather")
+            }
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack {
+                    if viewModel.isAwaitingAPIResponse {
+                        HStack(alignment: .center) {
+                            ProgressView()
+                        }
+                        .controlSize(.large)
+                        .padding()
                     }
-                    .controlSize(.large)
-                    .padding()
-                }
-                Group {
-                    if viewModel.isError {
-                        ErrorWeatherCardView(errorMessage: viewModel.errorMessage)
-                    } else if viewModel.userSessions.isEmpty {
-                        LoadingWeatherCardView()
-                    } else {
-                        WeatherCardView(weather: viewModel.userSessions.first!.weather!)
-                            
+                    Group {
+                        if viewModel.isError {
+                            ErrorCardView(errorMessage: viewModel.errorMessage)
+                        } else if viewModel.userSessions.isEmpty {
+                            LoadingCardView(loadingMessage: "Loading weather information")
+                        } else {
+                            WeatherCardView(weather: viewModel.userSessions.first!.weather!)
+                        }
                     }
+                    .frame(width: UIConstants.CARD_FRAME_WIDTH)
                 }
-                .frame(width: 300)
             }
         }
-        .padding(EdgeInsets(
-            top: 8, leading: 0, bottom: 8, trailing: 0
-        ))
     }
 }

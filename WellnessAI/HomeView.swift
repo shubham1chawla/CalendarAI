@@ -17,13 +17,13 @@ struct HomeView: View {
     var body: some View {
         NavigationView {
             ScrollView(.vertical, showsIndicators: false) {
-                VStack(alignment: .leading) {
-                    SuggestionsView(viewModel: suggestionsViewModel).padding(.horizontal)
-                    HealthCardsView().padding(.horizontal)
-                    WeatherCardsView(viewModel: weatherViewModel).padding(.horizontal)
+                VStack(alignment: .leading, spacing: 24) {
+                    SuggestionsView(viewModel: suggestionsViewModel).padding()
+                    HealthCardsView().padding()
+                    WeatherCardsView(viewModel: weatherViewModel).padding()
                 }
             }
-            .navigationTitle("Wellness.ai")
+            .navigationTitle("WellnessAI")
             .onAppear {
                 weatherViewModel.refreshWeatherInformation(context: context)
                 suggestionsViewModel.refreshSuggestions(context: context)

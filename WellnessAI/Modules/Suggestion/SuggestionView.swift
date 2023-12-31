@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SuggestionView: View {
 
+    @Environment(\.defaultMinListRowHeight) var minRowHeight
     let suggestion: Suggestion
     let dateFormatter: (Date?) -> String
     
@@ -25,41 +26,38 @@ struct SuggestionView: View {
                     Text(suggestion.source ?? "Unknown")
                 }
             }
-            .font(.caption)
+            .fontWeight(.light)
             .padding()
             HStack {
                 Text(suggestion.content ?? "Unable to present suggestion's content!")
             }
-            .font(.headline)
+            .fontWeight(.bold)
             .frame(maxWidth: .infinity)
             .padding()
-            Spacer()
-            VStack(alignment: .leading, spacing: 8) {
-                HStack {
-                    Image(systemName: "slider.horizontal.3")
-                    Text("Fine-tune Parameters")
-                }
-                .fontWeight(.bold)
-                let parameters = suggestion.parameters?.allObjects as! [FineTuneParameter]
-                if parameters.isEmpty {
-                    Text("No fine-tune parameters recorded!")
-                } else {
-                    ForEach(parameters.sorted(by: { $0.label! < $1.label! })) { parameter in
-                        HStack {
-                            Image(systemName: parameter.icon)
-                            Text(parameter.label!)
-                            Spacer()
-                            Text(parameter.value!)
+            let parameters = suggestion.parameters?.allObjects as! [FineTuneParameter]
+            if !parameters.isEmpty {
+                Spacer()
+                VStack(alignment: .leading) {
+                    Section {
+                        ForEach(parameters.sorted(by: { $0.label! < $1.label! })) { parameter in
+                            HStack(alignment: .center) {
+                                Image(systemName: parameter.icon)
+                                Text(parameter.label!)
+                                Spacer()
+                                Text(parameter.value!)
+                            }
+                            .frame(minHeight: minRowHeight)
                         }
+                    } header: {
+                        Text("Fine-tune Paramters").fontWeight(.light)
                     }
                 }
+                .padding()
             }
-            .font(.subheadline)
-            .padding()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(.ultraThinMaterial)
-        .clipShape(RoundedRectangle(cornerRadius: 4))
+        .background(UIConstants.BACKGROUND_MATERIAL)
+        .clipShape(RoundedRectangle(cornerRadius: UIConstants.CORNER_RADIUS))
     }
 }
 
