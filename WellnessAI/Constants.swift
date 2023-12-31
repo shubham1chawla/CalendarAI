@@ -14,6 +14,8 @@ struct Keys {
     static let GOOGLE_NEARBY_PLACES_API_KEY_IDENTIFIER = "googleAPIKey"
     static let OPEN_WEATHER_API_KEY_IDENTIFIER = "openWeatherKey"
     static let OPEN_AI_API_KEY_IDENTIFIER = "openAIKey"
+    
+    private init() {}
 }
 
 struct MeasurementConstants {
@@ -23,6 +25,8 @@ struct MeasurementConstants {
     static let AVERAGE_DIFFERENCE_THRESHOLD = 210_000
     static let ACCELEROMETER_INTERVAL = 0.1
     static let ACCELEROMETER_DIFFERENCE_THRESHOLD = 0.15
+    
+    private init() {}
 }
 
 struct APIConstants {
@@ -32,6 +36,8 @@ struct APIConstants {
     static let OPEN_WEATHER_UNITS = "metric"
     static let CHAT_GPT_MODEL = "gpt-3.5-turbo"
     static let CHAT_GPT_MODEL_TEMPERATURE = 0.7
+    
+    private init() {}
 }
 
 struct WeatherConstants {
@@ -59,10 +65,14 @@ struct WeatherConstants {
     static func getSystemName(forIcon: String) -> String? {
         return WeatherConstants.ICON_TO_SYSTEM_NAME_MAPPING[forIcon]
     }
+    
+    private init() {}
 }
 
 struct CalendarConstants {
     static let EVENTS_FUTURE_LOOKUP_TIME_INTERVAL: TimeInterval = 7 * 24 * 3600
+    
+    private init() {}
 }
 
 struct SuggestionConstants {
@@ -72,4 +82,7 @@ struct SuggestionConstants {
     static let HEALTH_PAST_LOOKUP_TIME_INTERVAL = 7 * 24 * 3600
     static let SYMPTOM_COUNT_THRESHOLD = 5
     static let SYMPTOM_AVERAGE_INTENSITY_THRESHOLD = 3.0
+    static let MEASUREMENT_COUNT_THRESHOLD = 5
+    
+    private init() {}
 }
