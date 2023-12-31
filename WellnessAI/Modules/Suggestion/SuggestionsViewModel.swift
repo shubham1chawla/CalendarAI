@@ -106,16 +106,6 @@ extension SuggestionsView {
             }
         }
         
-        private func setNearbyPlacesAndWeather(_ location: CLLocation) async throws -> Void {
-            let hospitals = try await GoogleNearbyPlacesRequest(location: location, type: .hospital).fetch()
-            let malls = try await GoogleNearbyPlacesRequest(location: location, type: .shopping_mall).fetch()
-            await MainActor.run {
-                self.hospital = GoogleNearbyPlace.getBestPlace(from: hospitals)
-                self.mall = GoogleNearbyPlace.getBestPlace(from: malls)
-                self.weather = getLatestWeather(location: location)
-            }
-        }
-        
         private func saveSuggestions() async throws -> Void {
             guard let context = context else { return }
             
@@ -125,32 +115,40 @@ extension SuggestionsView {
             try context.save()
             
             // Generating suggestions from events
-            await saveSuggestionsFromCalendarEvents()
+            let events = eventStore.upcomingEvents()
+            await saveSuggestions(forEvents: events)
             
             // Generating suggestions from health cards
-            await saveSuggestionsFromHealthInformation()
+            let userSessions = getUserSessionsWithHealthInformation()
+            await saveSuggestions(forHealthInformationIn: userSessions)
         }
         
-        private func saveSuggestionsFromCalendarEvents() async -> Void {
-            let events = eventStore.upcomingEvents()
-            if events.isEmpty {
-                // Saving suggestion for empty calendar and well-being
-                await saveSuggestionEmptyCalendar()
-            } else {
-                // Saving suggestion from the upcoming event
-                if let event = events.first {
-                    await saveSuggestion(forEvent: event)
-                }
-                
-                // Adding suggestion if busy week
-                if events.count > SuggestionConstants.BUSY_WEEK_EVENTS_COUNT {
-                    await saveSuggestionBusyCalendar(forEvents: events)
-                }
-            }
+        private func saveSuggestions(forEvents events: [EKEvent]) async -> Void {
+            // Saving suggestion for empty calendar and well-being
+            await saveSuggestion(forNoEvents: events)
+            
+            // Saving suggestion from the upcoming event
+            await saveSuggestion(forUpcomingEvent: events.first)
+            
+            // Adding suggestion if busy week
+            await saveSuggestion(forManyEvents: events)
         }
         
-        private func saveSuggestionEmptyCalendar() async -> Void {
-            guard 
+        private func saveSuggestions(forHealthInformationIn userSessions: [UserSession]) async -> Void {
+            // Saving suggestions with stale or no health information
+            await saveSuggestion(forStaleOrNoHealthInformationIn: userSessions)
+            
+            // Saving suggestions if persistent symptoms persists
+            await saveSuggestion(forSymptomsIn: userSessions)
+            
+            // Saving suggestions if abnormal measurements are detected
+            await saveSuggestion(forMeasurementsIn: userSessions)
+        }
+        
+        private func saveSuggestion(forNoEvents events: [EKEvent]?) async -> Void {
+            guard
+                let events = events,
+                events.isEmpty,
                 let context = context,
                 let response = try? await ChatGPTAPIRequest.emptyCalendarRequest(weather: weather).fetch(),
                 let content = response.getContent()
@@ -165,8 +163,8 @@ extension SuggestionsView {
             try? context.save()
         }
         
-        private func saveSuggestion(forEvent event: EKEvent) async -> Void {
-            guard let context = context else { return }
+        private func saveSuggestion(forUpcomingEvent event: EKEvent?) async -> Void {
+            guard let context = context, let event = event else { return }
             do {
                 if
                     let response = try await ChatGPTAPIRequest.classifyRequest(ofEvent: event)?.fetch(),
@@ -177,13 +175,13 @@ extension SuggestionsView {
                     switch classification {
                     case .Celebration:
                         request = ChatGPTAPIRequest.shoppingRequest(forEvent: event, atPlace: mall, weather: weather)
-                        mall != nil ? parameters.append(FineTuneParameter.ofPlace(context: context, place: mall!)) : nil
-                        weather != nil ? parameters.append(FineTuneParameter.ofWeather(context: context, weather: weather!)) : nil
+                        if let mall = mall { parameters.append(FineTuneParameter.ofPlace(context: context, place: mall)) }
+                        if let weather = weather { parameters.append(FineTuneParameter.ofWeather(context: context, weather: weather)) }
                         break
                     case .Health:
                         request = ChatGPTAPIRequest.healthRequest(forEvent: event, atPlace: hospital, weather: weather)
-                        hospital != nil ? parameters.append(FineTuneParameter.ofPlace(context: context, place: hospital!)) : nil
-                        weather != nil ? parameters.append(FineTuneParameter.ofWeather(context: context, weather: weather!)) : nil
+                        if let hospital = hospital { parameters.append(FineTuneParameter.ofPlace(context: context, place: hospital)) }
+                        if let weather = weather { parameters.append(FineTuneParameter.ofWeather(context: context, weather: weather)) }
                         break
                     case .Work:
                         break
@@ -201,9 +199,10 @@ extension SuggestionsView {
             }
         }
         
-        private func saveSuggestionBusyCalendar(forEvents events: [EKEvent]) async -> Void {
-            guard 
+        private func saveSuggestion(forManyEvents events: [EKEvent]) async -> Void {
+            guard
                 let context = context,
+                events.count > SuggestionConstants.BUSY_WEEK_EVENTS_COUNT,
                 let response = try? await ChatGPTAPIRequest.busyCalendarRequest(events: events).fetch(),
                 let content = response.getContent()
             else { return }
@@ -212,22 +211,8 @@ extension SuggestionsView {
             try? context.save()
         }
         
-        private func saveSuggestionsFromHealthInformation() async -> Void {
-            let userSessions = getUserSessionsWithHealthInformation()
-            
-            // Saving suggestions with stale or no health information
-            await saveSuggestionStaleOrNoHealthInformation(userSessions)
-            
-            // Saving suggestions if persistent symptoms persists
-            await saveSuggestions(forSymptomsIn: userSessions)
-            
-            // TODO: If heart rate is high in last week, suggest user for check-up
-            
-            // TODO: If resp rate is high in last week, suggest user for check-up
-        }
-        
-        private func saveSuggestionStaleOrNoHealthInformation(_ userSessions: [UserSession]) async -> Void {
-            if 
+        private func saveSuggestion(forStaleOrNoHealthInformationIn userSessions: [UserSession]) async -> Void {
+            if
                 !userSessions.isEmpty,
                 let userSession = userSessions.first,
                 let timestamp = userSession.timestamp,
@@ -244,8 +229,8 @@ extension SuggestionsView {
             try? context.save()
         }
         
-        private func saveSuggestions(forSymptomsIn userSessions: [UserSession]) async -> Void {
-            if userSessions.isEmpty { return }
+        private func saveSuggestion(forSymptomsIn userSessions: [UserSession]) async -> Void {
+            guard let context = context, !userSessions.isEmpty else { return }
             
             // Finding all registered symptoms and their frequency and intensities
             var reduce: [Symptom:[UserSymptom]] = [:]
@@ -275,7 +260,6 @@ extension SuggestionsView {
             }
             
             guard
-                let context = context,
                 !prominentSymptoms.isEmpty,
                 let request = ChatGPTAPIRequest.symptomRequest(for: prominentSymptoms, hospital: hospital, weather: weather),
                 let response = try? await request.fetch(),
@@ -290,13 +274,58 @@ extension SuggestionsView {
             try? context.save()
         }
         
+        private func saveSuggestion(forMeasurementsIn userSessions: [UserSession]) async -> Void {
+            guard let context = context, !userSessions.isEmpty else { return }
+            
+            // Filtering latest user measurements
+            let measurements = userSessions
+                .filter { abs(Int($0.timestamp!.timeIntervalSinceNow)) < SuggestionConstants.HEALTH_PAST_LOOKUP_TIME_INTERVAL }
+                .filter { $0.userMeasurement != nil }
+                .map { $0.userMeasurement! }
+     
+            // Preparing individual heart and respiratory rate measurements
+            var heartRateMeasurements = measurements.filter { $0.heartRate > 0 }
+            var respRateMeasurements = measurements.filter { $0.respRate > 0 }
+            if heartRateMeasurements.count < SuggestionConstants.MEASUREMENT_COUNT_THRESHOLD { heartRateMeasurements = [] }
+            if respRateMeasurements.count < SuggestionConstants.MEASUREMENT_COUNT_THRESHOLD { respRateMeasurements = [] }
+            
+            // Checking if measurements are abnormal
+            guard
+                let isAbnormalRequest = ChatGPTAPIRequest.isAbnormalRequest(forHeartRates: heartRateMeasurements, forRespRates: respRateMeasurements),
+                let isAbnormalResponse = try? await isAbnormalRequest.fetch(),
+                let abnormalMeasuremnt = isAbnormalResponse.getAbnormalMeasurement(),
+                let measurementRequest = ChatGPTAPIRequest.measurementRequest(for: abnormalMeasuremnt, hosiptal: hospital, weather: weather),
+                let measurementResponse = try? await measurementRequest.fetch(),
+                let content = measurementResponse.getContent()
+            else { return }
+            
+            let suggestion = Suggestion.fromHealth(context: context, content: content)
+            var parameters: [FineTuneParameter] = []
+            if abnormalMeasuremnt.heartRate { parameters.append(FineTuneParameter.ofHeartRate(context: context)) }
+            if abnormalMeasuremnt.respRate { parameters.append(FineTuneParameter.ofRespRate(context: context)) }
+            if let hospital = hospital { parameters.append(FineTuneParameter.ofPlace(context: context, place: hospital)) }
+            if let weather = weather { parameters.append(FineTuneParameter.ofWeather(context: context, weather: weather)) }
+            parameters.forEach { $0.suggestion = suggestion }
+            try? context.save()
+        }
+        
         private func setUserSessionsWithSuggestions() -> Void {
-            guard let context = context else { return }
-            var userSessions: [UserSession] = []
-            for userSession in try! context.fetch(UserSession.fetchWithSuggestionsRequest()) {
-                userSessions.append(userSession)
+            do {
+                userSessions = try context!.fetch(UserSession.fetchWithSuggestionsRequest())
+            } catch {
+                userSessions = []
+                errorMessage = error.localizedDescription
             }
-            self.userSessions = userSessions
+        }
+        
+        private func setNearbyPlacesAndWeather(_ location: CLLocation) async throws -> Void {
+            let hospitals = try await GoogleNearbyPlacesRequest(location: location, type: .hospital).fetch()
+            let malls = try await GoogleNearbyPlacesRequest(location: location, type: .shopping_mall).fetch()
+            await MainActor.run {
+                self.hospital = GoogleNearbyPlace.getBestPlace(from: hospitals)
+                self.mall = GoogleNearbyPlace.getBestPlace(from: malls)
+                self.weather = getLatestWeather(location: location)
+            }
         }
         
         private func getUserSessionsWithHealthInformation() -> [UserSession] {

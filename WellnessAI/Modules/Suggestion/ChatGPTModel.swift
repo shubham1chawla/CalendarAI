@@ -43,6 +43,11 @@ struct ChatGPTAPIResponseChoiceMessage: Codable {
 
 extension ChatGPTAPIResponse {
     
+    struct AbnormalMeasurement: Decodable {
+        let heartRate: Bool
+        let respRate: Bool
+    }
+    
     func getContent() -> String? {
         guard
             let choices = choices,
@@ -68,6 +73,17 @@ extension ChatGPTAPIResponse {
             return nil
         }
         return classification
+    }
+    
+    func getAbnormalMeasurement() -> AbnormalMeasurement? {
+        guard let content = getContent() else { return nil }
+        do {
+            let data = Data(content.utf8)
+            return try JSONDecoder().decode(AbnormalMeasurement.self, from: data)
+        } catch {
+            print(error.localizedDescription)
+            return nil
+        }
     }
     
 }
@@ -182,6 +198,54 @@ extension ChatGPTAPIRequest {
             prompts.append("located near them based on their device's location.")
         } else {
             prompts.append("You may recommend them to take care of themselves and see a doctor, if needed.")
+        }
+        if let weather = weather, let main = weather.weatherMain, let desc = weather.weatherDescription {
+            prompts.append("The weather at user's place is described as \"\(main) (\(desc)\"")
+        }
+        return ChatGPTAPIRequest(prompt: prompts.joined(separator: " "))
+    }
+    
+    static func isAbnormalRequest(
+        forHeartRates heartRateMeasurements: [UserMeasurement],
+        forRespRates respRateMeasurements: [UserMeasurement]
+    ) -> ChatGPTAPIRequest? {
+        if heartRateMeasurements.isEmpty && respRateMeasurements.isEmpty { return nil }
+        let heartRates = heartRateMeasurements.filter { $0.heartRate > 0 }.map { "\($0.heartRate) bpm" }.joined(separator: ", ")
+        let respRates = respRateMeasurements.filter { $0.respRate > 0 }.map { "\($0.respRate) bpm" }.joined(separator: ", ")
+        if heartRates.isEmpty && respRates.isEmpty { return nil }
+        var prompts = [
+            "Following are the heart and respiratory rates of a user measured recently.",
+            "Based on these, will you recommend user schedule medical check-up?",
+            "\nAnswer in this JSON format: { \"heartRate\": true/false, \"respRate\": true/false }",
+            "Here if heart rates are abnormal, then heartRate: true, otherwise heartRate: false,",
+            "similarly if respiratory rates are abnormal, then respRate: true, otherwise respRate: false",
+        ]
+        if !heartRates.isEmpty { prompts.append("\nHeart rates (beats per minute) - \(heartRates)") }
+        if !respRates.isEmpty { prompts.append("\nRespiratory rates (breadths per minute) - \(respRates)") }
+        return ChatGPTAPIRequest(prompt: prompts.joined(separator: " "))
+    }
+    
+    static func measurementRequest(
+        for abnormalMeasurement: ChatGPTAPIResponse.AbnormalMeasurement?,
+        hosiptal: GoogleNearbyPlace?,
+        weather: Weather?
+    ) -> ChatGPTAPIRequest? {
+        guard
+            let abnormalMeasurement = abnormalMeasurement,
+            (abnormalMeasurement.heartRate || abnormalMeasurement.respRate)
+        else { return nil }
+        var prompts = [ "Write one liner notification for a user who has been suffering from" ]
+        if abnormalMeasurement.heartRate && abnormalMeasurement.respRate {
+            prompts.append("both abnormal heart and respiratory rates recently.")
+        } else if abnormalMeasurement.heartRate {
+            prompts.append("abnormal heart rates recently.")
+        } else {
+            prompts.append("abnormal respiratory rates recently.")
+        }
+        if let hosiptal = hosiptal {
+            prompts.append("You may suggest them to seek medical check-up at \(hosiptal.name) which is located near them.")
+        } else {
+            prompts.append("You may suggest them to seek medical check-up.")
         }
         if let weather = weather, let main = weather.weatherMain, let desc = weather.weatherDescription {
             prompts.append("The weather at user's place is described as \"\(main) (\(desc)\"")
