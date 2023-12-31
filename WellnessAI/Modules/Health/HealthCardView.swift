@@ -9,6 +9,7 @@ import SwiftUI
 
 struct HealthCardView: View {
     
+    @Environment(\.defaultMinListRowHeight) var minRowHeight
     let userSession: UserSession
     let dateFormatter: (Date?) -> String
     
@@ -18,10 +19,11 @@ struct HealthCardView: View {
                 Image(systemName: "clock")
                 Text(dateFormatter(userSession.timestamp))
             }
-            .font(.caption)
+            .fontWeight(.light)
             .padding()
             VStack(alignment: .center) {
-                HStack(spacing: 36) {
+                HStack {
+                    Spacer()
                     VStack {
                         HStack {
                             Image(systemName: "heart")
@@ -34,10 +36,10 @@ struct HealthCardView: View {
                                 Text("--")
                             }
                         }
-                        .font(.headline)
+                        .fontWeight(.bold)
                         Text("Heart Rate")
-                            .font(.caption)
                     }
+                    Spacer()
                     VStack {
                         HStack {
                             Image(systemName: "lungs")
@@ -50,39 +52,34 @@ struct HealthCardView: View {
                                 Text("--")
                             }
                         }
-                        .font(.headline)
+                        .fontWeight(.bold)
                         Text("Respiratory Rate")
-                            .font(.caption)
                     }
+                    Spacer()
                 }
             }
-            .frame(maxWidth: .infinity)
             .padding()
-            VStack(alignment: .leading, spacing: 8) {
-                HStack {
-                    Image(systemName: "list.bullet.clipboard")
-                    Text("Recorded Symptoms")
-                }
-                .fontWeight(.bold)
-                let userSymptoms = userSession.userSymptoms?.allObjects as! [UserSymptom]
-                if userSymptoms.isEmpty {
-                    Text("No Symptoms recorded!")
-                } else {
-                    ForEach(userSymptoms) { userSymptom in
-                        HStack {
-                            Image(systemName: "staroflife")
-                            Text(userSymptom.symptom!.name!)
-                            Spacer()
-                            Text("\(userSymptom.intensityLabel!) (\(Int(userSymptom.intensityValue)))")
+            let userSymptoms = userSession.userSymptoms?.allObjects as! [UserSymptom]
+            if !userSymptoms.isEmpty {
+                VStack(alignment: .leading) {
+                    Section {
+                        ForEach(userSymptoms, id: \.self) { userSymptom in
+                            HStack(alignment: .center) {
+                                Image(systemName: "staroflife")
+                                Text(userSymptom.symptom!.name!)
+                                Spacer()
+                                Text("\(userSymptom.intensityLabel!) (\(Int(userSymptom.intensityValue)))")
+                            }
+                            .frame(minHeight: minRowHeight)
                         }
-                        
+                    } header: {
+                        Text("Recorded Symptoms").fontWeight(.light)
                     }
                 }
+                .padding()
             }
-            .font(.subheadline)
-            .padding()
         }
-        .background(.ultraThinMaterial)
-        .clipShape(RoundedRectangle(cornerRadius: 4))
+        .background(UIConstants.BACKGROUND_MATERIAL)
+        .clipShape(RoundedRectangle(cornerRadius: UIConstants.CORNER_RADIUS))
     }
 }

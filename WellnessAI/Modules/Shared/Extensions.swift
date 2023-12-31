@@ -213,6 +213,27 @@ extension FineTuneParameter {
     
 }
 
+extension Weather {
+    
+    struct UIField {
+        let icon: String
+        let label: String
+        let value: Text
+    }
+    
+    func getUIFields() -> [UIField] {
+        return [
+            UIField(icon: "thermometer.low", label: "Min. Temperature", value: Text("\(minTemp, specifier: "%.2f")° C")),
+            UIField(icon: "thermometer.high", label: "Max. Temperature", value: Text("\(maxTemp, specifier: "%.2f")° C")),
+            UIField(icon: "barometer", label: "Pressure", value: Text("\(pressure / 1000, specifier: "%.2f") khPa")),
+            UIField(icon: "humidity", label: "Humidity", value: Text("\(humidity, specifier: "%.2f") %")),
+            UIField(icon: "eye", label: "Visibility", value: Text("\(visibility / 1000, specifier: "%.2f") km")),
+            UIField(icon: "wind", label: "Wind Speed", value: Text("\(windSpeed, specifier: "%.2f") m/s")),
+        ]
+    }
+    
+}
+
 extension EKEventStore {
     
     func upcomingEvents() -> [EKEvent] {
