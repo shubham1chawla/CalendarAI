@@ -57,7 +57,7 @@ struct WeatherCardView: View {
             }
             .padding()
         }
-        .background(UIConstants.BACKGROUND_MATERIAL)
+        .background(UIConstants.CARD_BACKGROUND)
         .clipShape(RoundedRectangle(cornerRadius: UIConstants.CORNER_RADIUS))
     }
 }

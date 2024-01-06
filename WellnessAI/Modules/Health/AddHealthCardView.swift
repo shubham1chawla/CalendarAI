@@ -14,9 +14,10 @@ struct AddHealthCardView: View {
                 .font(.largeTitle)
             Text("Add Health Information")
         }
+        .padding()
         .fontWeight(.bold)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(UIConstants.BACKGROUND_MATERIAL)
+        .background(UIConstants.CARD_BACKGROUND)
         .clipShape(RoundedRectangle(cornerRadius: UIConstants.CORNER_RADIUS))
     }
 }
