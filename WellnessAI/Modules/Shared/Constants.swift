@@ -89,8 +89,8 @@ struct SuggestionConstants {
 
 struct UIConstants {
     static let CORNER_RADIUS: CGFloat = 10
-    static let BACKGROUND_MATERIAL: Material = .ultraThin
     static let CARD_FRAME_WIDTH: CGFloat = 320
+    static let CARD_BACKGROUND = LinearGradient(colors: [.accentColor, Color(uiColor: .systemBackground)], startPoint: .topLeading, endPoint: .bottomTrailing)
     
     private init() {}
 }

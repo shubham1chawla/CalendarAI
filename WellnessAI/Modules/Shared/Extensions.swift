@@ -186,7 +186,7 @@ extension FineTuneParameter {
     static func ofStaleHealthInformation(context: NSManagedObjectContext, userSession: UserSession?) -> FineTuneParameter {
         var value = "No health information!"
         if let userSession = userSession, let timestamp = userSession.timestamp {
-            value = "Health Card from \(timestamp.formatted(date: .abbreviated, time: .shortened))"
+            value = "Last recorded: \(timestamp.formatted(relativeTo: Date.now))"
         }
         return FineTuneParameter.of(context: context, label: .Health, value: value)
     }
